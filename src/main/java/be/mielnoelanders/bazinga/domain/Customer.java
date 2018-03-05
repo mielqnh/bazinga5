@@ -1,47 +1,33 @@
 package be.mielnoelanders.bazinga.domain;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Component
-public class Customer implements Serializable {
+public class Customer extends AbstractEntity implements Serializable {
 
+    private static final long serialVersionUID =1L;
 
     // FIELDS
-    private static final long serialVersionUID =1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     private String name;
     private String firstName;
 
-    @Autowired
     private Address address;
-
-    @ManyToMany(mappedBy = "customers")
-    private List<Game> games;
-
     private double totalSpent;
     private boolean goodCustomer;
     private String email;
     private String phoneNumber;
 
-    // CONSTRUCTORS
+    // FIELDS WITH MAPPINGS
+    @ManyToMany(mappedBy = "customers")
+    private List<Game> games;
 
+    // CONSTRUCTORS
     public Customer(){}
 
     // GETTERS & SETTERS
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
     public String getName() {
         return name;
     }
@@ -91,19 +77,19 @@ public class Customer implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+
     // OVERRIDES
     @Override
     public String toString() {
         return "Customer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", address=" + address +
                 ", games=" + games +
                 ", totalSpent=" + totalSpent +
                 ", goodCustomer=" + goodCustomer +
                 ", email='" + email + '\'' +
-                ", phoneNumber=" + phoneNumber +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }

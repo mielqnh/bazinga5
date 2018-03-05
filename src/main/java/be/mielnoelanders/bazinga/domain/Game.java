@@ -1,25 +1,107 @@
 package be.mielnoelanders.bazinga.domain;
 
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Component
-public class Game implements Serializable {
+public class Game extends AbstractEntity implements Serializable {
+
+    private static final long serialVersionUID =1L;
 
     // FIELDS
-    private static final long serialVersionUID =1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @NotNull
+    @Column(name = "TITLE")
     private String title;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @Column(name = "EDITION")
+    private int edition;
+
+    @Column(name = "PUBLISHER")
+    @ManyToOne
+    @JoinColumn(name="id")
+    private Publisher publisher;
+
+    @Column(name = "SUPPLIER_GAMES")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "game")
+    private List<SupplierGames> supplierGames;
+
+    @Column(name = "CUSTOMER_GAMES")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "game")
+    private List<CustomerGames> customerGames;
+
+    @Column(name = "EXPANSIONS")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "expandedGame")
+    private List<Expansion> expansions;
+
+    // CONSTRUCTORS
+    public Game(){}
+
+    private Game(Builder builder) {//Dit is de constructor van het builderpattern.
+        title = builder.title;
+        edition = builder.edition;
+        publisher = builder.publisher;
+        supplierGames = builder.supplierGames;
+        customerGames = builder.customerGames;
+        expansions = builder.expansions;
+    }
+
+
+    // GETTERS & SETTERS
+
+    // OVERRIDES
+
+    // STATIC INNER CLASS BUILDER (Als ik het goed begrijp zorgt die ervoor dat je instanties kan aanmaken die bepaalde kenmerken wel of net niet hebben.
+    // Zo heeft bijvoorbeeld niet elke game expansions, dus zou je die bij het aanmaken kunnen weglaten en heb je dus een game zonder het expansion-field.
+    public static final class Builder {
+        private String title;
+        private int edition;
+        private Publisher publisher;
+        private List<SupplierGames> supplierGames;
+        private List<CustomerGames> customerGames;
+        private List<Expansion> expansions;
+
+        public Builder() {
+        }
+
+        public Builder title(String val) {
+            title = val;
+            return this;
+        }
+
+        public Builder edition(int val) {
+            edition = val;
+            return this;
+        }
+
+        public Builder publisher(Publisher val) {
+            publisher = val;
+            return this;
+        }
+
+        public Builder supplierGames(List<SupplierGames> val) {
+            supplierGames = val;
+            return this;
+        }
+
+        public Builder customerGames(List<CustomerGames> val) {
+            customerGames = val;
+            return this;
+        }
+
+        public Builder expansions(List<Expansion> val) {
+            expansions = val;
+            return this;
+        }
+
+        public Game build() {
+            return new Game(this);
+        }
+    }
+
+}
+
+// FIELDS WITH MANYTOMANYMAPPINGS (FOUT)
+/*  @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "Game_Customer",
             joinColumns = {@JoinColumn(name = "game_id")},
             inverseJoinColumns = {@JoinColumn(name = "customer_id")})
@@ -29,120 +111,4 @@ public class Game implements Serializable {
     @JoinTable(name = "Game_Supplier",
             joinColumns = {@JoinColumn(name = "game_id")},
             inverseJoinColumns = {@JoinColumn(name = "supplier_id")})
-    private List<Supplier> suppliers;
-
-    private int edition;
-
-    @OneToMany(mappedBy = "expansion")
-    private List<Expansion> expansions;
-
-    @NotNull
-    private double normalPrice;
-    @NotNull
-    private int promotionPercentage;
-    @NotNull
-    private double actualPrice;
-
-    @ManyToOne
-    @JoinColumn(name="publisher_id",nullable = false)
-    private Publisher publisher;
-
-    private Supplier supplier;
-    private int stock;
-
-    // CONSTRUCTORS
-    public Game(){}
-
-    // GETTERS & SETTERS
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    public int getEdition() {
-        return edition;
-    }
-    public void setEdition(int edition) {
-        this.edition = edition;
-    }
-    public List<Expansion> getExpansions() {
-        return expansions;
-    }
-    public void setExpansions(List<Expansion> expansions) {
-        this.expansions = expansions;
-    }
-    public double getNormalPrice() {
-        return normalPrice;
-    }
-    public void setNormalPrice(double normalPrice) {
-        this.normalPrice = normalPrice;
-    }
-    public int getPromotionPercentage() {
-        return promotionPercentage;
-    }
-    public void setPromotionPercentage(int promotionPercentage) {
-        this.promotionPercentage = promotionPercentage;
-    }
-    public double getActualPrice() {
-        return actualPrice;
-    }
-    public void setActualPrice(double actualPrice) {
-        this.actualPrice = actualPrice;
-    }
-    public Publisher getPublisher() {
-        return publisher;
-    }
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
-    }
-    public int getStock() {
-        return stock;
-    }
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
-    public Supplier getSupplier() {
-        return supplier;
-    }
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
-    }
-    public List<Customer> getCustomers() {
-        return customers;
-    }
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
-    }
-    public List<Supplier> getSuppliers() {
-        return suppliers;
-    }
-    public void setSuppliers(List<Supplier> suppliers) {
-        this.suppliers = suppliers;
-    }
-
-    // OVERRIDES
-    @Override
-    public String toString() {
-        return "Game{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", customers=" + customers +
-                ", suppliers=" + suppliers +
-                ", edition=" + edition +
-                ", expansions=" + expansions +
-                ", normalPrice=" + normalPrice +
-                ", promotionPercentage=" + promotionPercentage +
-                ", actualPrice=" + actualPrice +
-                ", publisher=" + publisher +
-                ", stock=" + stock +
-                ", supplier=" + supplier +
-                '}';
-    }
-}
+    private List<Supplier> suppliers;*/

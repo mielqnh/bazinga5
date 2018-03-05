@@ -1,37 +1,26 @@
 package be.mielnoelanders.bazinga.domain;
 
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Component
-public class Publisher implements Serializable {
+public class Publisher extends AbstractEntity implements Serializable {
+
+    private static final long serialVersionUID =1L;
 
     // FIELDS
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @OneToMany(mappedBy = "publisher")// Naam van de klasse
-    private List<Game> games;
-
     private String name;
     private String website;
+
+    // FIELDS WITH MAPPINGS
+    @OneToMany(mappedBy = "publisher")
+    private List<Game> games;
 
     // CONSTUCTORS
     public Publisher(){}
 
     // GETTERS & SETTERS
-
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
     public String getName() {
         return name;
     }
@@ -44,13 +33,18 @@ public class Publisher implements Serializable {
     public void setWebsite(String website) {
         this.website = website;
     }
+    public List<Game> getGames() {
+        return games;
+    }
+    public void setGames(List<Game> games) {
+        this.games = games;
+    }
 
-    // OVERRIDES
-
+// OVERRIDES
     @Override
     public String toString() {
         return "Publisher{" +
-                "id=" + id +
+                "games=" + games +
                 ", name='" + name + '\'' +
                 ", website='" + website + '\'' +
                 '}';

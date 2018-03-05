@@ -1,37 +1,25 @@
 package be.mielnoelanders.bazinga.domain;
 
-import org.springframework.stereotype.Component;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.io.Serializable;
 @Entity
-@Component
-public class Address implements Serializable {
+public class Address extends AbstractEntity implements Serializable {
+
+    private static final long serialVersionUID =1L;
 
     // FIELDS
-    private static final long serialVersionUID =1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     private String street;
     private String number;
-    private int postalCode;
+    private String postalCode;
     private String city;
     private String country;
+
+    // FIELDS WITH MAPPINGS
 
     // CONSTRUCTORS
     public Address(){}
 
     // GETTERS & SETTERS
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
     public String getStreet() {
         return street;
     }
@@ -44,10 +32,10 @@ public class Address implements Serializable {
     public void setNumber(String number) {
         this.number = number;
     }
-    public int getPostalCode() {
+    public String getPostalCode() {
         return postalCode;
     }
-    public void setPostalCode(int postalCode) {
+    public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
     public String getCity() {
@@ -67,10 +55,9 @@ public class Address implements Serializable {
     @Override
     public String toString() {
         return "Address{" +
-                "id=" + id +
-                ", street='" + street + '\'' +
+                "street='" + street + '\'' +
                 ", number='" + number + '\'' +
-                ", postalCode=" + postalCode +
+                ", postalCode='" + postalCode + '\'' +
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +
                 '}';
