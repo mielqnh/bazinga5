@@ -4,8 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-// bla bla, marco is oud
-
 @Entity
 public class Game extends AbstractEntity implements Serializable {
 

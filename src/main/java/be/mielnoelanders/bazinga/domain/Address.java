@@ -3,8 +3,6 @@ package be.mielnoelanders.bazinga.domain;
 import javax.persistence.Entity;
 import java.io.Serializable;
 
-//Dit is opnieuw zevercommentaar
-
 @Entity
 public class Address extends AbstractEntity implements Serializable {
 

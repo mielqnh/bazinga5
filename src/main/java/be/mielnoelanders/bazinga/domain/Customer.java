@@ -7,8 +7,6 @@ import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.List;
 
-// comment in WmTestCustomerComment
-
 @Entity
 public class Customer extends AbstractEntity implements Serializable {
 
