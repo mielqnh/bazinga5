@@ -1,7 +1,9 @@
 package be.mielnoelanders.bazinga.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,8 +23,9 @@ public class Customer extends AbstractEntity implements Serializable {
     private String phoneNumber;
 
     // FIELDS WITH MAPPINGS
-    @ManyToMany(mappedBy = "customers")
-    private List<Game> games;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id", nullable = false)
+    private List<CustomerGames> customerGames;
 
     // CONSTRUCTORS
     public Customer(){}
@@ -45,12 +48,6 @@ public class Customer extends AbstractEntity implements Serializable {
     }
     public void setAddress(Address address) {
         this.address = address;
-    }
-    public List<Game> getGames() {
-        return games;
-    }
-    public void setGames(List<Game> games) {
-        this.games = games;
     }
     public double getTotalSpent() {
         return totalSpent;
@@ -76,7 +73,12 @@ public class Customer extends AbstractEntity implements Serializable {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
+    public List<CustomerGames> getCustomerGames() {
+        return customerGames;
+    }
+    public void setCustomerGames(List<CustomerGames> customerGames) {
+        this.customerGames = customerGames;
+    }
 
     // OVERRIDES
     @Override
@@ -85,11 +87,11 @@ public class Customer extends AbstractEntity implements Serializable {
                 "name='" + name + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", address=" + address +
-                ", games=" + games +
                 ", totalSpent=" + totalSpent +
                 ", goodCustomer=" + goodCustomer +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", customerGames=" + customerGames +
                 '}';
     }
 }

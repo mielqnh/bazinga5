@@ -15,6 +15,7 @@ public class Supplier extends AbstractEntity implements Serializable{
     private String email;
     private String phoneNumber;
     private Address address;
+    private String website;
 
     // FIELDS WITH MAPPINGS
     @ManyToMany(mappedBy = "suppliers")
@@ -54,16 +55,24 @@ public class Supplier extends AbstractEntity implements Serializable{
     public void setGames(List<Game> games) {
         this.games = games;
     }
+    public String getWebsite() {
+        return website;
+    }
+    public void setWebsite(String website) {
+        this.website = website;
+    }
 
     // OVERRIDES
+
     @Override
     public String toString() {
         return "Supplier{" +
-                "address=" + address +
-                ", games=" + games +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", address=" + address +
+                ", website='" + website + '\'' +
+                ", games=" + games +
                 '}';
     }
 }
