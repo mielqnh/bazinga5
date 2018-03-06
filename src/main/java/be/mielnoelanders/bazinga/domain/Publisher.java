@@ -1,9 +1,10 @@
 package be.mielnoelanders.bazinga.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import java.io.Serializable;
-import java.util.List;
-
+// jhgfdkdlugljy
 @Entity
 public class Publisher extends AbstractEntity implements Serializable {
 
