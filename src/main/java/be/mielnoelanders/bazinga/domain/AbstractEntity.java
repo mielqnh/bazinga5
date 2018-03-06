@@ -5,7 +5,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-// Created by Stijn, overgetypt door Miel! :D
+//Dit is een gittest
 
 @MappedSuperclass
 public abstract class AbstractEntity {
