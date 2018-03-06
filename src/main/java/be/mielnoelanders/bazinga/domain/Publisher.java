@@ -7,15 +7,16 @@ import java.util.List;
 @Entity
 public class Publisher extends AbstractEntity implements Serializable {
 
-    private static final long serialVersionUID =1L;
+    private static final long serialVersionUID = -1926628474232469673L;
 
     // FIELDS
     private String name;
     private String website;
 
     // FIELDS WITH MAPPINGS
-    @OneToMany(mappedBy = "publisher")
-    private List<Game> games;
+    @OneToOne
+    @JoinColumn(name ="addressid")
+    private Address address;
 
     // CONSTUCTORS
     public Publisher(){}
@@ -33,20 +34,14 @@ public class Publisher extends AbstractEntity implements Serializable {
     public void setWebsite(String website) {
         this.website = website;
     }
-    public List<Game> getGames() {
-        return games;
-    }
-    public void setGames(List<Game> games) {
-        this.games = games;
-    }
 
 // OVERRIDES
     @Override
     public String toString() {
         return "Publisher{" +
-                "games=" + games +
                 ", name='" + name + '\'' +
                 ", website='" + website + '\'' +
+                ", address='" + address +
                 '}';
     }
 }
