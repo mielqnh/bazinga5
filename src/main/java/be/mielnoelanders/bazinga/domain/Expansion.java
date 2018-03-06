@@ -16,6 +16,7 @@ public class Expansion extends AbstractEntity implements Serializable {
     private Publisher publisher;
     private int stock;
     private Supplier supplier;
+    private Price price;
 
     // FIELDS WITH MAPPINGS
     @Column(name = "EXPANDS")
