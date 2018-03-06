@@ -1,25 +1,27 @@
 package be.mielnoelanders.bazinga.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
 public class Supplier extends AbstractEntity implements Serializable{
 
-    private static final long serialVersionUID =1L;
+    private static final long serialVersionUID = -5872135512196851021L;
 
     // FIELDS
     private String name;
     private String email;
     private String phoneNumber;
-    private Address address;
     private String website;
 
     // FIELDS WITH MAPPINGS
-    @ManyToMany(mappedBy = "suppliers")
-    private List<Game> games;
+    @OneToOne
+    @JoinColumn(name ="addressid")
+    private Address address;
 
     // CONSTRUCTORS
     public Supplier(){}
@@ -49,12 +51,7 @@ public class Supplier extends AbstractEntity implements Serializable{
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    public List<Game> getGames() {
-        return games;
-    }
-    public void setGames(List<Game> games) {
-        this.games = games;
-    }
+
     public String getWebsite() {
         return website;
     }
@@ -72,7 +69,6 @@ public class Supplier extends AbstractEntity implements Serializable{
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address=" + address +
                 ", website='" + website + '\'' +
-                ", games=" + games +
                 '}';
     }
 }

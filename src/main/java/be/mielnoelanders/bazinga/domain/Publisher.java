@@ -14,11 +14,6 @@ public class Publisher extends AbstractEntity implements Serializable {
     private String name;
     private String website;
 
-    // FIELDS WITH MAPPINGS
-    @OneToOne
-    @JoinColumn(name ="addressid")
-    private Address address;
-
     // CONSTUCTORS
     public Publisher(){}
 
@@ -42,7 +37,6 @@ public class Publisher extends AbstractEntity implements Serializable {
         return "Publisher{" +
                 ", name='" + name + '\'' +
                 ", website='" + website + '\'' +
-                ", address='" + address +
                 '}';
     }
 }
