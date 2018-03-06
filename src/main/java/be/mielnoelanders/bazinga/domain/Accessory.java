@@ -3,6 +3,8 @@ package be.mielnoelanders.bazinga.domain;
 import javax.persistence.Entity;
 import java.io.Serializable;
 
+//Deze klasse staat in commentaar omdat die even op de bank zit
+
 @Entity
 public class Accessory extends AbstractEntity implements Serializable {
 
