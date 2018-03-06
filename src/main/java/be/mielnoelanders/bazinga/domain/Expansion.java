@@ -2,9 +2,14 @@ package be.mielnoelanders.bazinga.domain;
 
 import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.io.Serializable;
+
+//Nu staat er wel erg veel commentaar in ons projectje
+
 @Entity
 @Component
 public class Expansion extends AbstractEntity implements Serializable {
