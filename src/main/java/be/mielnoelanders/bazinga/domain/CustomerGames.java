@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -21,10 +22,10 @@ public class CustomerGames extends AbstractEntity implements Serializable {
     @JoinColumn(name="id")
     private Game game;
 
-    @Column(name = "PRICE")
-    private Price price;
+    @Column(name = "SELLING_PRICE")
+    @NotNull
+    private double sellingPrice;
 
     //Misschien datum
-
 
 }
