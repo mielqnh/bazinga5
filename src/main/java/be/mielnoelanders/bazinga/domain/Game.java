@@ -31,7 +31,7 @@ public class Game extends AbstractEntity implements Serializable {
     // CONSTRUCTORS
     public Game(){}
 
-    private Game(Builder builder) {//Dit is de constructor van het builderpattern.
+    private Game(Builder builder) {
         title = builder.title;
         edition = builder.edition;
         publisher = builder.publisher;
@@ -40,8 +40,55 @@ public class Game extends AbstractEntity implements Serializable {
         expansions = builder.expansions;
     }
 
-
     // GETTERS & SETTERS
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getEdition() {
+        return edition;
+    }
+
+    public void setEdition(int edition) {
+        this.edition = edition;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
+
+    public List<SupplierGames> getSupplierGames() {
+        return supplierGames;
+    }
+
+    public void setSupplierGames(List<SupplierGames> supplierGames) {
+        this.supplierGames = supplierGames;
+    }
+
+    public List<CustomerGames> getCustomerGames() {
+        return customerGames;
+    }
+
+    public void setCustomerGames(List<CustomerGames> customerGames) {
+        this.customerGames = customerGames;
+    }
+
+    public List<Expansion> getExpansions() {
+        return expansions;
+    }
+
+    public void setExpansions(List<Expansion> expansions) {
+        this.expansions = expansions;
+    }
 
     // OVERRIDES
 
