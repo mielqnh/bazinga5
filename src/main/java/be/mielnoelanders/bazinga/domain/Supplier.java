@@ -15,7 +15,7 @@ public class Supplier extends AbstractEntity implements Serializable{
     private String phoneNumber;
     private String website;
 
-    // FIELDS WITH MAPPINGS
+    //FIELDS WITH MAPPINGS
     @OneToOne
     @JoinColumn(name ="address_id")
     private Address address;
@@ -33,12 +33,12 @@ public class Supplier extends AbstractEntity implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
-    public Address getAddress() {
-        return address;
-    }
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+//    public Address getAddress() {
+//        return address;
+//    }
+//    public void setAddress(Address address) {
+//        this.address = address;
+//    }
     public String getEmail() {
         return email;
     }
