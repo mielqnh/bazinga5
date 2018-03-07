@@ -1,9 +1,6 @@
 package be.mielnoelanders.bazinga.domain;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,8 +12,6 @@ public class Customer extends AbstractEntity implements Serializable {
     // FIELDS
     private String name;
     private String firstName;
-
-    private Address address;
     private double totalSpent;
     private boolean goodCustomer;
     private String email;
@@ -26,6 +21,9 @@ public class Customer extends AbstractEntity implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "customergames_id", nullable = false)
     private List<CustomerGames> customerGames;
+
+    @OneToOne
+    private Address address;
 
     // CONSTRUCTORS
     public Customer(){}

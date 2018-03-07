@@ -1,6 +1,7 @@
 package be.mielnoelanders.bazinga.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import java.io.Serializable;
 
 @Entity
@@ -16,6 +17,8 @@ public class Address extends AbstractEntity implements Serializable {
     private String country;
 
     // FIELDS WITH MAPPINGS
+    @OneToOne(mappedBy = "address")
+    Customer customer;
 
     // CONSTRUCTORS
     public Address(){}

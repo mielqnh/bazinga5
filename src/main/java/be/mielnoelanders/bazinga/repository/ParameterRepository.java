@@ -10,7 +10,9 @@ import java.util.Optional;
 public interface ParameterRepository extends JpaRepository<Parameter,Long> {
 
     // Get parameter by type //
-    Optional<Parameter> findOne();
+//    Optional<Parameter> findOne();
 
-    Boolean save();
+//    Boolean save();
+
+//    Boolean delete();
 }

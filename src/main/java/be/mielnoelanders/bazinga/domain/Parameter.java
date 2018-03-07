@@ -1,7 +1,9 @@
 package be.mielnoelanders.bazinga.domain;
 
+import javax.persistence.Entity;
 import java.io.Serializable;
 
+@Entity
 public class Parameter extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = -1926628474232469673L;
