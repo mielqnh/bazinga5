@@ -20,6 +20,7 @@ public class Game extends AbstractEntity implements Serializable {
     private Publisher publisher;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "game")
+    //@JoinColumn(name="SUPPLIER_ID")
     private List<SupplierGames> supplierGames;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "game")
