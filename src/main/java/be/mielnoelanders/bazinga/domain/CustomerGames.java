@@ -1,10 +1,5 @@
 package be.mielnoelanders.bazinga.domain;
 
-/* Deze klasse vangt de many-to-many op tussen game en customer.
- * Het is bedoeld als tussentabel.
- * Deze klasse heet eigenlijk "GameGekochtDoor"
- */
-
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,7 +9,7 @@ import java.io.Serializable;
 @Entity
 public class CustomerGames extends AbstractEntity implements Serializable {
 
-    private static final long serialVersionUID =1L;
+    private static final long serialVersionUID = 8471750286273301293L;
 
     @ManyToOne
     @JoinColumn(name="game_id")
@@ -22,7 +17,38 @@ public class CustomerGames extends AbstractEntity implements Serializable {
 
     @NotNull
     private double sellingPrice;
+    private String date;
 
-    //Misschien datum
+    public Game getGame() {
+        return game;
+    }
 
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public double getSellingPrice() {
+        return sellingPrice;
+    }
+
+    public void setSellingPrice(double sellingPrice) {
+        this.sellingPrice = sellingPrice;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerGames{" +
+                "game=" + game +
+                ", sellingPrice=" + sellingPrice +
+                ", date='" + date + '\'' +
+                '}';
+    }
 }
