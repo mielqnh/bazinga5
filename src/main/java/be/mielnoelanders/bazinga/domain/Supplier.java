@@ -1,11 +1,10 @@
 package be.mielnoelanders.bazinga.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Supplier extends AbstractEntity implements Serializable{
@@ -22,6 +21,9 @@ public class Supplier extends AbstractEntity implements Serializable{
     @OneToOne
     @JoinColumn(name ="addressid")
     private Address address;
+
+    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
+    private List<SupplierGames> supplierGames = new ArrayList<>();
 
     // CONSTRUCTORS
     public Supplier(){}
@@ -51,12 +53,17 @@ public class Supplier extends AbstractEntity implements Serializable{
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
     public String getWebsite() {
         return website;
     }
     public void setWebsite(String website) {
         this.website = website;
+    }
+    public List<SupplierGames> getSupplierGames() {
+        return supplierGames;
+    }
+    public void setSupplierGames(List<SupplierGames> supplierGames) {
+        this.supplierGames = supplierGames;
     }
 
     // OVERRIDES

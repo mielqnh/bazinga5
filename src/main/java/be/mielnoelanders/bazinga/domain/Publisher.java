@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import java.io.Serializable;
-// jhgfdkdlugljyfghgfhgfjgfhgjghjjj
+
 @Entity
 public class Publisher extends AbstractEntity implements Serializable {
 

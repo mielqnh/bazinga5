@@ -17,10 +17,10 @@ public class SupplierGames extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID =1L;
 
-    @Column(name = "GAME")
+    // FIELDS WITH MAPPINGS
     @ManyToOne
     @JoinColumn(name="id")
-    private Game game;
+    private Supplier supplier;
 
     @Column(name = "PURCHASE_PRICE")
     @NotNull
