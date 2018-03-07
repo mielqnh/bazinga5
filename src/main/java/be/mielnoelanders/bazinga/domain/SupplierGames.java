@@ -5,7 +5,6 @@ package be.mielnoelanders.bazinga.domain;
  * Deze klasse heet eigenlijk "GameBeschikbaarBij"
  */
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,10 +18,13 @@ public class SupplierGames extends AbstractEntity implements Serializable {
 
     // FIELDS WITH MAPPINGS
     @ManyToOne
-    @JoinColumn(name="id")
+    @JoinColumn(name="supplier_id")
     private Supplier supplier;
 
-    @Column(name = "PURCHASE_PRICE")
+    @ManyToOne
+    @JoinColumn(name="game_id")
+    private Game game;
+
     @NotNull
     private double purchasePrice;
 

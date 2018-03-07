@@ -1,15 +1,11 @@
 package be.mielnoelanders.bazinga.domain;
 
-import org.springframework.stereotype.Component;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 @Entity
-@Component
 public class Expansion extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID =1L;
@@ -29,9 +25,8 @@ public class Expansion extends AbstractEntity implements Serializable {
     private double purchasePrice;
 */
     // FIELDS WITH MAPPINGS
-    @Column(name = "EXPANDS")
     @ManyToOne
-    @JoinColumn(name="id")
+    @JoinColumn(name="game_id")
     private Game expandedGame;
 
     // CONSTRUCTORS

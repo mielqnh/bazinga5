@@ -2,9 +2,7 @@ package be.mielnoelanders.bazinga.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class Supplier extends AbstractEntity implements Serializable{
@@ -19,11 +17,11 @@ public class Supplier extends AbstractEntity implements Serializable{
 
     // FIELDS WITH MAPPINGS
     @OneToOne
-    @JoinColumn(name ="addressid")
+    @JoinColumn(name ="address_id")
     private Address address;
 
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
-    private List<SupplierGames> supplierGames = new ArrayList<>();
+    private List<SupplierGames> supplierGames;
 
     // CONSTRUCTORS
     public Supplier(){}

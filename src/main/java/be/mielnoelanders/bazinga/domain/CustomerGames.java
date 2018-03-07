@@ -5,7 +5,6 @@ package be.mielnoelanders.bazinga.domain;
  * Deze klasse heet eigenlijk "GameGekochtDoor"
  */
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,12 +16,10 @@ public class CustomerGames extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID =1L;
 
-    @Column(name = "GAME")
     @ManyToOne
-    @JoinColumn(name="id")
+    @JoinColumn(name="game_id")
     private Game game;
 
-    @Column(name = "SELLING_PRICE")
     @NotNull
     private double sellingPrice;
 

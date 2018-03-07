@@ -10,26 +10,21 @@ public class Game extends AbstractEntity implements Serializable {
     private static final long serialVersionUID =1L;
 
     // FIELDS
-    @Column(name = "TITLE")
+
     private String title;
 
-    @Column(name = "EDITION")
     private int edition;
 
-    @Column(name = "PUBLISHER")
     @ManyToOne
-    @JoinColumn(name="id")
+    @JoinColumn(name="publisher_id")
     private Publisher publisher;
 
-    @Column(name = "SUPPLIER_GAMES")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "game")
     private List<SupplierGames> supplierGames;
 
-    @Column(name = "CUSTOMER_GAMES")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "game")
     private List<CustomerGames> customerGames;
 
-    @Column(name = "EXPANSIONS")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "expandedGame")
     private List<Expansion> expansions;
 

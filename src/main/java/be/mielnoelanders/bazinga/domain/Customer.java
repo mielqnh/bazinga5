@@ -24,7 +24,7 @@ public class Customer extends AbstractEntity implements Serializable {
 
     // FIELDS WITH MAPPINGS
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "customergames_id", nullable = false)
     private List<CustomerGames> customerGames;
 
     // CONSTRUCTORS
