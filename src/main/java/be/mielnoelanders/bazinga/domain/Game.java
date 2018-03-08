@@ -92,6 +92,19 @@ public class Game extends AbstractEntity implements Serializable {
 
     // OVERRIDES
 
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "title='" + title + '\'' +
+                ", edition=" + edition +
+                ", publisher=" + publisher +
+                ", supplierGames=" + supplierGames +
+                ", customerGames=" + customerGames +
+                ", expansions=" + expansions +
+                '}';
+    }
+
     // STATIC INNER CLASS BUILDER (Als ik het goed begrijp zorgt die ervoor dat je instanties kan aanmaken die bepaalde kenmerken wel of net niet hebben.
     // Zo heeft bijvoorbeeld niet elke game expansions, dus zou je die bij het aanmaken kunnen weglaten en heb je dus een game zonder het expansion-field.
     public static final class Builder {
