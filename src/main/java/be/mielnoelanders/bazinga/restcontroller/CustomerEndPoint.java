@@ -42,4 +42,15 @@ public class CustomerEndPoint {
             return new ResponseEntity<Customer>(customerFound, HttpStatus.OK);
         }
     }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Customer> deleteOne(@PathVariable Long id) {
+        Customer customerFound = customerService.findOne(id);
+        if (customerFound == null) {
+            return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
+        } else {
+            customerService.deleteById(id);
+            return new ResponseEntity<Customer>(customerFound, HttpStatus.OK);
+        }
+    }
 }
