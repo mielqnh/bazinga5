@@ -31,10 +31,10 @@ public class GameEndPoint {
     public ResponseEntity<Game> getById(@PathVariable Long id) {
         Game result = this.service.getOne(id);
 
-        if (result != null) {
-            return new ResponseEntity<>(result, HttpStatus.OK);
-        } else {
+        if (result == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }
 
@@ -51,22 +51,22 @@ public class GameEndPoint {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Game> updateCamera(@PathVariable Long id, @RequestBody Game game) {
+    public ResponseEntity<Game> updateGame(@PathVariable Long id, @RequestBody Game game) {
         Game probably = service.changeGame(id, game);
-        if (probably != null) {
-            return new ResponseEntity<>(probably, HttpStatus.OK);
-        } else {
+        if (probably == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(probably, HttpStatus.OK);
         }
     }
 
     @RequestMapping(value = "/findtitle/{title}", method = RequestMethod.GET)
     public ResponseEntity<Iterable<Game>> lookUpByTitle(@PathVariable String title){
-        Iterable<Game> kweetnie = service.findByTitle(title);
-        if(kweetnie!= null){
-            return new ResponseEntity<>(kweetnie,HttpStatus.OK);
-        }else{
+        Iterable<Game> game = service.findByTitle(title);
+        if(game == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity<>(game ,HttpStatus.OK);
         }
     }
 }
