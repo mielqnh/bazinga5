@@ -80,7 +80,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Iterable<Game> findByName(String name){
+    public Iterable<Game> findByTitle(String name){
         return repository.findByTitle(name);
     }
 

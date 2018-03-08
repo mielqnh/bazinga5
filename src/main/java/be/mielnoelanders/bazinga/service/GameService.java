@@ -18,6 +18,6 @@ public interface GameService {
     //update()
     Game changeGame(Long id, Game game);
 
-    Iterable<Game> findByName(String name);
+    Iterable<Game> findByTitle(String name);
 
 }
