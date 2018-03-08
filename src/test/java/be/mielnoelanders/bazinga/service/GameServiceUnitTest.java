@@ -23,30 +23,32 @@ public class GameServiceUnitTest {
     @Mock
     private GameRepository repository;
 
-    private Game testgame1;
+    private Game testGame;
+    private Optional<Game> testOptionalGame;
 
     @Before
     public void init(){
         Game.Builder game = new Game.Builder();
         game.title("testgame").edition(1);
-        testgame1 = game.build();
+        testGame = game.build();
+        testOptionalGame = Optional.of(testGame);
     }
 
     @Test
     public void getOneTest(){
 
-        Optional<Game> initGame = Optional.of(testgame1);
-        Mockito.when(this.repository.findById(3L)).thenReturn(initGame);
-        // mocking done
+        // Hier zeg je wat de mock moet geven als je de findById oproept op de repository.
+        Mockito.when(this.repository.findById(3L)).thenReturn(testOptionalGame);
 
+        // Hier roep je de findById op de repository aan VIA de service getOne
         Game resultFromService = this.gameService.getOne(3L);
 
-        System.out.println(initGame);
-        System.out.println(resultFromService);
-        System.out.println(resultFromService.getTitle());
+//        System.out.println(testOptionalGame);
+//        System.out.println(resultFromService);
+//        System.out.println(resultFromService.getTitle());
 
         assertEquals("testgame", resultFromService.getTitle());
 
-        Mockito.verify(this.repository).getOne(3L);
+        //Mockito.verify(this.repository).getOne(3L);
     }
 }
