@@ -7,7 +7,7 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
-
+//yrsktmiyùoiumutm
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
