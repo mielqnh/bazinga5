@@ -41,7 +41,7 @@ public class GameServiceUnitTest {
 
         Game resultFromService = this.gameService.getOne(3L);
 
-        System.out.println(resultFromRepository);
+        System.out.println(initGame);
         System.out.println(resultFromService);
         System.out.println(resultFromService.getTitle());
 
