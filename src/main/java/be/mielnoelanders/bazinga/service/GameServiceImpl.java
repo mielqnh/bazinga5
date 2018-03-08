@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
+import java.util.Arrays;
 import java.util.Optional;
 
 @Service
@@ -19,13 +21,68 @@ public class GameServiceImpl implements GameService {
     @Autowired
     private GameRepository repository;
 
+    @PostConstruct
+    public void init(){
+
+        Game.Builder game1init = new Game.Builder();
+        game1init.title("Dit is game 1").edition(1);
+        Game game1 = game1init.build();
+
+        Game.Builder game2init = new Game.Builder();
+        game2init.title("Dit is game 2").edition(2);
+        Game game2 = game2init.build();
+
+        Game.Builder game3init = new Game.Builder();
+        game3init.title("Dit is game 3").edition(3);
+        Game game3 = game3init.build();
+
+        this.repository.saveAll(Arrays.asList(game1,game2,game3));
+    }
+
     @Override
     public Iterable<Game> getAll() {
         return repository.findAll();
     }
 
+    @Override
     public Game getOne(Long id) {
         Optional<Game> result = repository.findById(id);
-        return result.orElse(null);
+        if(result.isPresent()){
+            Game game = result.get();
+            return game;
+        }else{
+         return null;
+        }
     }
+
+    @Override
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
+
+    @Override
+    public Game insertGame(Game game) {
+        return repository.save(game);
+    }
+
+    @Override
+    public Game changeGame(Long id, Game game) {
+
+        Optional<Game> victim = repository.findById(id);
+
+        if (victim.isPresent()) {
+            Game test = victim.get();
+            test.setTitle(game.getTitle());
+            return repository.save(test);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Iterable<Game> findByName(String name){
+        return repository.findByTitle(name);
+    }
+
 }
+
