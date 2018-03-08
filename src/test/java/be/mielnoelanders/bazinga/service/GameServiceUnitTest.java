@@ -1,7 +1,6 @@
 package be.mielnoelanders.bazinga.service;
 
 import be.mielnoelanders.bazinga.domain.Game;
-import be.mielnoelanders.bazinga.domain.Publisher;
 import be.mielnoelanders.bazinga.repository.GameRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,27 +22,28 @@ public class GameServiceUnitTest {
     @Mock
     private GameRepository repository;
 
-    @Mock
-    private Publisher publisher;
-
     @Test
     public void getOneTest(){
-        Game game = new Game();
-        game.setTitle("title");
-
-        Optional<Game> resultFromRepository = Optional.of(game);
+        Game.Builder game = new Game.Builder();
+        game.title("testgame").edition(1);
+        Game testgame = game.build();
+        System.out.println(testgame.toString());
+        Optional<Game> resultFromRepository = Optional.of(testgame);
+        System.out.println(resultFromRepository);
         // instruct the mock of the repo what to do
         Mockito.when(this.repository.findById(3L)).thenReturn(resultFromRepository);
         // mocking done
 
         Game resultFromService = this.gameService.getOne(3L);
 
-        assertEquals("title", resultFromService.getTitle());
+        System.out.println(resultFromRepository);
+        System.out.println(resultFromService);
+        System.out.println(resultFromService.getTitle());
+
+        assertEquals("testgame", resultFromService.getTitle());
 
         Mockito.verify(this.repository).getOne(3L);
-        //Mockito.verify(this.repo,Mockito.times(3)).getOne(3L);
+
 
     }
-
-
 }
