@@ -49,6 +49,7 @@ public class GameServiceImpl implements GameService {
         Optional<Game> result = repository.findById(id);
         if(result.isPresent()){
             Game game = result.get();
+            System.out.println(game);
             return game;
         }else{
          return null;
@@ -56,8 +57,10 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Game deleteById(Long id) {
+        Game game = getOne(id);
         repository.deleteById(id);
+        return game;
     }
 
     @Override

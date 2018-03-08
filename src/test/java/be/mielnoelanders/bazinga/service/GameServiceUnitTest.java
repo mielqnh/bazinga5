@@ -63,4 +63,22 @@ public class GameServiceUnitTest {
 
         Mockito.verify(this.repository, Mockito.times(1)).findById(3L);
     }
+
+    public void deleteByIdTest(){
+
+        //Mockito.when(this.repository.deleteById(2L));
+
+    }
+
+    public void insertGameTest(){}
+
+    public void getAllTest(){}
+
+    public void findByTitleTest(){}
+
+    public void changeGameTest(){}
+
+
+
+
 }
