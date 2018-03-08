@@ -44,7 +44,7 @@ public class CustomerEndPoint {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Customer> deleteOne(@PathVariable Long id) {
+    public ResponseEntity<Customer> deleteById(@PathVariable Long id) {
         Customer customerFound = customerService.findOne(id);
         if (customerFound == null) {
             return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
