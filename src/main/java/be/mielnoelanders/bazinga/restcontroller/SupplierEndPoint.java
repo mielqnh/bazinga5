@@ -29,7 +29,7 @@ public class SupplierEndPoint {
         if (suppliers == null) {
             return new ResponseEntity<Iterable<Supplier>>(HttpStatus.NOT_FOUND);
         } else {
-            return new ResponseEntity<Iterable<Supplier>>(suppliers, HttpStatus.OK);
+            return new ResponseEntity<>(suppliers, HttpStatus.OK);
         }
     }
 
