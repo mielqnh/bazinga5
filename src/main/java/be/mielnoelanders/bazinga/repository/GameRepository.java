@@ -9,4 +9,5 @@ public interface GameRepository extends JpaRepository<Game,Long> {
 
     Iterable<Game> findByTitle(String name);
 
+
 }

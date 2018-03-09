@@ -59,8 +59,12 @@ public class GameServiceImpl implements GameService {
     @Override
     public Game deleteById(Long id) {
             Game game = getOne(id);
-            repository.deleteById(id);
-            return game;
+            if(game==null){
+                return null;
+            }else{
+                repository.deleteById(id);
+                return game;
+            }
     }
 
     @Override
