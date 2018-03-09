@@ -45,7 +45,7 @@ public class GameEndPoint {
         if (result == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(result , HttpStatus.OK);
         }
     }
 
