@@ -40,8 +40,13 @@ public class GameEndPoint {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Game> deleteById(@PathVariable Long id) {
-        service.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        Game result = service.deleteById(id);
+
+        if (result == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
     @RequestMapping(method = RequestMethod.POST)
