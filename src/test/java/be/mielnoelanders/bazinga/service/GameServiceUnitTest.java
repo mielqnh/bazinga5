@@ -58,7 +58,7 @@ public class GameServiceUnitTest {
         testOptionalGame3 = Optional.of(testGame3);
 
         gameList = new ArrayList<>();
-        gameList.addAll(Arrays.asList(testGame1,testGame2,testGame3));
+        gameList.addAll(Arrays.asList(testGame1, testGame2, testGame3));
         gameIterable = gameList;
     }
 
