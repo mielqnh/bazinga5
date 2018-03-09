@@ -62,4 +62,12 @@ public class SupplierServiceUnitTest {
         //test of aantal suppliers in de List suppliers 3 is
         assertThat((List<Supplier>) suppliersFromService).size().isEqualTo(3);
     }
+
+    @Test
+    public void testAddOne() {
+        Mockito.when(supplierRepository.save(supplier3)).thenReturn(supplier3);
+        Supplier addedSupplier = supplierService.addOne(supplier3);
+        assertThat(addedSupplier).isNotNull();
+        assertThat(addedSupplier.getName()).isEqualTo("testsupplier3");
+    }
 }
