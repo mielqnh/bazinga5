@@ -6,7 +6,7 @@ import java.io.Serializable;
 @Entity
 public class Parameter extends AbstractEntity implements Serializable {
 
-    private static final long serialVersionUID = -1926628474232469673L;
+    private static final long serialVersionUID = 1L;
 
     // FIELDS
     // valid type to be found in ParameterEnum

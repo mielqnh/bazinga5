@@ -7,7 +7,7 @@ import java.util.List;
 @Entity
 public class Publisher extends AbstractEntity implements Serializable {
 
-    private static final long serialVersionUID = -1926628474232469673L;
+    private static final long serialVersionUID = 1L;
 
     // FIELDS
     private String name;
