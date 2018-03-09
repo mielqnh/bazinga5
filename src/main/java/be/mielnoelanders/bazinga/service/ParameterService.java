@@ -1,6 +1,7 @@
 package be.mielnoelanders.bazinga.service;
 
 import be.mielnoelanders.bazinga.domain.Parameter;
+import be.mielnoelanders.bazinga.domain.ParameterEnum;
 
 public interface ParameterService {
 
@@ -11,10 +12,10 @@ public interface ParameterService {
     Iterable<Parameter> getAll();
 
     // Find unique by parameter type //
-    Iterable<Parameter> findByType(String type);
+    Parameter findByType(ParameterEnum type);
 
     // Update parameter by type //
-    boolean updateParameterByType(String type, Parameter parameter);
+    boolean updateParameterByType(Parameter parameter);
 
     // Delete parameter by id //
     boolean deleteParameter(long id);

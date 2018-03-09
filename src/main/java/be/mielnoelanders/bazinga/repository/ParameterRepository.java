@@ -1,6 +1,7 @@
 package be.mielnoelanders.bazinga.repository;
 
 import be.mielnoelanders.bazinga.domain.Parameter;
+import be.mielnoelanders.bazinga.domain.ParameterEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,5 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface ParameterRepository extends JpaRepository<Parameter,Long> {
 
     // Get parameter by type //
-    Iterable<Parameter> findByType(String type);
+    Parameter findByType(ParameterEnum type);
 }
