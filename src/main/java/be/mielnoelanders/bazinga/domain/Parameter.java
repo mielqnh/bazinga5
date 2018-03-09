@@ -10,24 +10,24 @@ public class Parameter extends AbstractEntity implements Serializable {
 
     // FIELDS
     // valid type to be found in ParameterEnum
-    private String type;
+    private ParameterEnum type;
     private int percentage;
 
     // CONSTUCTORS
     public Parameter() {
     }
 
-    public Parameter(String type, int percentage) {
+    public Parameter(ParameterEnum type, int percentage) {
         this.type = type;
         this.percentage = percentage;
     }
 
     //GETTERS & SETTERS
-    public String getType() {
+    public ParameterEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ParameterEnum type) {
         this.type = type;
     }
 

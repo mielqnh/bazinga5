@@ -1,6 +1,7 @@
 package be.mielnoelanders.bazinga.restcontroller;
 
 import be.mielnoelanders.bazinga.domain.Parameter;
+import be.mielnoelanders.bazinga.domain.ParameterEnum;
 import be.mielnoelanders.bazinga.service.ParameterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,8 +33,8 @@ public class ParameterEndPoint {
     }
 
     @RequestMapping(value = "/{type}", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Parameter>> findByType(@PathVariable String type) {
-        Iterable<Parameter> parmFind = this.parm.findByType(type);
+    public ResponseEntity<Parameter> findByType(@PathVariable ParameterEnum type) {
+        Parameter parmFind = this.parm.findByType(type);
 
         if (parmFind == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -43,8 +44,8 @@ public class ParameterEndPoint {
     }
 
     @RequestMapping(value = "/{type}", method = RequestMethod.PUT)
-    public ResponseEntity<Parameter> updateParameterByType(@PathVariable String type, @RequestBody Parameter parameter) {
-        boolean parmUpdate = parm.updateParameterByType(type, parameter);
+    public ResponseEntity<Parameter> updateParameterByType(@RequestBody Parameter parameter) {
+        boolean parmUpdate = parm.updateParameterByType(parameter);
 
         if (parmUpdate) {
             return new ResponseEntity<>(parameter, HttpStatus.OK);
