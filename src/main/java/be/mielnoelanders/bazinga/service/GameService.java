@@ -10,7 +10,7 @@ public interface GameService {
     Game getOne(Long id);
 
     //delete()
-    void deleteById(Long id);
+    Game deleteById(Long id);
 
     //create()
     Game insertGame(Game game);
