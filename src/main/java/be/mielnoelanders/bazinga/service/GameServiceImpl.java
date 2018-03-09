@@ -22,7 +22,7 @@ public class GameServiceImpl implements GameService {
     private GameRepository repository;
 
     @PostConstruct
-    public void init(){
+    public void init() {
 
         Game.Builder game1init = new Game.Builder();
         game1init.title("Dit is game 1").edition(1);
@@ -36,7 +36,7 @@ public class GameServiceImpl implements GameService {
         game3init.title("Dit is game 3").edition(3);
         Game game3 = game3init.build();
 
-        this.repository.saveAll(Arrays.asList(game1,game2,game3));
+        this.repository.saveAll(Arrays.asList(game1, game2, game3));
     }
 
     @Override
@@ -47,24 +47,23 @@ public class GameServiceImpl implements GameService {
     @Override
     public Game getOne(Long id) {
         Optional<Game> result = repository.findById(id);
-        if(result.isPresent()){
+        if (result.isPresent()) {
             Game game = result.get();
-            System.out.println(game);
             return game;
-        }else{
-         return null;
+        } else {
+            return null;
         }
     }
 
     @Override
     public Game deleteById(Long id) {
-            Game game = getOne(id);
-            if(game==null){
-                return null;
-            }else{
-                repository.deleteById(id);
-                return game;
-            }
+        Game game = getOne(id);
+        if (game == null) {
+            return null;
+        } else {
+            repository.deleteById(id);
+            return game;
+        }
     }
 
     @Override
@@ -87,7 +86,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Iterable<Game> findByTitle(String name){
+    public Iterable<Game> findByTitle(String name) {
         return repository.findByTitle(name);
     }
 

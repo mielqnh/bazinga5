@@ -64,7 +64,6 @@ public class GameServiceUnitTest {
 
     @Test
     public void getOneTest() {
-
         // Hier zeg je wat de mock moet geven als je de findById oproept op de repository.
         Mockito.when(this.repository.findById(3L)).thenReturn(testOptionalGame1);
         // Hier roep je de findById op de repository aan VIA de service getOne
@@ -75,21 +74,24 @@ public class GameServiceUnitTest {
 
     @Test
     public void deleteByIdMetSpelTest() {
-
-        // given
         Mockito.when(this.repository.findById(1L)).thenReturn(testOptionalGame1);
-
-        // when
         Game resultFromService = this.gameService.deleteById(1L);
-
         assertEquals("testgame1", resultFromService.getTitle());
-
-        // then
         Mockito.verify(this.repository, Mockito.times(1)).deleteById(1L);
     }
 
-    public void insertGameTest() {
+    @Test
+    public void deleteByIdSpelNietAanwezigTest() {
+        Mockito.when(this.repository.findById(1L)).thenReturn(Optional.ofNullable(null));
+        Game resultFromService = this.gameService.deleteById(1L);
+        assertEquals(null, resultFromService);
+        Mockito.verify(this.repository, Mockito.times(0)).deleteById(1L);
     }
+@Test
+    public void insertGameTest() {
+
+    }
+
     @Test
     public void getAllTest() {
         Mockito.when(this.repository.findAll()).thenReturn(gameList);
