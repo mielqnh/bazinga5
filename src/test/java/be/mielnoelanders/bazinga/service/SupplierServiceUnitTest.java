@@ -28,15 +28,11 @@ public class SupplierServiceUnitTest {
     @Mock //is injected into supplierService
     private SupplierRepository supplierRepository;
 
-    @Captor
-    private ArgumentCaptor supplierDeleteByIdArgument;
-
     private Supplier supplier1;
     private Supplier supplier2;
     private Supplier supplier3;
     private Optional<Supplier> optionalSupplier;
     private List<Supplier> suppliers;
-    private Supplier supplierToDelete;
 
     @Before
     public void init() {
@@ -49,13 +45,10 @@ public class SupplierServiceUnitTest {
         optionalSupplier = Optional.of(supplier2);
         suppliers = new ArrayList<>();
         suppliers.addAll(Arrays.asList(supplier1, supplier2, supplier3));
-        supplierToDelete = new Supplier();
-        supplierToDelete.setName("DeletedSupplier");
     }
 
     @Test
     public void testFindById() {
-        //test supplierRepository.findById(id)
         when(this.supplierRepository.findById(2L)).thenReturn(optionalSupplier);
         Supplier supplierFromService = supplierService.findById(2L);
         assertThat(supplierFromService.getName()).isEqualTo("testsupplier2");
@@ -88,6 +81,18 @@ public class SupplierServiceUnitTest {
         supplierService.deleteById(3L);
         verify(supplierRepository, times(1)).existsById(3L);
         verify(supplierRepository, times(1)).deleteById(3L);
+    }
+
+    @Test
+    public void testUpdateOne() {
+        when(supplierRepository.findById(2L)).thenReturn(optionalSupplier);
+        when(supplierRepository.save(optionalSupplier.get())).thenReturn(supplier3);
+        Supplier updatedSupplier = supplierService.updateOne(2L, optionalSupplier.get());
+        System.out.println("supplier = " + updatedSupplier);
+        assertThat(updatedSupplier.getName()).isEqualTo("testsupplier3");
+        verify(supplierRepository, times(1)).findById(2L);
+        verify(supplierRepository, times(1)).save(optionalSupplier.get());
+
     }
 
 }
