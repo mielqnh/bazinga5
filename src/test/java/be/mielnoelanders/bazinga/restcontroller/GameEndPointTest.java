@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 public class GameEndPointTest /*extends AbstractTransactionalJUnit4SpringContextTests*/ {
 //
     //
+    //
     //SERVER MOET DRAAIEN
     private static final String URL = "http://localhost:8080/api/games";
     RestTemplate template;
