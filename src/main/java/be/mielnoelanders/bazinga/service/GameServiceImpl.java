@@ -1,6 +1,6 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.Game;
+import be.mielnoelanders.bazinga.domain.*;
 import be.mielnoelanders.bazinga.repository.GameRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -24,8 +25,39 @@ public class GameServiceImpl implements GameService {
     @PostConstruct
     public void init() {
 
+        // Deze is gemakkelijk, geen composition.
+        Publisher publisher = new Publisher();
+        publisher.setName("FantasyFlightGames");
+        publisher.setWebsite("http://www.fantasyflightgames.com");
+
+        // Die wil een list van supplierGames, maar die is er niet.
+        Supplier supplier = new Supplier();
+        supplier.setName("Enigma");
+        supplier.setPhoneNumber("011 22 55 44");
+        supplier.setEmail("infoéenigma.be");
+        supplier.setWebsite("www.enigma.be");
+        ? supplier.setSupplierGames(new ArrayList<>());
+
+        // Deze neemt een game, maar je hebt deze net nodig om een game te maken.
+        CustomerGames customerGames = new CustomerGames();
+        customerGames.setDate("12/03/2018");
+        ? customerGames.setGame(putyourgamehere);
+        customerGames.setSellingPrice(39.99);
+
+        // Idem
+        SupplierGames  supplierGames = new SupplierGames();
+        supplierGames.setSupplier(supplier);
+        supplierGames.setDate("05/03/2018");
+        ? supplierGames.setGame(putyourgamehere);
+        supplierGames.setPurchasePrice(15.59);
+
+
         Game.Builder game1init = new Game.Builder();
-        game1init.title("Dit is game 1").edition(1);
+        game1init.title("Dit is game 1")
+                .edition(1)
+                .publisher(publisher)
+                .customerGames(customerGames)
+                .supplierGames(supplierGames);
         Game game1 = game1init.build();
 
         Game.Builder game2init = new Game.Builder();
