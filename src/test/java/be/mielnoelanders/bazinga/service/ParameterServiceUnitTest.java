@@ -120,7 +120,7 @@ public class ParameterServiceUnitTest {
 
     // Delete parameter by id TRUE //
     @Test
-    public void deleteParameterTest() {
+    public void deleteParameterTrueTest() {
         // In de methode deleteParameter gebeurd een existsById en een deleteById :
         // Hier zeg je wat de mock moet geven als je de existsById oproept op de repository.
         Mockito.when(this.repo.existsById(1L)).thenReturn(true);
@@ -137,7 +137,7 @@ public class ParameterServiceUnitTest {
 
     // Delete parameter by id FALSE //
     @Test
-    public void deleteParameter() {
+    public void deleteParameterFalseTest() {
         // In de methode deleteParameter gebeurd een existsById en een deleteById :
         // Hier zeg je wat de mock moet geven als je de existsById oproept op de repository.
         Mockito.when(this.repo.existsById(100001L)).thenReturn(false);
