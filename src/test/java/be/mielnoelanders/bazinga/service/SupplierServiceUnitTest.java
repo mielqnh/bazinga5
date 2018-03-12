@@ -1,7 +1,8 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.Supplier;
-import be.mielnoelanders.bazinga.repository.SupplierRepository;
+import be.mielnoelanders.bazinga.domain.Parameter;
+import be.mielnoelanders.bazinga.domain.ParameterEnum;
+import be.mielnoelanders.bazinga.repository.ParameterRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,16 +15,17 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class SupplierServiceUnitTest {
+public class ParameterServiceUnitTest {
 
     @InjectMocks
-    private SupplierServiceImpl supplierService;
+    private ParameterServiceImpl parameterService;
 
     @Mock //is injected into supplierService
     private SupplierRepository supplierRepository;
