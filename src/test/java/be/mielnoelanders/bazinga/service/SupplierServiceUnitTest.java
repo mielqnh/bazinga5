@@ -90,7 +90,6 @@ public class SupplierServiceUnitTest {
         assertThat(updatedSupplier.getName()).isEqualTo("testsupplier3");
         verify(supplierRepository, times(1)).findById(2L);
         verify(supplierRepository, times(1)).save(optionalSupplier.get());
-
     }
 
 }
