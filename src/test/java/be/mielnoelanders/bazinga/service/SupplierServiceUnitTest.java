@@ -5,8 +5,6 @@ import be.mielnoelanders.bazinga.repository.SupplierRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -92,7 +90,6 @@ public class SupplierServiceUnitTest {
         assertThat(updatedSupplier.getName()).isEqualTo("testsupplier3");
         verify(supplierRepository, times(1)).findById(2L);
         verify(supplierRepository, times(1)).save(optionalSupplier.get());
-
     }
 
 }
