@@ -88,7 +88,7 @@ public class SupplierServiceUnitTest {
         when(supplierRepository.findById(2L)).thenReturn(optionalSupplier);
         when(supplierRepository.save(optionalSupplier.get())).thenReturn(supplier3);
         Supplier updatedSupplier = supplierService.updateOne(2L, optionalSupplier.get());
-        System.out.println("supplier = " + updatedSupplier);
+        System.out.println("Updated supplier = " + updatedSupplier);
         assertThat(updatedSupplier.getName()).isEqualTo("testsupplier3");
         verify(supplierRepository, times(1)).findById(2L);
         verify(supplierRepository, times(1)).save(optionalSupplier.get());
