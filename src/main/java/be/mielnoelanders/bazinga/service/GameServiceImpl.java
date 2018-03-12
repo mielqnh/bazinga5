@@ -73,15 +73,12 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public Game changeGame(Long id, Game game) {
-
-        Optional<Game> victim = repository.findById(id);
-
-        if (victim.isPresent()) {
-            Game test = victim.get();
-            test.setTitle(game.getTitle());
-            return repository.save(test);
-        } else {
+        Game gameToChange = getOne(id);
+        if(gameToChange == null){
             return null;
+        }else{
+            gameToChange.setTitle(game.getTitle());
+            return repository.save(gameToChange);
         }
     }
 
