@@ -16,6 +16,13 @@ public class SupplierGames extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = -1573209055880743815L;
 
+    // FIELDS
+    private String date;
+
+    // FIELDS WITH ANNOTATIONS
+    @NotNull
+    private double purchasePrice;
+
     // FIELDS WITH MAPPINGS
     @ManyToOne
     @JoinColumn(name="supplier_id")
@@ -24,11 +31,6 @@ public class SupplierGames extends AbstractEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name="game_id")
     private Game game;
-
-    // FIELDS
-    @NotNull
-    private double purchasePrice;
-    private String date;
 
     // CONSTRUCTORS
     public SupplierGames(){}

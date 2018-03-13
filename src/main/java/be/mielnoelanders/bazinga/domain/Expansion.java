@@ -17,13 +17,6 @@ public class Expansion extends AbstractEntity implements Serializable {
     private int stock;
     private Supplier supplier;
 
-/* to be replaced by purchasePrice
-    private Price price;
-
-    @Column(name = "PURCHASE_PRICE")
-    @NotNull
-    private double purchasePrice;
-*/
     // FIELDS WITH MAPPINGS
     @ManyToOne
     @JoinColumn(name="game_id")
@@ -38,3 +31,11 @@ public class Expansion extends AbstractEntity implements Serializable {
     // OVERRIDES
 
 }
+
+/* to be replaced by purchasePrice
+    private Price price;
+
+    @Column(name = "PURCHASE_PRICE")
+    @NotNull
+    private double purchasePrice;
+*/

@@ -1,6 +1,7 @@
 package be.mielnoelanders.bazinga.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,12 +11,16 @@ public class Customer extends AbstractEntity implements Serializable {
     private static final long serialVersionUID =1L;
 
     // FIELDS
-    private String name;
-    private String firstName;
     private double totalSpent;
     private boolean goodCustomer;
     private String email;
     private String phoneNumber;
+
+    // FIELDS WITH ANNOTATIONS
+    @NotNull
+    private String name;
+    @NotNull
+    private String firstName;
 
     // FIELDS WITH MAPPINGS
     @OneToMany(cascade = CascadeType.ALL)

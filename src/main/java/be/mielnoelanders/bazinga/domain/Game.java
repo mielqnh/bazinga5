@@ -10,11 +10,10 @@ public class Game extends AbstractEntity implements Serializable {
     private static final long serialVersionUID =1L;
 
     // FIELDS
-
     private String title;
-
     private int edition;
 
+    // FIELDS WITH MAPPINGS
     @ManyToOne
     @JoinColumn(name="publisher_id")
     private Publisher publisher;
@@ -30,7 +29,6 @@ public class Game extends AbstractEntity implements Serializable {
 
     // CONSTRUCTORS
     public Game(){}
-
     private Game(Builder builder) {
         title = builder.title;
         edition = builder.edition;
@@ -41,58 +39,44 @@ public class Game extends AbstractEntity implements Serializable {
     }
 
     // GETTERS & SETTERS
-
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
-
     public int getEdition() {
         return edition;
     }
-
     public void setEdition(int edition) {
         this.edition = edition;
     }
-
     public Publisher getPublisher() {
         return publisher;
     }
-
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
-
     public List<SupplierGames> getSupplierGames() {
         return supplierGames;
     }
-
     public void setSupplierGames(List<SupplierGames> supplierGames) {
         this.supplierGames = supplierGames;
     }
-
     public List<CustomerGames> getCustomerGames() {
         return customerGames;
     }
-
     public void setCustomerGames(List<CustomerGames> customerGames) {
         this.customerGames = customerGames;
     }
-
     public List<Expansion> getExpansions() {
         return expansions;
     }
-
     public void setExpansions(List<Expansion> expansions) {
         this.expansions = expansions;
     }
 
     // OVERRIDES
-
-
     @Override
     public String toString() {
         return "Game{" +

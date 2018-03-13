@@ -16,10 +16,6 @@ public class Supplier extends AbstractEntity implements Serializable{
     private String website;
 
     //FIELDS WITH MAPPINGS
-    @OneToOne
-    @JoinColumn(name ="address_id")
-    private Address address;
-
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
     private List<SupplierGames> supplierGames;
 
@@ -33,12 +29,6 @@ public class Supplier extends AbstractEntity implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
-//    public Address getAddress() {
-//        return address;
-//    }
-//    public void setAddress(Address address) {
-//        this.address = address;
-//    }
     public String getEmail() {
         return email;
     }
@@ -65,15 +55,14 @@ public class Supplier extends AbstractEntity implements Serializable{
     }
 
     // OVERRIDES
-
     @Override
     public String toString() {
         return "Supplier{" +
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", address=" + address +
                 ", website='" + website + '\'' +
+                ", supplierGames=" + supplierGames +
                 '}';
     }
 }

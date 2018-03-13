@@ -17,7 +17,7 @@ public class Publisher extends AbstractEntity implements Serializable {
     @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL)
     private List<Game> games;
 
-    // CONSTUCTORS
+    // CONSTRUCTORS
     public Publisher(){}
 
     // GETTERS & SETTERS
