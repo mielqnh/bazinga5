@@ -59,6 +59,7 @@ public class SupplierGames extends AbstractEntity implements Serializable {
         this.date = date;
     }
 
+
     // OVERRIDES
     @Override
     public String toString() {
