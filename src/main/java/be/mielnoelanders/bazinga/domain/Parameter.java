@@ -8,12 +8,11 @@ public class Parameter extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    // FIELDS
-    // valid type to be found in ParameterEnum
+    // FIELDS // valid type to be found in ParameterEnum
     private ParameterEnum type;
     private int percentage;
 
-    // CONSTUCTORS
+    // CONSTRUCTORS
     public Parameter() {
     }
 
@@ -26,21 +25,17 @@ public class Parameter extends AbstractEntity implements Serializable {
     public ParameterEnum getType() {
         return type;
     }
-
     public void setType(ParameterEnum type) {
         this.type = type;
     }
-
     public int getPercentage() {
         return percentage;
     }
-
     public void setPercentage(int percentage) {
         this.percentage = percentage;
     }
 
-    //Overrides
-
+    //OVERRIDES
     @Override
     public String toString() {
         return "Parameters{" +

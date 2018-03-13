@@ -37,6 +37,7 @@ public class GameServiceImpl implements GameService {
         supplier.setEmail("infoéenigma.be");
         supplier.setWebsite("www.enigma.be");
         ? supplier.setSupplierGames(new ArrayList<>());
+        supplier.setAddress
 
         // Deze neemt een game, maar je hebt deze net nodig om een game te maken.
         CustomerGames customerGames = new CustomerGames();

@@ -11,38 +11,39 @@ public class CustomerGames extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 8471750286273301293L;
 
+    // FIELDS
+    private String date;
+
+    // FIELDS WITH ANNOTATIONS
+    @NotNull
+    private double sellingPrice;
+
+    // FIELDS WITH MAPPINGS
     @ManyToOne
     @JoinColumn(name="game_id")
     private Game game;
 
-    @NotNull
-    private double sellingPrice;
-    private String date;
-
+    // CONSTRUCTORS
     public Game getGame() {
         return game;
     }
-
     public void setGame(Game game) {
         this.game = game;
     }
-
     public double getSellingPrice() {
         return sellingPrice;
     }
-
     public void setSellingPrice(double sellingPrice) {
         this.sellingPrice = sellingPrice;
     }
-
     public String getDate() {
         return date;
     }
-
     public void setDate(String date) {
         this.date = date;
     }
 
+    // OVERRIDES
     @Override
     public String toString() {
         return "CustomerGames{" +
