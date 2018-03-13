@@ -18,7 +18,7 @@ public class PublisherServiceIT {
     private PublisherService publisherService;
 
     @Test
-    public void createReadUpdateDeleteCustomerTest() {
+    public void crudPublisherTest() {
         Publisher newPublisher = new Publisher();
         newPublisher.setName("New Publisher to insert");
 
@@ -31,12 +31,12 @@ public class PublisherServiceIT {
         Publisher readPublisher = publisherService.findByName(insertedPublisher.getName());
         Assert.assertEquals(newPublisher.getName(), readPublisher.getName());
 
-        //test update customer
+        //test update Publisher
         readPublisher.setName("Publisher updated");
         boolean updatedPublisher = publisherService.updatePublisherByName(readPublisher);
         Assert.assertTrue(updatedPublisher);
 
-        //test delete customer
+        //test delete Publisher
         publisherService.deletePublisher(newId);
         Assert.assertNull(publisherService.findByName(insertedPublisher.getName()));
     }
