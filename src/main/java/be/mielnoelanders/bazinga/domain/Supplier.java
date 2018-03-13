@@ -1,8 +1,7 @@
 package be.mielnoelanders.bazinga.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 public class Supplier extends AbstractEntity implements Serializable{
@@ -14,10 +13,6 @@ public class Supplier extends AbstractEntity implements Serializable{
     private String email;
     private String phoneNumber;
     private String website;
-
-    //FIELDS WITH MAPPINGS
-    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
-    private List<SupplierGames> supplierGames;
 
     // CONSTRUCTORS
     public Supplier(){}
@@ -47,12 +42,6 @@ public class Supplier extends AbstractEntity implements Serializable{
     public void setWebsite(String website) {
         this.website = website;
     }
-    public List<SupplierGames> getSupplierGames() {
-        return supplierGames;
-    }
-    public void setSupplierGames(List<SupplierGames> supplierGames) {
-        this.supplierGames = supplierGames;
-    }
 
     // OVERRIDES
     @Override
@@ -62,7 +51,6 @@ public class Supplier extends AbstractEntity implements Serializable{
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", website='" + website + '\'' +
-                ", supplierGames=" + supplierGames +
                 '}';
     }
 }
