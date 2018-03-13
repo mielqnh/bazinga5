@@ -29,13 +29,13 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     @Override
-    public Iterable<Publisher> findByName(String name) {
+    public Publisher findByName(String name) {
         return repo.findByName(name);
     }
 
     @Override
-    public boolean updatePublisherByName(String name, Publisher publisher) {
-        Publisher result = (Publisher) repo.findByName(name);
+    public boolean updatePublisherByName(Publisher publisher) {
+        Publisher result = (Publisher) repo.findByName(publisher.getName());
 
         if (result != null) {
             result.setName(publisher.getName());

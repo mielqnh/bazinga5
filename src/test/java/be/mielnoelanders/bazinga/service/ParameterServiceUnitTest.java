@@ -126,7 +126,7 @@ public class ParameterServiceUnitTest {
         Mockito.when(this.repo.existsById(1L)).thenReturn(true);
         // De mock geeft niets terug als je de deleteById oproept op de repository, dus kan je niets opgeven.
 
-        // Hier roep je de deleteById op de Repository en de save op de CrudTRepository aan VIA de service updateParameterByType.
+        // Hier roep je de deleteById op de Repository en de save op de CrudTRepository aan VIA de service deleteParameter.
         boolean resultFromService = this.parameterService.deleteParameter(1L);
 
         assertTrue(resultFromService);
@@ -143,12 +143,12 @@ public class ParameterServiceUnitTest {
         Mockito.when(this.repo.existsById(100001L)).thenReturn(false);
         // De mock geeft niets terug als je de deleteById oproept op de repository, dus kan je niets opgeven.
 
-        // Hier roep je de deleteById op de Repository en de save op de CrudTRepository aan VIA de service updateParameterByType.
+        // Hier roep je de deleteById op de Repository en de save op de CrudTRepository aan VIA de service deleteParameter.
         boolean resultFromService = this.parameterService.deleteParameter(100001L);
 
         assertFalse(resultFromService);
 
         // Tel hoeveel maal deleteById werd opgeroepen
-        //  Mockito.verify(this.repo, Mockito.times(0)).deleteById(1L);
+        //  Mockito.verify(this.repo, Mockito.times(0)).deleteById(100001L);
     }
 }

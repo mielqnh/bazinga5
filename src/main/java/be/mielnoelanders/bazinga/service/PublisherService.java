@@ -10,10 +10,10 @@ public interface PublisherService {
     Iterable<Publisher> getAll();
 
     // Find unique by publisher type //
-    Iterable<Publisher> findByName(String name);
+    Publisher findByName(String name);
 
     // Update publisher by type //
-    boolean updatePublisherByName(String name, Publisher publisher);
+    boolean updatePublisherByName(Publisher publisher);
 
     // Delete publisher by id //
     boolean deletePublisher(long id);
