@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/game")
 public class GameEndPoint {
 
-
     @Autowired
     private GameService service;
 

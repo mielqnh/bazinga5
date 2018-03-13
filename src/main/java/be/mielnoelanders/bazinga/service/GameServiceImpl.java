@@ -1,6 +1,6 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.*;
+import be.mielnoelanders.bazinga.domain.Game;
 import be.mielnoelanders.bazinga.repository.GameRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,53 +23,57 @@ public class GameServiceImpl implements GameService {
 
     @PostConstruct
     public void init() {
-
-        Publisher publisher = new Publisher();
-        publisher.setName("FantasyFlightGames");
-        publisher.setWebsite("http://www.fantasyflightgames.com");
+//
+//        Publisher publisher = new Publisher();
+//        publisher.setName("FantasyFlightGames");
+//        publisher.setWebsite("http://www.fantasyflightgames.com");
+//
+//        Game.Builder game1init = new Game.Builder();
+//        game1init.title("Dit is game 1")
+//                .edition(1)
+//                .publisher(publisher);
+//        Game game1 = game1init.build();
+//
+//        Supplier supplier = new Supplier();
+//        supplier.setName("Enigma");
+//        supplier.setPhoneNumber("011 22 55 44");
+//        supplier.setEmail("info@enigma.be");
+//        supplier.setWebsite("www.enigma.be");
+//        supplier.setSupplierGames(new ArrayList<>());
+//
+//        CustomerGames customerGames = new CustomerGames();
+//        customerGames.setDate("12/03/2018");
+//        customerGames.setGame(game1);
+//        customerGames.setSellingPrice(39.99);
+//
+//        List<CustomerGames> customerGamesList = new ArrayList<>();
+//        customerGamesList.add(customerGames);
+//
+//        Address address = new Address();
+//        address.setPostalCode("3500");
+//        address.setNumber("16");
+//        address.setStreet("Kapermolenstraat");
+//        address.setCity("Hasselt");
+//        address.setCountry("Belgie");
+//
+//        Customer customer = new Customer();
+//        customer.setFirstName("Miel");
+//        customer.setName("Noelanders");
+//        customer.setPhoneNumber("011 72 33 88");
+//        customer.setGoodCustomer(true);
+//        customer.setEmail("jefke@miel.be");
+//        customer.setAddress(address);
+//        customer.setCustomerGames(customerGamesList);
+//
+//        SupplierGames  supplierGames = new SupplierGames();
+//        supplierGames.setSupplier(supplier);
+//        supplierGames.setDate("05/03/2018");
+//        supplierGames.setGame(game1);
+//        supplierGames.setPurchasePrice(15.59);
 
         Game.Builder game1init = new Game.Builder();
-        game1init.title("Dit is game 1")
-                .edition(1)
-                .publisher(publisher);
+        game1init.title("Dit is game 2").edition(1);
         Game game1 = game1init.build();
-
-        Supplier supplier = new Supplier();
-        supplier.setName("Enigma");
-        supplier.setPhoneNumber("011 22 55 44");
-        supplier.setEmail("info@enigma.be");
-        supplier.setWebsite("www.enigma.be");
-        supplier.setSupplierGames(new ArrayList<>());
-
-        CustomerGames customerGames = new CustomerGames();
-        customerGames.setDate("12/03/2018");
-        customerGames.setGame(game1);
-        customerGames.setSellingPrice(39.99);
-
-        List<CustomerGames> customerGamesList = new ArrayList<>();
-        customerGamesList.add(customerGames);
-
-        Address address = new Address();
-        address.setPostalCode("3500");
-        address.setNumber("16");
-        address.setStreet("Kapermolenstraat");
-        address.setCity("Hasselt");
-        address.setCountry("Belgie");
-
-        Customer customer = new Customer();
-        customer.setFirstName("Miel");
-        customer.setName("Noelanders");
-        customer.setPhoneNumber("011 72 33 88");
-        customer.setGoodCustomer(true);
-        customer.setEmail("jefke@miel.be");
-        customer.setAddress(address);
-        customer.setCustomerGames(customerGamesList);
-
-        SupplierGames  supplierGames = new SupplierGames();
-        supplierGames.setSupplier(supplier);
-        supplierGames.setDate("05/03/2018");
-        supplierGames.setGame(game1);
-        supplierGames.setPurchasePrice(15.59);
 
         Game.Builder game2init = new Game.Builder();
         game2init.title("Dit is game 2").edition(2);
