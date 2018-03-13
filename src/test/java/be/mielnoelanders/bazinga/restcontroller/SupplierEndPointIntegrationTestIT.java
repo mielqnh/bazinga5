@@ -37,6 +37,22 @@ public class SupplierEndPointIntegrationTestIT {
     }
 
     @Test
+    public void testAddOne() {
+        Supplier newSupplier = new Supplier();
+        newSupplier.setName("New Supplier");
+        newSupplier.setPhoneNumber("012-3456789");
+        HttpEntity<Supplier> entity = new HttpEntity<>(newSupplier, httpHeaders);
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        ResponseEntity<Supplier> responseEntity = testRestTemplate.postForEntity(createURLWithPort(BASE_URI + "/"), entity, Supplier.class);
+        System.out.println("responseEntity.getBody = " + responseEntity.getBody());
+        System.out.println("HttpStatus = " + responseEntity.getStatusCode().toString());
+
+        assertThat(responseEntity.getBody()).isNotNull();
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(responseEntity.getBody().getName()).isEqualToIgnoringCase("new Supplier");
+    }
+
+    @Test
     public void testGetAll() throws JSONException {
         HttpEntity<String> entity = new HttpEntity<>(null, httpHeaders);
         ResponseEntity<String> response = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/getall"),
@@ -53,19 +69,9 @@ public class SupplierEndPointIntegrationTestIT {
     }
 
     @Test
-    public void addOne() {
-        Supplier newSupplier = new Supplier();
-        newSupplier.setName("New Supplier");
-        newSupplier.setPhoneNumber("012-3456789");
-        HttpEntity<Supplier> entity = new HttpEntity<>(newSupplier, httpHeaders);
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        ResponseEntity<Supplier> responseEntity = testRestTemplate.postForEntity(createURLWithPort(BASE_URI + "/"), entity, Supplier.class);
+    public void testFindById() {
+        ResponseEntity<Supplier> responseEntity = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/2"), Supplier.class);
         System.out.println("responseEntity.getBody = " + responseEntity.getBody());
-        System.out.println("HttpStatus = " + responseEntity.getStatusCode().toString());
-
-        assertThat(responseEntity.getBody()).isNotNull();
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        assertThat(responseEntity.getBody().getName()).isEqualToIgnoringCase("new Supplier");
     }
 
     private String createURLWithPort(String uri) {
