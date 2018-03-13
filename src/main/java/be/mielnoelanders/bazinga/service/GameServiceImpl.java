@@ -30,15 +30,15 @@ public class GameServiceImpl implements GameService {
 
         Address address = new Address();
         address.setPostalCode("3500");
-        address.setNumber("16");
-        address.setStreet("Kapermolenstraat");
+        address.setNumber("254");
+        address.setStreet("Boaty McBoatStreet");
         address.setCity("Hasselt");
         address.setCountry("Belgie");
 
         Customer customer = new Customer();
-        customer.setFirstName("Miel");
-        customer.setName("Noelanders");
-        customer.setPhoneNumber("011 72 33 88");
+        customer.setFirstName("Boaty");
+        customer.setName("McBoat");
+        customer.setPhoneNumber("011 45 78 29");
         customer.setGoodCustomer(true);
         customer.setEmail("jefke@miel.be");
         customer.setAddress(address);
