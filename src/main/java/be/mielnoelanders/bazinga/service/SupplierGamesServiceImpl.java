@@ -12,7 +12,6 @@ import java.util.Optional;
 
 public class SupplierGamesServiceImpl implements SupplierGamesService {
 
-
     private static final Logger LOGGER = LoggerFactory.getLogger(GameService.class);
 
     @Autowired

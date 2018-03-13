@@ -91,7 +91,6 @@ public class CustomerGamesServiceImpl implements CustomerGamesService {
 
     }
 
-
         @Override
     public Iterable<CustomerGames> getAll() {
             return repository.findAll();
