@@ -43,17 +43,14 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer addOne(Customer customer) {
         return customerRepository.save(customer);
     }
-
     @Override
     public Iterable<Customer> findAll() {
         return customerRepository.findAll();
     }
-
     @Override
     public Customer findOne(Long id) {
         return customerRepository.findById(id).orElse(null);
     }
-
     @Override
     public Customer updateOne(Long id, Customer customer) {
         Optional<Customer> foundCustomer = customerRepository.findById(id);
@@ -71,7 +68,6 @@ public class CustomerServiceImpl implements CustomerService {
             return null;
         }
     }
-
     @Override
     public void deleteById(Long id) {
         if (customerRepository.existsById(id)) {
