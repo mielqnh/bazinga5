@@ -58,6 +58,7 @@ public class SupplierEndPointIntegrationTestIT {
         ResponseEntity<String> response = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/getall"),
                 HttpMethod.GET, entity, String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+
         System.out.println("response = " + response.getBody());
         String expected = "[{\"id\":10,\"name\":\"suppl1_name\",\"email\":null,\"phoneNumber\":\"suppl1_phonenumber\",\"website\":\"suppl1_website\",\"supplierGames\":[]},{\"id\":11,\"name\":\"suppl2_name\",\"email\":null,\"phoneNumber\":\"suppl2_phonenumber\",\"website\":\"suppl2_website\",\"supplierGames\":[]},{\"id\":12,\"name\":\"suppl3_name\",\"email\":null,\"phoneNumber\":\"suppl3_phonenumber\",\"website\":\"suppl3_website\",\"supplierGames\":[]}]";
 
@@ -70,8 +71,10 @@ public class SupplierEndPointIntegrationTestIT {
 
     @Test
     public void testFindById() {
-        ResponseEntity<Supplier> responseEntity = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/2"), Supplier.class);
-        System.out.println("responseEntity.getBody = " + responseEntity.getBody());
+        ResponseEntity<Supplier> responseEntity = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/11"), Supplier.class);
+        assertThat(responseEntity.getBody()).isNotNull();
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody().getName()).isEqualTo("suppl2_name");
     }
 
     private String createURLWithPort(String uri) {
