@@ -21,6 +21,7 @@ public class CustomerServiceIntegrationTestIT {// de naam van een integratietest
     public void createReadUpdateDeleteCustomerTest() {
         Customer newCustomer = new Customer();
         newCustomer.setName("New Customer to insert");
+        newCustomer.setFirstName("New Customer Firstname");
 
         //test create customer
         Customer insertedCustomer = customerService.addOne(newCustomer);
