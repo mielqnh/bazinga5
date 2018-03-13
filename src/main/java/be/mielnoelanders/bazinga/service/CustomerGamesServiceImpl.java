@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
+import java.util.Optional;
 
 public class CustomerGamesServiceImpl implements CustomerGamesService {
 
@@ -93,26 +94,39 @@ public class CustomerGamesServiceImpl implements CustomerGamesService {
 
         @Override
     public Iterable<CustomerGames> getAll() {
-        return null;
+            return repository.findAll();
     }
 
     @Override
     public CustomerGames getOne(Long id) {
-        return null;
+        Optional<CustomerGames> result = repository.findById(id);
+        return result.orElse(null);
     }
 
     @Override
     public CustomerGames deleteById(Long id) {
-        return null;
+        CustomerGames customerGames = getOne(id);
+        if (customerGames == null) {
+            return null;
+        } else {
+            repository.deleteById(id);
+            return customerGames;
+        }
     }
 
     @Override
     public CustomerGames insertCustomerGames(CustomerGames customerGames) {
-        return null;
+        return repository.save(customerGames);
     }
 
     @Override
     public CustomerGames changeCustomerGames(Long id, CustomerGames customerGames) {
-        return null;
+        CustomerGames customerGamesToChange = getOne(id);
+        if(customerGamesToChange == null){
+            return null;
+        }else{
+            customerGamesToChange.setGame(customerGames.getGame());
+            return repository.save(customerGamesToChange);
+        }
     }
 }

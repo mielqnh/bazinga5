@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
+import java.util.Optional;
 
 public class SupplierGamesServiceImpl implements SupplierGamesService {
 
@@ -87,33 +88,45 @@ public class SupplierGamesServiceImpl implements SupplierGamesService {
         supplierGames2.setPurchasePrice(99.99);
         supplierGames2.setGame(game3);
 
-
         this.repository.saveAll(Arrays.asList(supplierGames1, supplierGames2, supplierGames3));
 
     }
 
     @Override
     public Iterable<SupplierGames> getAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override
     public SupplierGames getOne(Long id) {
-        return null;
+        Optional<SupplierGames> result = repository.findById(id);
+        return result.orElse(null);
     }
 
     @Override
     public SupplierGames deleteById(Long id) {
-        return null;
+        SupplierGames supplierGames = getOne(id);
+        if (supplierGames == null) {
+            return null;
+        } else {
+            repository.deleteById(id);
+            return supplierGames;
+        }
     }
 
     @Override
     public SupplierGames insertSupplierGames(SupplierGames supplierGames) {
-        return null;
+        return repository.save(supplierGames);
     }
 
     @Override
     public SupplierGames changeSupplierGames(Long id, SupplierGames supplierGames) {
-        return null;
+        SupplierGames supplierGamesToChange = getOne(id);
+        if(supplierGamesToChange == null){
+            return null;
+        }else{
+            supplierGamesToChange.setGame(supplierGames.getGame());
+            return repository.save(supplierGamesToChange);
+        }
     }
 }

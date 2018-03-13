@@ -86,12 +86,7 @@ public class GameServiceImpl implements GameService {
     @Override
     public Game getOne(Long id) {
         Optional<Game> result = repository.findById(id);
-        if (result.isPresent()) {
-            Game game = result.get();
-            return game;
-        } else {
-            return null;
-        }
+        return result.orElse(null);
     }
 
     @Override
