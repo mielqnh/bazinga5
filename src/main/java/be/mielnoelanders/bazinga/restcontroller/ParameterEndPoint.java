@@ -43,7 +43,7 @@ public class ParameterEndPoint {
         }
     }
 
-    @RequestMapping(value = "/{type}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public ResponseEntity<Parameter> updateParameterByType(@RequestBody Parameter parameter) {
         boolean parmUpdate = parm.updateParameterByType(parameter);
 
@@ -59,7 +59,7 @@ public class ParameterEndPoint {
         boolean parmDelete = parm.deleteParameter(id);
 
         if (parmDelete) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
