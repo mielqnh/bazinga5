@@ -60,7 +60,6 @@ public class SupplierServiceImpl implements SupplierService {
             supplierToUpdate.setEmail(supplier.getEmail());
             supplierToUpdate.setPhoneNumber(supplier.getPhoneNumber());
             supplierToUpdate.setWebsite(supplier.getWebsite());
-            supplierToUpdate.setSupplierGames(supplier.getSupplierGames());
             return supplierRepository.save(supplierToUpdate);
         } else {
             return null;

@@ -14,15 +14,9 @@ public class Game extends AbstractEntity implements Serializable {
     private int edition;
 
     // FIELDS WITH MAPPINGS
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="publisher_id")
     private Publisher publisher;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "game")
-    private List<SupplierGames> supplierGames;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "game")
-    private List<CustomerGames> customerGames;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "expandedGame")
     private List<Expansion> expansions;
@@ -33,8 +27,6 @@ public class Game extends AbstractEntity implements Serializable {
         title = builder.title;
         edition = builder.edition;
         publisher = builder.publisher;
-        supplierGames = builder.supplierGames;
-        customerGames = builder.customerGames;
         expansions = builder.expansions;
     }
 
@@ -57,18 +49,6 @@ public class Game extends AbstractEntity implements Serializable {
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
-    public List<SupplierGames> getSupplierGames() {
-        return supplierGames;
-    }
-    public void setSupplierGames(List<SupplierGames> supplierGames) {
-        this.supplierGames = supplierGames;
-    }
-    public List<CustomerGames> getCustomerGames() {
-        return customerGames;
-    }
-    public void setCustomerGames(List<CustomerGames> customerGames) {
-        this.customerGames = customerGames;
-    }
     public List<Expansion> getExpansions() {
         return expansions;
     }
@@ -83,8 +63,6 @@ public class Game extends AbstractEntity implements Serializable {
                 "title='" + title + '\'' +
                 ", edition=" + edition +
                 ", publisher=" + publisher +
-                ", supplierGames=" + supplierGames +
-                ", customerGames=" + customerGames +
                 ", expansions=" + expansions +
                 '}';
     }
@@ -95,8 +73,6 @@ public class Game extends AbstractEntity implements Serializable {
         private String title;
         private int edition;
         private Publisher publisher;
-        private List<SupplierGames> supplierGames;
-        private List<CustomerGames> customerGames;
         private List<Expansion> expansions;
 
         public Builder() {
@@ -114,16 +90,6 @@ public class Game extends AbstractEntity implements Serializable {
 
         public Builder publisher(Publisher val) {
             publisher = val;
-            return this;
-        }
-
-        public Builder supplierGames(List<SupplierGames> val) {
-            supplierGames = val;
-            return this;
-        }
-
-        public Builder customerGames(List<CustomerGames> val) {
-            customerGames = val;
             return this;
         }
 

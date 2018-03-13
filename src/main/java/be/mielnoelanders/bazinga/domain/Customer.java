@@ -1,9 +1,11 @@
 package be.mielnoelanders.bazinga.domain;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 public class Customer extends AbstractEntity implements Serializable {
@@ -22,12 +24,8 @@ public class Customer extends AbstractEntity implements Serializable {
     @NotNull
     private String firstName;
 
-    // FIELDS WITH MAPPINGS
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customergames_id", nullable = false)
-    private List<CustomerGames> customerGames;
-
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="address_id")
     private Address address;
 
     // CONSTRUCTORS
@@ -76,25 +74,19 @@ public class Customer extends AbstractEntity implements Serializable {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    public List<CustomerGames> getCustomerGames() {
-        return customerGames;
-    }
-    public void setCustomerGames(List<CustomerGames> customerGames) {
-        this.customerGames = customerGames;
-    }
+
 
     // OVERRIDES
     @Override
     public String toString() {
         return "Customer{" +
-                "name='" + name + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", address=" + address +
-                ", totalSpent=" + totalSpent +
+                "totalSpent=" + totalSpent +
                 ", goodCustomer=" + goodCustomer +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", customerGames=" + customerGames +
+                ", name='" + name + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", address=" + address +
                 '}';
     }
 }

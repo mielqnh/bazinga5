@@ -1,8 +1,7 @@
 package be.mielnoelanders.bazinga.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 public class Publisher extends AbstractEntity implements Serializable {
@@ -12,10 +11,6 @@ public class Publisher extends AbstractEntity implements Serializable {
     // FIELDS
     private String name;
     private String website;
-
-    //FIELDS WITH MAPPING
-    @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL)
-    private List<Game> games;
 
     // CONSTRUCTORS
     public Publisher(){}

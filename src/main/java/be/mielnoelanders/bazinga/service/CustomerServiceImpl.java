@@ -62,7 +62,6 @@ public class CustomerServiceImpl implements CustomerService {
             customerToUpdate.setGoodCustomer(customer.isGoodCustomer());
             customerToUpdate.setEmail(customer.getEmail());
             customerToUpdate.setPhoneNumber(customer.getPhoneNumber());
-            customerToUpdate.setCustomerGames(customer.getCustomerGames());
             return customerRepository.save(customerToUpdate);
         } else {
             return null;
