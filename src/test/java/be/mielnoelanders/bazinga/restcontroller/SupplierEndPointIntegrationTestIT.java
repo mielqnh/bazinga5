@@ -12,6 +12,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BazingaApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+
 public class SupplierEndPointIntegrationTestIT {
 
     private static final String BASE_URI = "/api/supplier";
@@ -71,10 +73,29 @@ public class SupplierEndPointIntegrationTestIT {
 
     @Test
     public void testFindById() {
-        ResponseEntity<Supplier> responseEntity = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/11"), Supplier.class);
-        assertThat(responseEntity.getBody()).isNotNull();
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(responseEntity.getBody().getName()).isEqualTo("suppl2_name");
+        //find supplier with id=11 that exists
+        ResponseEntity<Supplier> responseEntityOK = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/11"), Supplier.class);
+        assertThat(responseEntityOK.getBody()).isNotNull();
+        assertThat(responseEntityOK.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntityOK.getBody().getName()).isEqualTo("suppl2_name");
+
+        //find supplier with id=8 that not exists
+        ResponseEntity<Supplier> responseEntityNOK = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/8"), Supplier.class);
+        assertThat(responseEntityNOK.getBody()).isNull();
+        assertThat(responseEntityNOK.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    public void testDeleteById() {
+        //delete supplier with id=11 that exists
+        HttpEntity<String> entity = new HttpEntity<>(null, httpHeaders);
+        ResponseEntity<String> responseDelete = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/11"),
+                HttpMethod.DELETE, entity, String.class);
+        assertThat(responseDelete.getStatusCode()).isEqualTo(HttpStatus.OK);
+        //try to lookup supplier with id=11 that is deleted
+        ResponseEntity<Supplier> responseEntityFind = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/11"), Supplier.class);
+        assertThat(responseEntityFind.getBody()).isNull();
+        assertThat(responseEntityFind.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
     private String createURLWithPort(String uri) {
