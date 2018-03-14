@@ -1,16 +1,13 @@
 package be.mielnoelanders.bazinga.domain;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
 
     // FIELD MET OVERERVING NAAR AL DE ANDERE DOMAINS
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     // GETTER
