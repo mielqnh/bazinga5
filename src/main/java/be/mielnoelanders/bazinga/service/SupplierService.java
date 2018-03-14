@@ -4,7 +4,27 @@ import be.mielnoelanders.bazinga.domain.Supplier;
 
 public interface SupplierService {
 
-    //CRUD methods
+
+// --> create (saveBla)
+
+
+
+// --> read (findAllBla & findBlaById)
+
+
+
+// --> update (updateBla)
+
+
+
+// --> delete (deleteBlaById)
+
+
+
+// --> others (findBlaByBuh)
+
+
+
 
     Supplier addOne(Supplier supplier);
 

@@ -3,6 +3,30 @@ package be.mielnoelanders.bazinga.service;
 import be.mielnoelanders.bazinga.domain.Publisher;
 
 public interface PublisherService {
+
+
+// --> create (saveBla)
+
+
+
+// --> read (findAllBla & findBlaById)
+
+
+
+// --> update (updateBla)
+
+
+
+// --> delete (deleteBlaById)
+
+
+
+// --> others (findBlaByBuh)
+
+
+
+
+
     // Insert new Parameter //
     Publisher addPublisher(Publisher publisher);
 

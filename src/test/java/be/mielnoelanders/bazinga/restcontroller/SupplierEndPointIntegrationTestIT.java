@@ -50,7 +50,7 @@ public class SupplierEndPointIntegrationTestIT {
         assertThat(responseEntityAddOne.getBody().getName()).isEqualToIgnoringCase("new Supplier");
         Long newId = responseEntityAddOne.getBody().getId();
 
-        //test getAll() : list must contain miminmal 1 supplier
+        //test findAllGames() : list must contain miminmal 1 supplier
         ResponseEntity<Iterable> iterableResponseEntity = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/getall"), Iterable.class);
         checkBodyAndHttpStatusResponseEntity(iterableResponseEntity, 1, HttpStatus.OK);
         assertThat((List) iterableResponseEntity.getBody()).size().isGreaterThanOrEqualTo(1);

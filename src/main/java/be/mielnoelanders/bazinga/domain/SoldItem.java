@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
-public class CustomerGames extends AbstractEntity implements Serializable {
+public class SoldItem extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 8471750286273301293L;
 
@@ -56,7 +56,7 @@ public class CustomerGames extends AbstractEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "CustomerGames{" +
+        return "SoldItem{" +
                 "date='" + date + '\'' +
                 ", sellingPrice=" + sellingPrice +
                 ", customer=" + customer +

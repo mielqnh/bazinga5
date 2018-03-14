@@ -120,34 +120,34 @@ public class PublisherServiceUnitTest {
     // Delete publisher by id TRUE //
     @Test
     public void deleteParameterTrueTest() {
-        // In de methode deleteParameter gebeurd een existsById en een deleteById :
+        // In de methode deleteParameter gebeurd een existsById en een deleteGameById :
         // Hier zeg je wat de mock moet geven als je de existsById oproept op de repository.
         Mockito.when(this.repo.existsById(1L)).thenReturn(true);
-        // De mock geeft niets terug als je de deleteById oproept op de repository, dus kan je niets opgeven.
+        // De mock geeft niets terug als je de deleteGameById oproept op de repository, dus kan je niets opgeven.
 
-        // Hier roep je de deleteById op de Repository en de save op de CrudTRepository aan VIA de service deletePublisher.
+        // Hier roep je de deleteGameById op de Repository en de save op de CrudTRepository aan VIA de service deletePublisher.
         boolean resultFromService = this.publisherService.deletePublisher(1L);
 
         assertTrue(resultFromService);
 
-        // Tel hoeveel maal deleteById werd opgeroepen
-        //  Mockito.verify(this.repo, Mockito.times(1)).deleteById(1L);
+        // Tel hoeveel maal deleteGameById werd opgeroepen
+        //  Mockito.verify(this.repo, Mockito.times(1)).deleteGameById(1L);
     }
 
     // Delete publisher by id FALSE //
     @Test
     public void deleteParameterFalseTest() {
-        // In de methode deletePublisher gebeurd een existsById en een deleteById :
+        // In de methode deletePublisher gebeurd een existsById en een deleteGameById :
         // Hier zeg je wat de mock moet geven als je de existsById oproept op de repository.
         Mockito.when(this.repo.existsById(100001L)).thenReturn(false);
-        // De mock geeft niets terug als je de deleteById oproept op de repository, dus kan je niets opgeven.
+        // De mock geeft niets terug als je de deleteGameById oproept op de repository, dus kan je niets opgeven.
 
-        // Hier roep je de deleteById op de Repository en de save op de CrudTRepository aan VIA de service deletePublisher.
+        // Hier roep je de deleteGameById op de Repository en de save op de CrudTRepository aan VIA de service deletePublisher.
         boolean resultFromService = this.publisherService.deletePublisher(100001L);
 
         assertFalse(resultFromService);
 
-        // Tel hoeveel maal deleteById werd opgeroepen
-        //  Mockito.verify(this.repo, Mockito.times(0)).deleteById(100001L);
+        // Tel hoeveel maal deleteGameById werd opgeroepen
+        //  Mockito.verify(this.repo, Mockito.times(0)).deleteGameById(100001L);
     }
 }

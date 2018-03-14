@@ -1,7 +1,6 @@
 package be.mielnoelanders.bazinga.service;
 
 import be.mielnoelanders.bazinga.domain.Customer;
-import be.mielnoelanders.bazinga.domain.Customer;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,21 +23,21 @@ public class CustomerServiceIntegrationTestIT {// de naam van een integratietest
         newCustomer.setFirstName("New Customer Firstname");
 
         //test create customer
-        Customer insertedCustomer = customerService.addOne(newCustomer);
+        Customer insertedCustomer = customerService.addCustomer(newCustomer);
         long newId = insertedCustomer.getId();
         Assert.assertFalse(newId == 0);
 
         //test read customer
-        Customer readCustomer = customerService.findOne(newId);
+        Customer readCustomer = customerService.findCustomerById(newId);
         Assert.assertEquals(newCustomer.getName(), readCustomer.getName());
 
         //test update customer
         readCustomer.setName("Supplier updated");
-        Customer updatedCustomer = customerService.updateOne(newId, readCustomer);
+        Customer updatedCustomer = customerService.updateCustomerById(newId, readCustomer);
         Assert.assertEquals("Supplier updated", updatedCustomer.getName());
 
         //test delete customer
-        customerService.deleteById(newId);
-        Assert.assertNull(customerService.findOne(newId));
+        customerService.deleteCustomerById(newId);
+        Assert.assertNull(customerService.findCustomerById(newId));
     }
 }
