@@ -5,11 +5,15 @@ import be.mielnoelanders.bazinga.repository.CustomerGamesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.Optional;
 
+@Service
+@Transactional
 public class CustomerGamesServiceImpl implements CustomerGamesService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GameService.class);
@@ -91,7 +95,7 @@ public class CustomerGamesServiceImpl implements CustomerGamesService {
 
     }
 
-        @Override
+    @Override
     public Iterable<CustomerGames> getAll() {
             return repository.findAll();
     }
@@ -124,7 +128,7 @@ public class CustomerGamesServiceImpl implements CustomerGamesService {
         if(customerGamesToChange == null){
             return null;
         }else{
-            customerGamesToChange.setGame(customerGames.getGame());
+            customerGamesToChange.setDate(customerGames.getDate());
             return repository.save(customerGamesToChange);
         }
     }
