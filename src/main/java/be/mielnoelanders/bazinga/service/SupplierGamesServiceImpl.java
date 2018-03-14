@@ -5,11 +5,15 @@ import be.mielnoelanders.bazinga.repository.SupplierGamesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.Optional;
 
+@Service
+@Transactional
 public class SupplierGamesServiceImpl implements SupplierGamesService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GameService.class);
@@ -124,7 +128,7 @@ public class SupplierGamesServiceImpl implements SupplierGamesService {
         if(supplierGamesToChange == null){
             return null;
         }else{
-            supplierGamesToChange.setGame(supplierGames.getGame());
+            supplierGamesToChange.setDate(supplierGames.getDate());
             return repository.save(supplierGamesToChange);
         }
     }
