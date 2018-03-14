@@ -1,7 +1,5 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.Parameter;
-import be.mielnoelanders.bazinga.domain.ParameterEnum;
 import be.mielnoelanders.bazinga.domain.Publisher;
 import be.mielnoelanders.bazinga.repository.PublisherRepository;
 import org.slf4j.Logger;
@@ -12,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.Arrays;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -53,7 +52,7 @@ public class PublisherServiceImpl implements PublisherService {
         return repo.findByName(name);
     }
 
-    @Override
+/*    @Override
     public boolean updatePublisherByName(Publisher publisher) {
         Publisher result = (Publisher) repo.findByName(publisher.getName());
 
@@ -65,14 +64,31 @@ public class PublisherServiceImpl implements PublisherService {
             return true;
         }
         return false;
-    }
+    }*/
 
     @Override
-    public boolean deletePublisher(long id) {
+    public boolean deletePublisher(Long id) {
         if (this.repo.existsById(id)) {
             this.repo.deleteById(id);
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Publisher changePublisher(Long id, Publisher publisher) {
+        Publisher publisherToChange = getOne(id);
+        if(publisherToChange == null){
+            return null;
+        }else{
+            publisherToChange.setName(publisher.getName());
+            return repo.save(publisherToChange);
+        }
+    }
+
+    @Override
+    public Publisher getOne(Long id) {
+        Optional<Publisher> result = repo.findById(id);
+        return result.orElse(null);
     }
 }

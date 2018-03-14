@@ -18,5 +18,5 @@ public interface ParameterService {
     boolean updateParameterByType(Parameter parameter);
 
     // Delete parameter by id //
-    boolean deleteParameter(long id);
+    boolean deleteParameter(Long id);
 }

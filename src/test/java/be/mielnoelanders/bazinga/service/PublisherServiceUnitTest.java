@@ -88,7 +88,7 @@ public class PublisherServiceUnitTest {
     }
 
     // Update publisher by name TRUE //
-    @Test
+/*    @Test
     public void updatePublisherByNameTrueTest() {
         // In de methode updatePublisherByName gebeurd een findByName en een save :
         // Hier zeg je wat de mock moet geven als je de findByName oproept op de repository.
@@ -100,10 +100,10 @@ public class PublisherServiceUnitTest {
         boolean resultFromService = this.publisherService.updatePublisherByName(testPublisher2);
 
         assertTrue(resultFromService);
-    }
+    }*/
 
     // Update publisher by name FALSE //
-    @Test
+/*    @Test
     public void updatePublisherByNameFalseTest() {
         // In de methode updatePublisherByName gebeurd een findByName en een save :
         // Hier zeg je wat de mock moet geven als je de findByName oproept op de repository.
@@ -115,7 +115,7 @@ public class PublisherServiceUnitTest {
         boolean resultFromService = this.publisherService.updatePublisherByName(testPublisher2);
 
         assertFalse(resultFromService);
-    }
+    }*/
 
     // Delete publisher by id TRUE //
     @Test

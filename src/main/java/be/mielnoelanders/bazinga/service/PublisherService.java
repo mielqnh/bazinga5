@@ -13,8 +13,13 @@ public interface PublisherService {
     Publisher findByName(String name);
 
     // Update publisher by type //
-    boolean updatePublisherByName(Publisher publisher);
+    //boolean updatePublisherByName(Publisher publisher);
 
     // Delete publisher by id //
-    boolean deletePublisher(long id);
+    boolean deletePublisher(Long id);
+
+    Publisher changePublisher(Long id, Publisher publisher);
+
+    Publisher getOne(Long id);
 }
+
