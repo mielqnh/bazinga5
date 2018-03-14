@@ -23,7 +23,7 @@ public class CustomerEndPoint {
         return new ResponseEntity<Customer>(customerService.addOne(customer), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value="getAll", method = RequestMethod.GET)
+    @RequestMapping(value="getall", method = RequestMethod.GET)
     public ResponseEntity<Iterable<Customer>> getAll() {
         Iterable<Customer> customers = customerService.findAll();
         if (customers == null) {
