@@ -2,17 +2,14 @@ package be.mielnoelanders.bazinga.restcontroller;
 
 import be.mielnoelanders.bazinga.BazingaApplication;
 import be.mielnoelanders.bazinga.domain.Supplier;
-import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
 
@@ -39,63 +36,50 @@ public class SupplierEndPointIntegrationTestIT {
     }
 
     @Test
-    public void testAddOne() {
+    public void testCreateFindAllReadUpdateDelete() {
+        //create supplier object
         Supplier newSupplier = new Supplier();
         newSupplier.setName("New Supplier");
         newSupplier.setPhoneNumber("012-3456789");
-        HttpEntity<Supplier> entity = new HttpEntity<>(newSupplier, httpHeaders);
+
+        //testAddOne()
+        HttpEntity<Supplier> entityAddOne = new HttpEntity<>(newSupplier, httpHeaders);
         httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        ResponseEntity<Supplier> responseEntity = testRestTemplate.postForEntity(createURLWithPort(BASE_URI + "/"), entity, Supplier.class);
-        System.out.println("responseEntity.getBody = " + responseEntity.getBody());
-        System.out.println("HttpStatus = " + responseEntity.getStatusCode().toString());
+        ResponseEntity<Supplier> responseEntityAddOne = testRestTemplate.postForEntity(createURLWithPort(BASE_URI + "/"), entityAddOne, Supplier.class);
+        checkBodyAndHttpStatusResponseEntity(responseEntityAddOne, 1, HttpStatus.CREATED);
+        assertThat(responseEntityAddOne.getBody().getName()).isEqualToIgnoringCase("new Supplier");
+        Long newId = responseEntityAddOne.getBody().getId();
 
-        assertThat(responseEntity.getBody()).isNotNull();
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        assertThat(responseEntity.getBody().getName()).isEqualToIgnoringCase("new Supplier");
-    }
-
-    @Test
-    public void testGetAll() throws JSONException {
-        HttpEntity<String> entity = new HttpEntity<>(null, httpHeaders);
-        ResponseEntity<String> response = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/getall"),
-                HttpMethod.GET, entity, String.class);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-        System.out.println("response = " + response.getBody());
-        String expected = "[{\"id\":10,\"name\":\"suppl1_name\",\"email\":null,\"phoneNumber\":\"suppl1_phonenumber\",\"website\":\"suppl1_website\",\"supplierGames\":[]},{\"id\":11,\"name\":\"suppl2_name\",\"email\":null,\"phoneNumber\":\"suppl2_phonenumber\",\"website\":\"suppl2_website\",\"supplierGames\":[]},{\"id\":12,\"name\":\"suppl3_name\",\"email\":null,\"phoneNumber\":\"suppl3_phonenumber\",\"website\":\"suppl3_website\",\"supplierGames\":[]}]";
-
-        JSONAssert.assertEquals(expected, response.getBody(), false);
-
+        //test getAll() : list must contain miminmal 1 supplier
         ResponseEntity<Iterable> iterableResponseEntity = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/getall"), Iterable.class);
-        assertThat(iterableResponseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat((List) iterableResponseEntity.getBody()).size().isEqualTo(3);
+        checkBodyAndHttpStatusResponseEntity(iterableResponseEntity, 1, HttpStatus.OK);
+        assertThat((List) iterableResponseEntity.getBody()).size().isGreaterThanOrEqualTo(1);
+
+        //testFindById()
+        ResponseEntity<Supplier> responseEntityFindById = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/" + newId), Supplier.class);
+        assertThat(responseEntityFindById.getBody().getName()).isEqualTo("New Supplier");
+        checkBodyAndHttpStatusResponseEntity(responseEntityFindById, 1, HttpStatus.OK);
+
+        //testDeleteById()
+        HttpEntity<String> entityDeleteById = new HttpEntity<>(httpHeaders);
+        ResponseEntity<String> responseDelete = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/" + newId),
+                HttpMethod.DELETE, entityDeleteById, String.class);
+        checkBodyAndHttpStatusResponseEntity(responseDelete, 1, HttpStatus.OK);
+        //try to lookup new supplier with id=newId that is deleted
+        ResponseEntity<Supplier> responseEntityFind = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/" + newId), Supplier.class);
+        checkBodyAndHttpStatusResponseEntity(responseEntityFind, 0, HttpStatus.NOT_FOUND);
+
     }
 
-    @Test
-    public void testFindById() {
-        //find supplier with id=11 that exists
-        ResponseEntity<Supplier> responseEntityOK = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/11"), Supplier.class);
-        assertThat(responseEntityOK.getBody()).isNotNull();
-        assertThat(responseEntityOK.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(responseEntityOK.getBody().getName()).isEqualTo("suppl2_name");
-
-        //find supplier with id=8 that not exists
-        ResponseEntity<Supplier> responseEntityNOK = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/8"), Supplier.class);
-        assertThat(responseEntityNOK.getBody()).isNull();
-        assertThat(responseEntityNOK.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-    }
-
-    @Test
-    public void testDeleteById() {
-        //delete supplier with id=11 that exists
-        HttpEntity<String> entity = new HttpEntity<>(null, httpHeaders);
-        ResponseEntity<String> responseDelete = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/11"),
-                HttpMethod.DELETE, entity, String.class);
-        assertThat(responseDelete.getStatusCode()).isEqualTo(HttpStatus.OK);
-        //try to lookup supplier with id=11 that is deleted
-        ResponseEntity<Supplier> responseEntityFind = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/11"), Supplier.class);
-        assertThat(responseEntityFind.getBody()).isNull();
-        assertThat(responseEntityFind.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    private void checkBodyAndHttpStatusResponseEntity(ResponseEntity responseEntity, int responseBodyValue, HttpStatus httpStatus) {
+        System.out.println("responseEntity.getBody()) = " + responseEntity.getBody());
+        System.out.println("responseEntity.getStatusCode()) = " + responseEntity.getStatusCode());
+        if (responseBodyValue == 0) {
+            assertThat(responseEntity.getBody()).isNull();
+        } else {
+            assertThat(responseEntity.getBody()).isNotNull();
+        }
+        assertThat(responseEntity.getStatusCode()).isEqualTo(httpStatus);
     }
 
     private String createURLWithPort(String uri) {
