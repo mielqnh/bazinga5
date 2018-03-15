@@ -7,7 +7,6 @@ public interface CustomerService {
     // --> create
     Customer addOne(Customer customer);
 
-
     // --> read
     Iterable<Customer> findAll();
 
@@ -18,7 +17,4 @@ public interface CustomerService {
 
     // --> delete
     void deleteOneById(Long id);
-
-// --> others
-
 }

@@ -4,7 +4,6 @@ import be.mielnoelanders.bazinga.domain.Supplier;
 
 public interface SupplierService {
 
-
     // --> create
     Supplier addOne(Supplier supplier);
 
@@ -18,8 +17,4 @@ public interface SupplierService {
 
     // --> delete (deleteOneById)
     void deleteOneById(Long id);
-
-
-// --> others
-
 }

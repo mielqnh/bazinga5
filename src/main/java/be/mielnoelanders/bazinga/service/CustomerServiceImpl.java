@@ -14,13 +14,16 @@ import java.util.Optional;
 @Transactional
 public class CustomerServiceImpl implements CustomerService {
 
+    // FIELDS
     private CustomerRepository customerRepository;
 
+    // CONSTRUCTORS
     @Autowired
     public CustomerServiceImpl(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
+    // METHODS
     // --> init
     @PostConstruct
     private void init() {
@@ -47,7 +50,6 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer addOne(Customer customer) {
         return customerRepository.save(customer);
     }
-
 
     // --> read
     @Override
@@ -85,7 +87,4 @@ public class CustomerServiceImpl implements CustomerService {
             customerRepository.deleteById(id);
         }
     }
-
-// --> others
-
 }
