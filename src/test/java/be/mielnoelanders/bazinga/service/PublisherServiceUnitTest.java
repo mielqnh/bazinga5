@@ -59,7 +59,7 @@ public class PublisherServiceUnitTest {
         Mockito.when(this.repo.save(testPublisher1)).thenReturn(testPublisher1);
 
         // Hier roep je de save methode op de CrudRepository aan VIA de service addPublisher.
-        Publisher resultFromService = this.publisherService.addPublisher(testPublisher1);
+        Publisher resultFromService = this.publisherService.addOne(testPublisher1);
 
         // testParameter1 heeft als inhoud : {0, "What The What", "www.whatthewhat.com"}
         assertTrue(resultFromService.getWebsite().equals("www.whatthewhat.com"));
@@ -69,7 +69,7 @@ public class PublisherServiceUnitTest {
     @Test
     public void getAllTest() {
         Mockito.when(this.repo.findAll()).thenReturn(publisherList);
-        Iterable<Publisher> resultFromService = this.publisherService.getAll();
+        Iterable<Publisher> resultFromService = this.publisherService.findAll();
         Publisher resultFromIterator = resultFromService.iterator().next();
         assertThat(resultFromIterator.getName()).isEqualTo("What The What");
         Mockito.verify(this.repo, Mockito.times(1)).findAll();
@@ -87,36 +87,6 @@ public class PublisherServiceUnitTest {
         assertEquals("www.wherethewhere.com", resultFromService.getWebsite());
     }
 
-    // Update publisher by name TRUE //
-/*    @Test
-    public void updatePublisherByNameTrueTest() {
-        // In de methode updatePublisherByName gebeurd een findByName en een save :
-        // Hier zeg je wat de mock moet geven als je de findByName oproept op de repository.
-        Mockito.when(this.repo.findByName(testPublisher2.getName())).thenReturn(testPublisher2);
-        // Hier zeg je wat de mock moet geven als je de save oproept op de repository.
-        Mockito.when(this.repo.save(testPublisher2)).thenReturn(testPublisher2);
-
-        // Hier roep je de findByName op de Repository en de save op de CrudTRepository aan VIA de service updatePublisherByName.
-        boolean resultFromService = this.publisherService.updatePublisherByName(testPublisher2);
-
-        assertTrue(resultFromService);
-    }*/
-
-    // Update publisher by name FALSE //
-/*    @Test
-    public void updatePublisherByNameFalseTest() {
-        // In de methode updatePublisherByName gebeurd een findByName en een save :
-        // Hier zeg je wat de mock moet geven als je de findByName oproept op de repository.
-        Mockito.when(this.repo.findByName(testPublisher2.getName())).thenReturn(null);
-        // Hier zeg je wat de mock moet geven als je de save oproept op de repository. In dit geval overbodig.
-        // Mockito.when(this.repo.save(testPublisher2)).thenReturn(testPublisher2);
-
-        // Hier roep je de findByName op de Repository en de save op de CrudTRepository aan VIA de service updatePublisherByName.
-        boolean resultFromService = this.publisherService.updatePublisherByName(testPublisher2);
-
-        assertFalse(resultFromService);
-    }*/
-
     // Delete publisher by id TRUE //
     @Test
     public void deleteParameterTrueTest() {
@@ -126,7 +96,7 @@ public class PublisherServiceUnitTest {
         // De mock geeft niets terug als je de deleteOneById oproept op de repository, dus kan je niets opgeven.
 
         // Hier roep je de deleteOneById op de Repository en de save op de CrudTRepository aan VIA de service deletePublisher.
-        boolean resultFromService = this.publisherService.deletePublisher(1L);
+        boolean resultFromService = this.publisherService.deleteOneById(1L);
 
         assertTrue(resultFromService);
 
@@ -143,7 +113,7 @@ public class PublisherServiceUnitTest {
         // De mock geeft niets terug als je de deleteOneById oproept op de repository, dus kan je niets opgeven.
 
         // Hier roep je de deleteOneById op de Repository en de save op de CrudTRepository aan VIA de service deletePublisher.
-        boolean resultFromService = this.publisherService.deletePublisher(100001L);
+        boolean resultFromService = this.publisherService.deleteOneById(100001L);
 
         assertFalse(resultFromService);
 
@@ -151,3 +121,34 @@ public class PublisherServiceUnitTest {
         //  Mockito.verify(this.repo, Mockito.times(0)).deleteOneById(100001L);
     }
 }
+
+
+// Update publisher by name TRUE //
+/*    @Test
+    public void updatePublisherByNameTrueTest() {
+        // In de methode updatePublisherByName gebeurd een findByName en een save :
+        // Hier zeg je wat de mock moet geven als je de findByName oproept op de repository.
+        Mockito.when(this.repo.findByName(testPublisher2.getName())).thenReturn(testPublisher2);
+        // Hier zeg je wat de mock moet geven als je de save oproept op de repository.
+        Mockito.when(this.repo.save(testPublisher2)).thenReturn(testPublisher2);
+
+        // Hier roep je de findByName op de Repository en de save op de CrudTRepository aan VIA de service updatePublisherByName.
+        boolean resultFromService = this.publisherService.updatePublisherByName(testPublisher2);
+
+        assertTrue(resultFromService);
+    }*/
+
+// Update publisher by name FALSE //
+/*    @Test
+    public void updatePublisherByNameFalseTest() {
+        // In de methode updatePublisherByName gebeurd een findByName en een save :
+        // Hier zeg je wat de mock moet geven als je de findByName oproept op de repository.
+        Mockito.when(this.repo.findByName(testPublisher2.getName())).thenReturn(null);
+        // Hier zeg je wat de mock moet geven als je de save oproept op de repository. In dit geval overbodig.
+        // Mockito.when(this.repo.save(testPublisher2)).thenReturn(testPublisher2);
+
+        // Hier roep je de findByName op de Repository en de save op de CrudTRepository aan VIA de service updatePublisherByName.
+        boolean resultFromService = this.publisherService.updatePublisherByName(testPublisher2);
+
+        assertFalse(resultFromService);
+    }*/
