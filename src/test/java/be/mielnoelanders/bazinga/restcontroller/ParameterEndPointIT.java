@@ -23,7 +23,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class ParameterEndPointIT {
 
-    private static final String BASE_URI = "/api/parm";
+    private static final String BASE_URI = "/api/parameter";
 
     private TestRestTemplate testRestTemplate;
 
@@ -54,7 +54,7 @@ public class ParameterEndPointIT {
         assertThat(responseEntity.getBody().getType()).isEqualTo(ParameterEnum.PROMOTIONALDISCOUNT);
 
         entity = new HttpEntity<>(null, httpHeaders);
-        ResponseEntity<String> response = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/getall"),
+        ResponseEntity<String> response = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/findall"),
         HttpMethod.GET, entity, String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 

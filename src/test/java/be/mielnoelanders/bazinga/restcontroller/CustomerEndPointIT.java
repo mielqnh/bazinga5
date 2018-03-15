@@ -50,7 +50,7 @@ public class CustomerEndPointIT {
         Long newId = responseEntityAddOne.getBody().getId();
 
         //test findAll() : list must contain miminmal 1 customer
-        ResponseEntity<Iterable> iterableResponseEntity = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/getall"), Iterable.class);
+        ResponseEntity<Iterable> iterableResponseEntity = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/findall"), Iterable.class);
         checkBodyAndHttpStatusResponseEntity(iterableResponseEntity, 1, HttpStatus.OK);
         assertThat((List) iterableResponseEntity.getBody()).size().isGreaterThanOrEqualTo(1);
 
