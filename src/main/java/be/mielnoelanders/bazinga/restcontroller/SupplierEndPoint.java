@@ -25,7 +25,7 @@ public class SupplierEndPoint {
     }
 
     // --> read
-    @RequestMapping(value = "getall", method = RequestMethod.GET)
+    @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public ResponseEntity<Iterable<Supplier>> findAll() {
         Iterable<Supplier> suppliers = supplierService.findAll();
         if (suppliers == null) {
@@ -35,7 +35,7 @@ public class SupplierEndPoint {
         }
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Supplier> findByOneById(@PathVariable Long id) {
         Supplier supplierFound = supplierService.findOneById(id);
         if (supplierFound == null) {
