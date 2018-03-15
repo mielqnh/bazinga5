@@ -65,12 +65,12 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public Supplier findById(Long id) {
+    public Supplier findOneById(Long id) {
         return supplierRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Supplier updateOne(Long id, Supplier supplier) {
+    public Supplier updateOneById(Long id, Supplier supplier) {
         Optional<Supplier> foundSupplier = supplierRepository.findById(id);
         if (foundSupplier.isPresent()) {
             Supplier supplierToUpdate = foundSupplier.get();
@@ -85,7 +85,7 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteOneById(Long id) {
         if (supplierRepository.existsById(id)) {
             supplierRepository.deleteById(id);
         }

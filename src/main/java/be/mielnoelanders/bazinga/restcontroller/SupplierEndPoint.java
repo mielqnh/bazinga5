@@ -35,7 +35,7 @@ public class SupplierEndPoint {
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public ResponseEntity<Supplier> findById(@PathVariable Long id) {
-        Supplier supplierFound = supplierService.findById(id);
+        Supplier supplierFound = supplierService.findOneById(id);
         if (supplierFound == null) {
             return new ResponseEntity<Supplier>(HttpStatus.NOT_FOUND);
         } else {
@@ -44,11 +44,11 @@ public class SupplierEndPoint {
     }
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Supplier> deleteById(@PathVariable Long id) {
-        Supplier supplierFound = supplierService.findById(id);
+        Supplier supplierFound = supplierService.findOneById(id);
         if (supplierFound == null) {
             return new ResponseEntity<Supplier>(HttpStatus.NOT_FOUND);
         } else {
-            supplierService.deleteById(id);
+            supplierService.deleteOneById(id);
             return new ResponseEntity<Supplier>(supplierFound, HttpStatus.OK);
         }
     }
