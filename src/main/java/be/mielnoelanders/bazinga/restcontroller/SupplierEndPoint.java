@@ -11,13 +11,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/supplier")
 public class SupplierEndPoint {
 
+    // FIELDS
     private SupplierService supplierService;
 
+    // CONSTRUCTORS
     @Autowired
     public SupplierEndPoint(SupplierService supplierService) {
         this.supplierService = supplierService;
     }
 
+    // METHODS
     // --> create
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Supplier> addOne(@RequestBody Supplier supplier) {
@@ -67,6 +70,4 @@ public class SupplierEndPoint {
             return new ResponseEntity<Supplier>(supplierFound, HttpStatus.OK);
         }
     }
-
-
 }

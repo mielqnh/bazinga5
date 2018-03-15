@@ -11,14 +11,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/customer")
 public class CustomerEndPoint {
 
+    // FIELDS
     private CustomerService customerService;
 
+    // CONSTRUCTORS
     @Autowired
     public CustomerEndPoint(CustomerService customerService) {
         this.customerService = customerService;
     }
 
-
+    // METHODS
     // --> create
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Customer> addOne(@RequestBody Customer customer) {

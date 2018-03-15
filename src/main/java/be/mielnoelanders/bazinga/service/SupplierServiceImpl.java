@@ -14,13 +14,16 @@ import java.util.Optional;
 @Transactional
 public class SupplierServiceImpl implements SupplierService {
 
+    // FIELDS
     private SupplierRepository supplierRepository;
 
+    // CONSTRUCTORS
     @Autowired
     public SupplierServiceImpl(SupplierRepository supplierRepository) {
         this.supplierRepository = supplierRepository;
     }
 
+    // METHODS
     // --> init
     @PostConstruct
     private void init() {
@@ -79,7 +82,4 @@ public class SupplierServiceImpl implements SupplierService {
             supplierRepository.deleteById(id);
         }
     }
-
-// --> others
-
 }
