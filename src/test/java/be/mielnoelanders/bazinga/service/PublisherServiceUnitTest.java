@@ -120,7 +120,7 @@ public class PublisherServiceUnitTest {
     // Delete publisher by id TRUE //
     @Test
     public void deleteParameterTrueTest() {
-        // In de methode deleteParameter gebeurd een existsById en een deleteOneById :
+        // In de methode deleteOneById gebeurd een existsById en een deleteOneById :
         // Hier zeg je wat de mock moet geven als je de existsById oproept op de repository.
         Mockito.when(this.repo.existsById(1L)).thenReturn(true);
         // De mock geeft niets terug als je de deleteOneById oproept op de repository, dus kan je niets opgeven.

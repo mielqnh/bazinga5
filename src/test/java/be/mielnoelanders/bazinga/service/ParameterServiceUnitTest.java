@@ -56,11 +56,11 @@ public class ParameterServiceUnitTest {
     // Insert new Parameter //
     @Test
     public void addParameterTest() {
-        // Hier zeg je wat de mock moet geven als je de findByType oproept op de repository.
+        // Hier zeg je wat de mock moet geven als je de findOneById oproept op de repository.
         Mockito.when(this.repo.save(testParameter1)).thenReturn(testParameter1);
 
-        // Hier roep je de save methode op de CrudRepository aan VIA de service addParameter.
-        Parameter resultFromService = this.parameterService.addParameter(testParameter1);
+        // Hier roep je de save methode op de CrudRepository aan VIA de service addOne.
+        Parameter resultFromService = this.parameterService.addOne(testParameter1);
 
         // testParameter1 heeft als inhoud : {0, PROFITMARGIN, 30}
         assertTrue(resultFromService.getPercentage() == 30);
@@ -70,7 +70,7 @@ public class ParameterServiceUnitTest {
     @Test
     public void getAllTest() {
         Mockito.when(this.repo.findAll()).thenReturn(parmList);
-        Iterable<Parameter> resultFromService = this.parameterService.getAll();
+        Iterable<Parameter> resultFromService = this.parameterService.findAll();
         Parameter resultFromIterator = resultFromService.iterator().next();
         assertThat(resultFromIterator.getType()).isEqualTo(ParameterEnum.PROFITMARGIN);
         Mockito.verify(this.repo, Mockito.times(1)).findAll();
@@ -79,11 +79,11 @@ public class ParameterServiceUnitTest {
     // Find unique by parameter type //
     @Test
     public void findByTypeTest() {
-        // Hier zeg je wat de mock moet geven als je de findByType oproept op de repository.
+        // Hier zeg je wat de mock moet geven als je de findOneById oproept op de repository.
         Mockito.when(this.repo.findByType(ParameterEnum.DAMAGEDISCOUNT)).thenReturn(testParameter3);
 
-        // Hier roep je de findByType op de repository aan VIA de service findByType.
-        Parameter resultFromService = this.parameterService.findByType(ParameterEnum.DAMAGEDISCOUNT);
+        // Hier roep je de findOneById op de repository aan VIA de service findOneById.
+        Parameter resultFromService = this.parameterService.findById(ParameterEnum.DAMAGEDISCOUNT);
 
         assertEquals(20, resultFromService.getPercentage());
     }
@@ -91,14 +91,14 @@ public class ParameterServiceUnitTest {
     // Update parameter by type TRUE //
     @Test
     public void updateParameterByTypeTrueTest() {
-        // In de methode updateParameterByType gebeurd een findByType en een save :
-        // Hier zeg je wat de mock moet geven als je de findByType oproept op de repository.
+        // In de methode updateOneById gebeurd een findOneById en een save :
+        // Hier zeg je wat de mock moet geven als je de findOneById oproept op de repository.
         Mockito.when(this.repo.findByType(ParameterEnum.PREMIUMCUSTOMER)).thenReturn(testParameter2);
         // Hier zeg je wat de mock moet geven als je de save oproept op de repository.
         Mockito.when(this.repo.save(testParameter2)).thenReturn(testParameter2);
 
-        // Hier roep je de findByType op de Repository en de save op de CrudTRepository aan VIA de service updateParameterByType.
-        boolean resultFromService = this.parameterService.updateParameterByType(testParameter2);
+        // Hier roep je de findOneById op de Repository en de save op de CrudTRepository aan VIA de service updateOneById.
+        boolean resultFromService = this.parameterService.updateOneById(testParameter2);
 
         assertTrue(resultFromService);
     }
@@ -106,14 +106,14 @@ public class ParameterServiceUnitTest {
     // Update parameter by type FALSE //
     @Test
     public void updateParameterByTypeFalseTest() {
-        // In de methode updateParameterByType gebeurd een findByType en een save :
-        // Hier zeg je wat de mock moet geven als je de findByType oproept op de repository.
+        // In de methode updateOneById gebeurd een findOneById en een save :
+        // Hier zeg je wat de mock moet geven als je de findOneById oproept op de repository.
         Mockito.when(this.repo.findByType(ParameterEnum.PREMIUMCUSTOMER)).thenReturn(null);
         // Hier zeg je wat de mock moet geven als je de save oproept op de repository. In dit geval overbodig.
         // Mockito.when(this.repo.save(testParameter2)).thenReturn(testParameter2);
 
-        // Hier roep je de findByType op de Repository en de save op de CrudTRepository aan VIA de service updateParameterByType.
-        boolean resultFromService = this.parameterService.updateParameterByType(testParameter2);
+        // Hier roep je de findOneById op de Repository en de save op de CrudTRepository aan VIA de service updateOneById.
+        boolean resultFromService = this.parameterService.updateOneById(testParameter2);
 
         assertFalse(resultFromService);
     }
@@ -127,7 +127,7 @@ public class ParameterServiceUnitTest {
         // De mock geeft niets terug als je de deleteOneById oproept op de repository, dus kan je niets opgeven.
 
         // Hier roep je de deleteOneById op de Repository en de save op de CrudTRepository aan VIA de service deleteParameter.
-        boolean resultFromService = this.parameterService.deleteParameter(1L);
+        boolean resultFromService = this.parameterService.deleteOneById(1L);
 
         assertTrue(resultFromService);
 
@@ -138,13 +138,13 @@ public class ParameterServiceUnitTest {
     // Delete parameter by id FALSE //
     @Test
     public void deleteParameterFalseTest() {
-        // In de methode deleteParameter gebeurd een existsById en een deleteOneById :
+        // In de methode deleteOneById gebeurd een existsById en een deleteOneById :
         // Hier zeg je wat de mock moet geven als je de existsById oproept op de repository.
         Mockito.when(this.repo.existsById(100001L)).thenReturn(false);
         // De mock geeft niets terug als je de deleteOneById oproept op de repository, dus kan je niets opgeven.
 
-        // Hier roep je de deleteOneById op de Repository en de save op de CrudTRepository aan VIA de service deleteParameter.
-        boolean resultFromService = this.parameterService.deleteParameter(100001L);
+        // Hier roep je de deleteOneById op de Repository en de save op de CrudTRepository aan VIA de service deleteOneById.
+        boolean resultFromService = this.parameterService.deleteOneById(100001L);
 
         assertFalse(resultFromService);
 

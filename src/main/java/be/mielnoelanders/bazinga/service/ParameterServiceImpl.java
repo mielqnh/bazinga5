@@ -1,5 +1,6 @@
 package be.mielnoelanders.bazinga.service;
 
+import be.mielnoelanders.bazinga.domain.Game;
 import be.mielnoelanders.bazinga.domain.Parameter;
 import be.mielnoelanders.bazinga.domain.ParameterEnum;
 import be.mielnoelanders.bazinga.repository.ParameterRepository;
@@ -11,31 +12,13 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.Arrays;
+import java.util.Optional;
 
 @Service
 @Transactional
 public class ParameterServiceImpl implements ParameterService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ParameterService.class);
-
-    // --> create (addOne)
-
-
-
-// --> read (findAll & findOneById)
-
-
-
-// --> update (updateOneById)
-
-
-
-// --> delete (deleteOneById)
-
-
-
-// --> others (Bla)
-
 
     @Autowired
     private ParameterRepository repo;
@@ -56,37 +39,38 @@ public class ParameterServiceImpl implements ParameterService {
         this.repo.saveAll(Arrays.asList(parm1,parm2,parm3));
     }
 
+// --> create
     @Override
-    public Parameter addParameter(Parameter parameter) {
+    public Parameter addOne(Parameter parameter) {
         return repo.save(parameter);
     }
 
+// --> read
     @Override
-    public Iterable<Parameter> getAll() {
+    public Iterable<Parameter> findAll() {
         return this.repo.findAll();
     }
 
     @Override
-    public Parameter findByType(ParameterEnum type) {
-        return repo.findByType(type);
+    public Parameter findOneById(long id) {
+        Optional<Parameter> result = repo.findById(id);
+        return result.orElse(null);
     }
 
+// --> update
     @Override
-    public boolean updateParameterByType(Parameter parameter) {
-        Parameter result = (Parameter) repo.findByType(parameter.getType());
-
-        if (result != null) {
-            result.setType(parameter.getType());
-            result.setPercentage(parameter.getPercentage());
-
-            this.repo.save(result);
-            return true;
+    public Parameter updateOneById(Long id, Parameter parameter) {
+        Parameter parmToChange = findOneById(id);
+        if(parmToChange == null){
+            return null;
+        }else{
+            return repo.save(parameter);
         }
-        return false;
     }
 
+// --> delete
     @Override
-    public boolean deleteParameter(Long id) {
+    public boolean deleteOneById(Long id) {
         if (this.repo.existsById(id)) {
             this.repo.deleteById(id);
             return true;

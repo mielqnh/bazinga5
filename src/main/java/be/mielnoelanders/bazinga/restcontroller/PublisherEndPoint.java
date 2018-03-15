@@ -15,14 +15,14 @@ public class PublisherEndPoint {
     private PublisherService publisherService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Publisher> addPublisher(@RequestBody Publisher publisher) {
-        Publisher publisherAdd = publisherService.addPublisher(publisher);
+    public ResponseEntity<Publisher> addOne(@RequestBody Publisher publisher) {
+        Publisher publisherAdd = publisherService.addOne(publisher);
         return new ResponseEntity<>(publisherAdd, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/getall", method = RequestMethod.GET)
     public ResponseEntity<Iterable<Publisher>> getAll() {
-        Iterable<Publisher> publisherGetAll = this.publisherService.getAll();
+        Iterable<Publisher> publisherGetAll = this.publisherService.findAll();
 
         if (publisherGetAll == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -44,8 +44,8 @@ public class PublisherEndPoint {
 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Publisher> updatePublisher(@PathVariable Long id, @RequestBody Publisher publisher) {
-        Publisher probably = publisherService.changePublisher(id, publisher);
+    public ResponseEntity<Publisher> updateOneById(@PathVariable Long id, @RequestBody Publisher publisher) {
+        Publisher probably = publisherService.updateOneById(id, publisher);
         if (probably == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
@@ -67,7 +67,7 @@ public class PublisherEndPoint {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Publisher> deletePublisher(@PathVariable Long id) {
-        boolean publisherDelete = publisherService.deletePublisher(id);
+        boolean publisherDelete = publisherService.deleteOneById(id);
 
         if (publisherDelete) {
             return new ResponseEntity<>(HttpStatus.OK);
