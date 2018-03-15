@@ -21,7 +21,6 @@ public class GameEndPoint {
     }
 
     // METHODS
-    // --> init
     // --> create
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Game> addOne(@RequestBody Game game) {

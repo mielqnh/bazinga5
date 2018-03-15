@@ -12,25 +12,25 @@ import org.springframework.web.bind.annotation.*;
 public class SupplierEndPoint {
 
     // FIELDS
-    private SupplierService supplierService;
+    private SupplierService service;
 
     // CONSTRUCTORS
     @Autowired
-    public SupplierEndPoint(SupplierService supplierService) {
-        this.supplierService = supplierService;
+    public SupplierEndPoint(SupplierService service) {
+        this.service = service;
     }
 
     // METHODS
     // --> create
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Supplier> addOne(@RequestBody Supplier supplier) {
-        return new ResponseEntity<Supplier>(supplierService.addOne(supplier), HttpStatus.CREATED);
+        return new ResponseEntity<>(service.addOne(supplier), HttpStatus.CREATED);
     }
 
     // --> read
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public ResponseEntity<Iterable<Supplier>> findAll() {
-        Iterable<Supplier> suppliers = supplierService.findAll();
+        Iterable<Supplier> suppliers = service.findAll();
         if (suppliers == null) {
             return new ResponseEntity<Iterable<Supplier>>(HttpStatus.NOT_FOUND);
         } else {
@@ -40,7 +40,7 @@ public class SupplierEndPoint {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Supplier> findByOneById(@PathVariable Long id) {
-        Supplier supplierFound = supplierService.findOneById(id);
+        Supplier supplierFound = service.findOneById(id);
         if (supplierFound == null) {
             return new ResponseEntity<Supplier>(HttpStatus.NOT_FOUND);
         } else {
@@ -51,7 +51,7 @@ public class SupplierEndPoint {
     // --> update
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Supplier> updateOneById(@PathVariable Long id, @RequestBody Supplier supplier) {
-        Supplier supplierToUpdate = supplierService.updateOneById(id, supplier);
+        Supplier supplierToUpdate = service.updateOneById(id, supplier);
         if (supplierToUpdate == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
@@ -60,13 +60,13 @@ public class SupplierEndPoint {
     }
 
     // --> delete
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Supplier> deleteOneById(@PathVariable Long id) {
-        Supplier supplierFound = supplierService.findOneById(id);
+        Supplier supplierFound = service.findOneById(id);
         if (supplierFound == null) {
             return new ResponseEntity<Supplier>(HttpStatus.NOT_FOUND);
         } else {
-            supplierService.deleteOneById(id);
+            service.deleteOneById(id);
             return new ResponseEntity<Supplier>(supplierFound, HttpStatus.OK);
         }
     }

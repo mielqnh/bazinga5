@@ -3,8 +3,6 @@ package be.mielnoelanders.bazinga.service;
 import be.mielnoelanders.bazinga.domain.Parameter;
 import be.mielnoelanders.bazinga.domain.ParameterEnum;
 import be.mielnoelanders.bazinga.repository.ParameterRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +16,6 @@ import java.util.Optional;
 public class ParameterServiceImpl implements ParameterService {
 
     // FIELDS
-    private static final Logger LOGGER = LoggerFactory.getLogger(ParameterService.class);
     private final ParameterRepository repo;
 
     // CONSTRUCTORS

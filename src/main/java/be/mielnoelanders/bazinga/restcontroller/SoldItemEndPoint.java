@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/customergames")
+@RequestMapping("/api/solditem")
 public class SoldItemEndPoint {
 
     // FIELDS
@@ -21,17 +21,16 @@ public class SoldItemEndPoint {
     }
 
     //METHODS
-    // --> init
     // --> create
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<SoldItem> insertCustomerGames(@RequestBody SoldItem soldItem) {
+    public ResponseEntity<SoldItem> addOne(@RequestBody SoldItem soldItem) {
         SoldItem test = service.addOne(soldItem);
         return new ResponseEntity<>(test, HttpStatus.CREATED);
     }
 
     // --> read
-    @RequestMapping(value = "/getall", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<SoldItem>> getAll() {
+    @RequestMapping(value = "/findall", method = RequestMethod.GET)
+    public ResponseEntity<Iterable<SoldItem>> findAll() {
 
         Iterable<SoldItem> customerGames = this.service.findAll();
 
@@ -43,7 +42,7 @@ public class SoldItemEndPoint {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<SoldItem> getById(@PathVariable Long id) {
+    public ResponseEntity<SoldItem> findOneById(@PathVariable Long id) {
         SoldItem result = this.service.findOneById(id);
 
         if (result == null) {
@@ -55,7 +54,7 @@ public class SoldItemEndPoint {
 
     // --> update
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<SoldItem> updateCustomerGames(@PathVariable Long id, @RequestBody SoldItem soldItem) {
+    public ResponseEntity<SoldItem> updateOneById(@PathVariable Long id, @RequestBody SoldItem soldItem) {
         SoldItem probably = service.updateOneById(id, soldItem);
         if (probably == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -66,9 +65,8 @@ public class SoldItemEndPoint {
 
     // --> delete
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<SoldItem> deleteById(@PathVariable Long id) {
+    public ResponseEntity<SoldItem> deleteOneById(@PathVariable Long id) {
         SoldItem result = service.deleteOneById(id);
-
         if (result == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {

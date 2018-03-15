@@ -12,25 +12,25 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerEndPoint {
 
     // FIELDS
-    private CustomerService customerService;
+    private CustomerService service;
 
     // CONSTRUCTORS
     @Autowired
-    public CustomerEndPoint(CustomerService customerService) {
-        this.customerService = customerService;
+    public CustomerEndPoint(CustomerService service) {
+        this.service = service;
     }
 
     // METHODS
     // --> create
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Customer> addOne(@RequestBody Customer customer) {
-        return new ResponseEntity<Customer>(customerService.addOne(customer), HttpStatus.CREATED);
+        return new ResponseEntity<>(service.addOne(customer), HttpStatus.CREATED);
     }
 
     // --> read
     @RequestMapping(value = "findall", method = RequestMethod.GET)
     public ResponseEntity<Iterable<Customer>> findAll() {
-        Iterable<Customer> customers = customerService.findAll();
+        Iterable<Customer> customers = service.findAll();
         if (customers == null) {
             return new ResponseEntity<Iterable<Customer>>(HttpStatus.NO_CONTENT);
         } else {
@@ -40,7 +40,7 @@ public class CustomerEndPoint {
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public ResponseEntity<Customer> findOneById(@PathVariable Long id) {
-        Customer customerFound = customerService.findOneById(id);
+        Customer customerFound = service.findOneById(id);
         if (customerFound == null) {
             return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
         } else {
@@ -51,7 +51,7 @@ public class CustomerEndPoint {
     // --> update
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Customer> updateOneById(@PathVariable Long id, @RequestBody Customer customer) {
-        Customer customerToUpdate = customerService.updateOneById(id, customer);
+        Customer customerToUpdate = service.updateOneById(id, customer);
         if (customerToUpdate == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
@@ -62,11 +62,11 @@ public class CustomerEndPoint {
     // --> delete
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Customer> deleteOneById(@PathVariable Long id) {
-        Customer customerFound = customerService.findOneById(id);
+        Customer customerFound = service.findOneById(id);
         if (customerFound == null) {
             return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
         } else {
-            customerService.deleteOneById(id);
+            service.deleteOneById(id);
             return new ResponseEntity<Customer>(customerFound, HttpStatus.OK);
         }
     }

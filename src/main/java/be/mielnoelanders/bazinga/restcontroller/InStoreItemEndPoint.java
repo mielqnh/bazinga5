@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/suppliergames")
+@RequestMapping("/api/instoreitem")
 public class InStoreItemEndPoint {
 
     // FIELDS
@@ -21,7 +21,6 @@ public class InStoreItemEndPoint {
     }
 
     // METHODS
-    // --> init
     // --> create
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<InStoreItem> addOne(@RequestBody InStoreItem inStoreItem) {
@@ -30,7 +29,7 @@ public class InStoreItemEndPoint {
     }
 
     // --> read
-    @RequestMapping(value = "/getall", method = RequestMethod.GET)
+    @RequestMapping(value = "/findall", method = RequestMethod.GET)
     public ResponseEntity<Iterable<InStoreItem>> findAll() {
 
         Iterable<InStoreItem> supplierGames = this.service.findAll();
