@@ -18,7 +18,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BazingaApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 
-public class SupplierEndPointIntegrationTestIT {
+public class SupplierEndPointIT {
 
     private static final String BASE_URI = "/api/supplier";
 
@@ -47,11 +47,11 @@ public class SupplierEndPointIntegrationTestIT {
         httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
         ResponseEntity<Supplier> responseEntityAddOne = testRestTemplate.postForEntity(createURLWithPort(BASE_URI + "/"), entityAddOne, Supplier.class);
         checkBodyAndHttpStatusResponseEntity(responseEntityAddOne, 1, HttpStatus.CREATED);
-        assertThat(responseEntityAddOne.getBody().getName()).isEqualToIgnoringCase("new Supplier");
+        assertThat(responseEntityAddOne.getBody().getName()).isEqualToIgnoringCase("New Supplier");
         Long newId = responseEntityAddOne.getBody().getId();
 
-        //test findAll() : list must contain miminmal 1 supplier
-        ResponseEntity<Iterable> iterableResponseEntity = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/getall"), Iterable.class);
+        //test findAll() : list must contain minimal 1 supplier
+        ResponseEntity<Iterable> iterableResponseEntity = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/findall"), Iterable.class);
         checkBodyAndHttpStatusResponseEntity(iterableResponseEntity, 1, HttpStatus.OK);
         assertThat((List) iterableResponseEntity.getBody()).size().isGreaterThanOrEqualTo(1);
 
