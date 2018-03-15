@@ -21,17 +21,18 @@ public class GameEndPoint {
     }
 
     // METHODS
+    // --> init
     // --> create
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Game> insertGame(@RequestBody Game game) {
-        Game test = service.saveGame(game);
+    public ResponseEntity<Game> addOne(@RequestBody Game game) {
+        Game test = service.addOne(game);
         return new ResponseEntity<>(test, HttpStatus.CREATED);
     }
 
     // --> read
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Game> getById(@PathVariable Long id) {
-        Game result = this.service.findGameById(id);
+    public ResponseEntity<Game> getOneById(@PathVariable Long id) {
+        Game result = this.service.findOneById(id);
 
         if (result == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -40,10 +41,10 @@ public class GameEndPoint {
         }
     }
 
-    @RequestMapping(value = "/getall", method = RequestMethod.GET)
+    @RequestMapping(value = "/findall", method = RequestMethod.GET)
     public ResponseEntity<Iterable<Game>> getAll() {
 
-        Iterable<Game> games = this.service.findAllGames();
+        Iterable<Game> games = this.service.findAll();
 
         if (games == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -54,8 +55,8 @@ public class GameEndPoint {
 
     // --> update
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Game> updateGame(@PathVariable Long id, @RequestBody Game game) {
-        Game probably = service.updateGame(id, game);
+    public ResponseEntity<Game> updateOneById(@PathVariable Long id, @RequestBody Game game) {
+        Game probably = service.updateOneById(id, game);
         if (probably == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
@@ -65,8 +66,8 @@ public class GameEndPoint {
 
     // --> delete
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Game> deleteById(@PathVariable Long id) {
-        Game result = service.deleteGameById(id);
+    public ResponseEntity<Game> deleteOneById(@PathVariable Long id) {
+        Game result = service.deleteOneById(id);
 
         if (result == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -76,9 +77,9 @@ public class GameEndPoint {
     }
 
     // --> others
-    @RequestMapping(value = "/findtitle/{title}", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Game>> lookUpByTitle(@PathVariable String title){
-        Iterable<Game> game = service.findGameByTitle(title);
+    @RequestMapping(value = "/findonebytitle/{title}", method = RequestMethod.GET)
+    public ResponseEntity<Iterable<Game>> findOneByTitle(@PathVariable String title){
+        Iterable<Game> game = service.findOneByTitle(title);
         if(game == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }else{

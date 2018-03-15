@@ -50,7 +50,7 @@ public class InStoreItemServiceUnitTest {
     @Test
     public void insertGameTest() {
         Mockito.when(this.repository.save(inStoreItem1)).thenReturn(inStoreItem1);
-        InStoreItem resultFromService = this.gameService.insertSupplierGames(inStoreItem1);
+        InStoreItem resultFromService = this.gameService.addOne(inStoreItem1);
         assertThat(resultFromService.getDate()).isEqualToIgnoringCase("23/01/2018");
         Mockito.verify(this.repository, Mockito.times(1)).save(inStoreItem1);
     }
@@ -59,7 +59,7 @@ public class InStoreItemServiceUnitTest {
     @Test
     public void getOneTest() {
         Mockito.when(this.repository.findById(3L)).thenReturn(supplierGamesOptional1);
-        InStoreItem resultFromService = this.gameService.getOne(3L);
+        InStoreItem resultFromService = this.gameService.findOneById(3L);
         assertEquals("23/01/2018", resultFromService.getDate());
         Mockito.verify(this.repository, Mockito.times(1)).findById(3L);
     }
@@ -67,7 +67,7 @@ public class InStoreItemServiceUnitTest {
     @Test
     public void getAllTest() {
         Mockito.when(this.repository.findAll()).thenReturn(inStoreItemList);
-        Iterable<InStoreItem> resultFromService = this.gameService.getAll();
+        Iterable<InStoreItem> resultFromService = this.gameService.findAll();
         InStoreItem resultFromIterator = resultFromService.iterator().next();
         assertThat(resultFromIterator.getDate()).isEqualToIgnoringCase("23/01/2018");
         Mockito.verify(this.repository, Mockito.times(1)).findAll();
@@ -79,7 +79,7 @@ public class InStoreItemServiceUnitTest {
 
         Mockito.when(this.repository.findById(1L)).thenReturn(supplierGamesOptional1);
         Mockito.when(this.repository.save(inStoreItem1)).thenReturn(inStoreItem1);
-        InStoreItem resultFromService = this.gameService.changeSupplierGames(1L, inStoreItem1);
+        InStoreItem resultFromService = this.gameService.updateOneById(1L, inStoreItem1);
         assertEquals("23/01/2018", resultFromService.getDate());
         Mockito.verify(this.repository, Mockito.times(1)).findById(1L);
         Mockito.verify(this.repository, Mockito.times(1)).save(inStoreItem1);
@@ -89,7 +89,7 @@ public class InStoreItemServiceUnitTest {
     @Test
     public void deleteByIdMetSpelTest() {
         Mockito.when(this.repository.findById(1L)).thenReturn(supplierGamesOptional1);
-        InStoreItem resultFromService = this.gameService.deleteById(1L);
+        InStoreItem resultFromService = this.gameService.deleteOneById(1L);
         assertEquals("23/01/2018", resultFromService.getDate());
         Mockito.verify(this.repository, Mockito.times(1)).deleteById(1L);
     }
@@ -97,7 +97,7 @@ public class InStoreItemServiceUnitTest {
     @Test
     public void deleteByIdSpelNietAanwezigTest() {
         Mockito.when(this.repository.findById(1L)).thenReturn(Optional.ofNullable(null));
-        InStoreItem resultFromService = this.gameService.deleteById(1L);
+        InStoreItem resultFromService = this.gameService.deleteOneById(1L);
         assertEquals(null, resultFromService);
         Mockito.verify(this.repository, Mockito.times(0)).deleteById(1L);
     }

@@ -4,39 +4,17 @@ import be.mielnoelanders.bazinga.domain.InStoreItem;
 
 public interface InStoreItemService {
 
+    // --> create
+    InStoreItem addOne(InStoreItem inStoreItem);
 
-// --> create (addOne)
+    // --> read
+    Iterable<InStoreItem> findAll();
 
+    InStoreItem findOneById(Long id);
 
+    // --> update
+    InStoreItem updateOneById(Long id, InStoreItem inStoreItem);
 
-// --> read (findAll & findOneById)
-
-
-
-// --> update (updateOneById)
-
-
-
-// --> delete (deleteOneById)
-
-
-
-// --> others (Bla)
-
-
-
-    Iterable<InStoreItem> getAll();
-
-    //getById()
-    InStoreItem getOne(Long id);
-
-    //delete()
-    InStoreItem deleteById(Long id);
-
-    //create()
-    InStoreItem insertSupplierGames(InStoreItem inStoreItem);
-
-    //update()
-    InStoreItem changeSupplierGames(Long id, InStoreItem inStoreItem);
-
+    // --> delete
+    InStoreItem deleteOneById(Long id);
 }

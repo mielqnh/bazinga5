@@ -48,7 +48,7 @@ public class SupplierServiceUnitTest {
     @Test
     public void testFindById() {
         when(this.supplierRepository.findById(2L)).thenReturn(optionalSupplier);
-        Supplier supplierFromService = supplierService.findById(2L);
+        Supplier supplierFromService = supplierService.findOneById(2L);
         assertThat(supplierFromService.getName()).isEqualTo("testsupplier2");
         verify(supplierRepository, times(1)).findById(2L);
     }
@@ -76,7 +76,7 @@ public class SupplierServiceUnitTest {
     @Test
     public void testDeleteById() {
         when(supplierRepository.existsById(3L)).thenReturn(true);
-        supplierService.deleteById(3L);
+        supplierService.deleteOneById(3L);
         verify(supplierRepository, times(1)).existsById(3L);
         verify(supplierRepository, times(1)).deleteById(3L);
     }
@@ -85,7 +85,7 @@ public class SupplierServiceUnitTest {
     public void testUpdateOne() {
         when(supplierRepository.findById(2L)).thenReturn(optionalSupplier);
         when(supplierRepository.save(optionalSupplier.get())).thenReturn(supplier3);
-        Supplier updatedSupplier = supplierService.updateOne(2L, optionalSupplier.get());
+        Supplier updatedSupplier = supplierService.updateOneById(2L, optionalSupplier.get());
         System.out.println("Updated supplier = " + updatedSupplier);
         assertThat(updatedSupplier.getName()).isEqualTo("testsupplier3");
         verify(supplierRepository, times(1)).findById(2L);

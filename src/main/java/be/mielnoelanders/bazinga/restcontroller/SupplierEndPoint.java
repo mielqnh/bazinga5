@@ -18,13 +18,15 @@ public class SupplierEndPoint {
         this.supplierService = supplierService;
     }
 
+    // --> create
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Supplier> addOne(@RequestBody Supplier supplier) {
         return new ResponseEntity<Supplier>(supplierService.addOne(supplier), HttpStatus.CREATED);
     }
 
+    // --> read
     @RequestMapping(value = "getall", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Supplier>> getAll() {
+    public ResponseEntity<Iterable<Supplier>> findAll() {
         Iterable<Supplier> suppliers = supplierService.findAll();
         if (suppliers == null) {
             return new ResponseEntity<Iterable<Supplier>>(HttpStatus.NOT_FOUND);
@@ -34,21 +36,34 @@ public class SupplierEndPoint {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public ResponseEntity<Supplier> findById(@PathVariable Long id) {
-        Supplier supplierFound = supplierService.findById(id);
+    public ResponseEntity<Supplier> findByOneById(@PathVariable Long id) {
+        Supplier supplierFound = supplierService.findOneById(id);
         if (supplierFound == null) {
             return new ResponseEntity<Supplier>(HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<Supplier>(supplierFound, HttpStatus.OK);
         }
     }
+
+    // --> update
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Supplier> updateOneById(@PathVariable Long id, @RequestBody Supplier supplier) {
+        Supplier supplierToUpdate = supplierService.updateOneById(id, supplier);
+        if (supplierToUpdate == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(supplierToUpdate, HttpStatus.OK);
+        }
+    }
+
+    // --> delete
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Supplier> deleteById(@PathVariable Long id) {
-        Supplier supplierFound = supplierService.findById(id);
+    public ResponseEntity<Supplier> deleteOneById(@PathVariable Long id) {
+        Supplier supplierFound = supplierService.findOneById(id);
         if (supplierFound == null) {
             return new ResponseEntity<Supplier>(HttpStatus.NOT_FOUND);
         } else {
-            supplierService.deleteById(id);
+            supplierService.deleteOneById(id);
             return new ResponseEntity<Supplier>(supplierFound, HttpStatus.OK);
         }
     }

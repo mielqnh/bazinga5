@@ -16,29 +16,18 @@ import java.util.Optional;
 @Transactional
 public class GameServiceImpl implements GameService {
 
+    // FIELDS
     private static final Logger LOGGER = LoggerFactory.getLogger(GameService.class);
+    private final GameRepository repository;
 
-    // --> create (addOne)
-
-
-
-// --> read (findAll & findOneById)
-
-
-
-// --> update (updateOneById)
-
-
-
-// --> delete (deleteOneById)
-
-
-
-// --> others (Bla)
-
+    // CONSTRUCTORS
     @Autowired
-    private GameRepository repository;
+    public GameServiceImpl(GameRepository repository) {
+        this.repository = repository;
+    }
 
+    // METHODS
+    // --> init
     @PostConstruct
     public void init() {
 
@@ -96,20 +85,40 @@ public class GameServiceImpl implements GameService {
         this.repository.saveAll(Arrays.asList(game1, game2, game3));
     }
 
+    // --> create
     @Override
-    public Iterable<Game> findAllGames() {
+    public Game addOne(Game game) {
+        return repository.save(game);
+    }
+
+    // --> read
+    @Override
+    public Iterable<Game> findAll() {
         return repository.findAll();
     }
 
     @Override
-    public Game findGameById(Long id) {
+    public Game findOneById(Long id) {
         Optional<Game> result = repository.findById(id);
         return result.orElse(null);
     }
 
+    // --> update
     @Override
-    public Game deleteGameById(Long id) {
-        Game game = findGameById(id);
+    public Game updateOneById(Long id, Game game) {
+        Game gameToChange = findOneById(id);
+        if (gameToChange == null) {
+            return null;
+        } else {
+            gameToChange.setTitle(game.getTitle());
+            return repository.save(gameToChange);
+        }
+    }
+
+    // --> delete
+    @Override
+    public Game deleteOneById(Long id) {
+        Game game = findOneById(id);
         if (game == null) {
             return null;
         } else {
@@ -118,24 +127,9 @@ public class GameServiceImpl implements GameService {
         }
     }
 
+    // --> others
     @Override
-    public Game saveGame(Game game) {
-        return repository.save(game);
-    }
-
-    @Override
-    public Game updateGame(Long id, Game game) {
-        Game gameToChange = findGameById(id);
-        if(gameToChange == null){
-            return null;
-        }else{
-            gameToChange.setTitle(game.getTitle());
-            return repository.save(gameToChange);
-        }
-    }
-
-    @Override
-    public Iterable<Game> findGameByTitle(String title) {
+    public Iterable<Game> findOneByTitle(String title) {
         return repository.findByTitle(title);
     }
 }

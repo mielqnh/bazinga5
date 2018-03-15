@@ -4,41 +4,17 @@ import be.mielnoelanders.bazinga.domain.SoldItem;
 
 public interface SoldItemService {
 
+    // --> create
+    SoldItem addOne(SoldItem soldItem);
 
+    // --> read
+    Iterable<SoldItem> findAll();
 
-    SoldItem saveCustomerGames(SoldItem soldItem);
+    SoldItem findOneById(Long id);
 
-// --> create (addOne)
+    // --> update
+    SoldItem updateOneById(Long id, SoldItem soldItem);
 
-
-
-// --> read (findAll & findOneById)
-
-
-
-// --> update (updateOneById)
-
-
-
-// --> delete (deleteOneById)
-
-
-
-// --> others (Bla)
-
-
-
-
-    Iterable<SoldItem> getAll();
-
-    //getById()
-    SoldItem getOne(Long id);
-
-    //delete()
-    SoldItem deleteById(Long id);
-
-
-    //update()
-    SoldItem changeCustomerGames(Long id, SoldItem soldItem);
-
+    // --> delete
+    SoldItem deleteOneById(Long id);
 }
