@@ -4,37 +4,21 @@ import be.mielnoelanders.bazinga.domain.Customer;
 
 public interface CustomerService {
 
-
-    // --> create (addOne)
-
-
-
-// --> read (findAll & findOneById)
-
-
-
-// --> update (updateOneById)
-
-
-
-// --> delete (deleteOneById)
-
-
-
-// --> others (Bla)
-
-
     // --> create
-    Customer addCustomer(Customer customer);
+    Customer addOne(Customer customer);
 
-    // --> read (findAllBla & findBlaById)
-    Iterable<Customer> findAllCustomers();
 
-    Customer findCustomerById(Long id);
+    // --> read
+    Iterable<Customer> findAll();
 
-    // --> update (updateBla)
-    Customer updateCustomerById(Long id, Customer customer);
+    Customer findOneById(Long id);
 
-    // --> delete (deleteBlaById)
-    void deleteCustomerById(Long id);
+    // --> update
+    Customer updateOneById(Long id, Customer customer);
+
+    // --> delete
+    void deleteOneById(Long id);
+
+// --> others
+
 }

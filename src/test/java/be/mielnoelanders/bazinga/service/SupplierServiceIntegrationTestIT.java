@@ -27,17 +27,17 @@ public class SupplierServiceIntegrationTestIT {// de naam van een integratietest
         Assert.assertFalse(newId == 0);
 
         //test read supplier
-        Supplier readSupplier = supplierService.findById(newId);
+        Supplier readSupplier = supplierService.findOneById(newId);
         Assert.assertEquals(newSupplier.getName(), readSupplier.getName());
 
         //test update supplier
         readSupplier.setName("Supplier updated");
-        Supplier updatedSupplier = supplierService.updateOne(newId, readSupplier);
+        Supplier updatedSupplier = supplierService.updateOneById(newId, readSupplier);
         Assert.assertEquals("Supplier updated", updatedSupplier.getName());
 
         //test delete supplier
-        supplierService.deleteById(newId);
-        Assert.assertNull(supplierService.findById(newId));
+        supplierService.deleteOneById(newId);
+        Assert.assertNull(supplierService.findOneById(newId));
 
     }
 }

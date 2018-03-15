@@ -23,21 +23,21 @@ public class CustomerServiceIntegrationTestIT {// de naam van een integratietest
         newCustomer.setFirstName("New Customer Firstname");
 
         //test create customer
-        Customer insertedCustomer = customerService.addCustomer(newCustomer);
+        Customer insertedCustomer = customerService.addOne(newCustomer);
         long newId = insertedCustomer.getId();
         Assert.assertFalse(newId == 0);
 
         //test read customer
-        Customer readCustomer = customerService.findCustomerById(newId);
+        Customer readCustomer = customerService.findOneById(newId);
         Assert.assertEquals(newCustomer.getName(), readCustomer.getName());
 
         //test update customer
         readCustomer.setName("Supplier updated");
-        Customer updatedCustomer = customerService.updateCustomerById(newId, readCustomer);
+        Customer updatedCustomer = customerService.updateOneById(newId, readCustomer);
         Assert.assertEquals("Supplier updated", updatedCustomer.getName());
 
         //test delete customer
-        customerService.deleteCustomerById(newId);
-        Assert.assertNull(customerService.findCustomerById(newId));
+        customerService.deleteOneById(newId);
+        Assert.assertNull(customerService.findOneById(newId));
     }
 }
