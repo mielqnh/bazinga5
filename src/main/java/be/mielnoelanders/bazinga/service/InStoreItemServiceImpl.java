@@ -16,29 +16,18 @@ import java.util.Optional;
 @Transactional
 public class InStoreItemServiceImpl implements InStoreItemService {
 
+    // FIELDS
     private static final Logger LOGGER = LoggerFactory.getLogger(GameService.class);
+    private final InStoreItemRepository repository;
 
-    // --> create (addOne)
-
-
-
-// --> read (findAll & findOneById)
-
-
-
-// --> update (updateOneById)
-
-
-
-// --> delete (deleteOneById)
-
-
-
-// --> others (Bla)
-
+    // CONSTRUCTORS
     @Autowired
-    private InStoreItemRepository repository;
+    public InStoreItemServiceImpl(InStoreItemRepository repository) {
+        this.repository = repository;
+    }
 
+    // METHODS
+    // --> init
     @PostConstruct
     public void init() {
 
@@ -113,41 +102,45 @@ public class InStoreItemServiceImpl implements InStoreItemService {
 
     }
 
+    // --> create
     @Override
-    public Iterable<InStoreItem> getAll() {
+    public InStoreItem addOne(InStoreItem inStoreItem) {
+        return repository.save(inStoreItem);
+    }
+
+    // --> read
+    @Override
+    public Iterable<InStoreItem> findAll() {
         return repository.findAll();
     }
 
     @Override
-    public InStoreItem getOne(Long id) {
+    public InStoreItem findOneById(Long id) {
         Optional<InStoreItem> result = repository.findById(id);
         return result.orElse(null);
     }
 
+    // --> update
     @Override
-    public InStoreItem deleteById(Long id) {
-        InStoreItem inStoreItem = getOne(id);
+    public InStoreItem updateOneById(Long id, InStoreItem inStoreItem) {
+        InStoreItem inStoreItemToChange = findOneById(id);
+        if (inStoreItemToChange == null) {
+            return null;
+        } else {
+            inStoreItemToChange.setDate(inStoreItem.getDate());
+            return repository.save(inStoreItemToChange);
+        }
+    }
+
+    // --> delete
+    @Override
+    public InStoreItem deleteOneById(Long id) {
+        InStoreItem inStoreItem = findOneById(id);
         if (inStoreItem == null) {
             return null;
         } else {
             repository.deleteById(id);
             return inStoreItem;
-        }
-    }
-
-    @Override
-    public InStoreItem insertSupplierGames(InStoreItem inStoreItem) {
-        return repository.save(inStoreItem);
-    }
-
-    @Override
-    public InStoreItem changeSupplierGames(Long id, InStoreItem inStoreItem) {
-        InStoreItem inStoreItemToChange = getOne(id);
-        if(inStoreItemToChange == null){
-            return null;
-        }else{
-            inStoreItemToChange.setDate(inStoreItem.getDate());
-            return repository.save(inStoreItemToChange);
         }
     }
 }

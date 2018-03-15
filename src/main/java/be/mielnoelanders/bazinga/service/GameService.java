@@ -4,39 +4,20 @@ import be.mielnoelanders.bazinga.domain.Game;
 
 public interface GameService {
 
-    // --> create (addOne)
-
-
-
-// --> read (findAll & findOneById)
-
-
-
-// --> update (updateOneById)
-
-
-
-// --> delete (deleteOneById)
-
-
-
-// --> others (Bla)
-
-
     // --> create
-    Game saveGame(Game game);
+    Game addOne(Game game);
 
     // --> read
-    Iterable<Game> findAllGames();
+    Iterable<Game> findAll();
 
-    Game findGameById(Long id);
+    Game findOneById(Long id);
 
     // --> update
-    Game updateGame(Long id, Game game);
+    Game updateOneById(Long id, Game game);
 
     // --> delete
-    Game deleteGameById(Long id);
+    Game deleteOneById(Long id);
 
     // --> others
-    Iterable<Game> findGameByTitle(String title);
+    Iterable<Game> findOneByTitle(String title);
 }
