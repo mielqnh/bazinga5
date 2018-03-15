@@ -5,6 +5,25 @@ import be.mielnoelanders.bazinga.domain.Customer;
 public interface CustomerService {
 
 
+    // --> create (addOne)
+
+
+
+// --> read (findAll & findOneById)
+
+
+
+// --> update (updateOneById)
+
+
+
+// --> delete (deleteOneById)
+
+
+
+// --> others (Bla)
+
+
     // --> create
     Customer addCustomer(Customer customer);
 

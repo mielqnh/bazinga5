@@ -18,6 +18,25 @@ public class ParameterServiceImpl implements ParameterService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ParameterService.class);
 
+    // --> create (addOne)
+
+
+
+// --> read (findAll & findOneById)
+
+
+
+// --> update (updateOneById)
+
+
+
+// --> delete (deleteOneById)
+
+
+
+// --> others (Bla)
+
+
     @Autowired
     private ParameterRepository repo;
 

@@ -18,6 +18,24 @@ public class GameServiceImpl implements GameService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GameService.class);
 
+    // --> create (addOne)
+
+
+
+// --> read (findAll & findOneById)
+
+
+
+// --> update (updateOneById)
+
+
+
+// --> delete (deleteOneById)
+
+
+
+// --> others (Bla)
+
     @Autowired
     private GameRepository repository;
 

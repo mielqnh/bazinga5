@@ -4,6 +4,25 @@ import be.mielnoelanders.bazinga.domain.Game;
 
 public interface GameService {
 
+    // --> create (addOne)
+
+
+
+// --> read (findAll & findOneById)
+
+
+
+// --> update (updateOneById)
+
+
+
+// --> delete (deleteOneById)
+
+
+
+// --> others (Bla)
+
+
     // --> create
     Game saveGame(Game game);
 

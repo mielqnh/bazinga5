@@ -12,6 +12,24 @@ import java.util.Optional;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
+    // --> create (addOne)
+
+
+
+// --> read (findAll & findOneById)
+
+
+
+// --> update (updateOneById)
+
+
+
+// --> delete (deleteOneById)
+
+
+
+// --> others (Bla)
+
     private CustomerRepository customerRepository;
 
     @Autowired

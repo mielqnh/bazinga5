@@ -18,6 +18,24 @@ public class PublisherServiceImpl implements PublisherService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PublisherService.class);
 
+    // --> create (addOne)
+
+
+
+// --> read (findAll & findOneById)
+
+
+
+// --> update (updateOneById)
+
+
+
+// --> delete (deleteOneById)
+
+
+
+// --> others (Bla)
+
     @Autowired
     private PublisherRepository repo;
 

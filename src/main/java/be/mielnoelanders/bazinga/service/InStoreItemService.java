@@ -5,26 +5,23 @@ import be.mielnoelanders.bazinga.domain.InStoreItem;
 public interface InStoreItemService {
 
 
-// --> create (saveBla)
+// --> create (addOne)
 
 
 
-// --> read (findAllBla & findBlaById)
+// --> read (findAll & findOneById)
 
 
 
-// --> update (updateBla)
+// --> update (updateOneById)
 
 
 
-// --> delete (deleteBlaById)
+// --> delete (deleteOneById)
 
 
 
-// --> others (findBlaByBuh)
-
-
-
+// --> others (Bla)
 
 
 

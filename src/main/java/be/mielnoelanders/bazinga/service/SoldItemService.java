@@ -5,23 +5,26 @@ import be.mielnoelanders.bazinga.domain.SoldItem;
 public interface SoldItemService {
 
 
-    // --> create (saveBla)
+
     SoldItem saveCustomerGames(SoldItem soldItem);
 
-
-// --> read (findAllBla & findBlaById)
-
-
-
-// --> update (updateBla)
+// --> create (addOne)
 
 
 
-// --> delete (deleteBlaById)
+// --> read (findAll & findOneById)
 
 
 
-// --> others (findBlaByBuh)
+// --> update (updateOneById)
+
+
+
+// --> delete (deleteOneById)
+
+
+
+// --> others (Bla)
 
 
 

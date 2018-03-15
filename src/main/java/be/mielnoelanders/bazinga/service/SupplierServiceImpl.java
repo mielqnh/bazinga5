@@ -12,6 +12,24 @@ import java.util.Optional;
 @Service
 public class SupplierServiceImpl implements SupplierService {
 
+    // --> create (addOne)
+
+
+
+// --> read (findAll & findOneById)
+
+
+
+// --> update (updateOneById)
+
+
+
+// --> delete (deleteOneById)
+
+
+
+// --> others (Bla)
+
     private SupplierRepository supplierRepository;
 
     @Autowired
