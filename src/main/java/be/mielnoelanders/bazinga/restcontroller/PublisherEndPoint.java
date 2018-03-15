@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.*;
 public class PublisherEndPoint {
 
     @Autowired
-    private PublisherService publisherService;
+    private PublisherService service;
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Publisher> addOne(@RequestBody Publisher publisher) {
-        Publisher publisherAdd = publisherService.addOne(publisher);
+        Publisher publisherAdd = service.addOne(publisher);
         return new ResponseEntity<>(publisherAdd, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/getall", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Publisher>> getAll() {
-        Iterable<Publisher> publisherGetAll = this.publisherService.findAll();
+    @RequestMapping(value = "/findall", method = RequestMethod.GET)
+    public ResponseEntity<Iterable<Publisher>> findAll() {
+        Iterable<Publisher> publisherGetAll = this.service.findAll();
 
         if (publisherGetAll == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -31,9 +31,9 @@ public class PublisherEndPoint {
         }
     }
 
-    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
-    public ResponseEntity<Publisher> findByName(@PathVariable String name) {
-        Publisher publisherFind = this.publisherService.findByName(name);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Publisher> findOneById(@PathVariable Long id) {
+        Publisher publisherFind = this.service.findOneById(id);
 
         if (publisherFind == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -42,10 +42,9 @@ public class PublisherEndPoint {
         }
     }
 
-
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Publisher> updateOneById(@PathVariable Long id, @RequestBody Publisher publisher) {
-        Publisher probably = publisherService.updateOneById(id, publisher);
+        Publisher probably = service.updateOneById(id, publisher);
         if (probably == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
@@ -53,7 +52,23 @@ public class PublisherEndPoint {
         }
     }
 
-    // Deze krijg ik niet aan het werk. Je geeft ook niet mee welke je wil veranderen.
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Publisher> deleteOneById(@PathVariable Long id) {
+        boolean publisherDelete = service.deleteOneById(id);
+
+        if (publisherDelete) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+}
+
+
+
+
+
+// Deze krijg ik niet aan het werk. Je geeft ook niet mee welke je wil veranderen.
 /*    @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public ResponseEntity<Publisher> updatePublisherByName(@RequestBody Publisher publisher) {
         boolean publisherUpdate = publisherService.updatePublisherByName(publisher);
@@ -64,15 +79,3 @@ public class PublisherEndPoint {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }*/
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Publisher> deletePublisher(@PathVariable Long id) {
-        boolean publisherDelete = publisherService.deleteOneById(id);
-
-        if (publisherDelete) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-}

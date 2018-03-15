@@ -2,8 +2,6 @@ package be.mielnoelanders.bazinga.service;
 
 import be.mielnoelanders.bazinga.domain.Publisher;
 import be.mielnoelanders.bazinga.repository.PublisherRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +15,6 @@ import java.util.Optional;
 public class PublisherServiceImpl implements PublisherService {
 
     // FIELDS
-    private static final Logger LOGGER = LoggerFactory.getLogger(PublisherService.class);
     private final PublisherRepository repo;
 
     // CONSTRUCTORS

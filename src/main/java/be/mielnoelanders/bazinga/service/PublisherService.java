@@ -3,6 +3,7 @@ package be.mielnoelanders.bazinga.service;
 import be.mielnoelanders.bazinga.domain.Publisher;
 
 public interface PublisherService {
+
     // --> create
     Publisher addOne(Publisher publisher);
 
@@ -18,7 +19,6 @@ public interface PublisherService {
     boolean deleteOneById(Long id);
 
     // --> others
-    // boolean updatePublisherByName(Publisher publisher);
 
     Publisher findByName(String name);
 }
