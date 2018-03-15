@@ -1,21 +1,20 @@
 package be.mielnoelanders.bazinga.service;
 
 import be.mielnoelanders.bazinga.domain.Parameter;
-import be.mielnoelanders.bazinga.domain.ParameterEnum;
 
 public interface ParameterService {
 
-// --> create
+    // --> create
     Parameter addOne(Parameter parameter);
 
-// --> read
+    // --> read
     Iterable<Parameter> findAll();
 
     Parameter findOneById(long id);
 
-// --> update
+    // --> update
     Parameter updateOneById(Long id, Parameter parameter);
 
-// --> delete
+    // --> delete
     boolean deleteOneById(Long id);
 }

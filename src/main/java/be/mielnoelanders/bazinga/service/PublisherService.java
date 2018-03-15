@@ -1,48 +1,23 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.Parameter;
 import be.mielnoelanders.bazinga.domain.Publisher;
 
 public interface PublisherService {
-
-
-// --> create (addOne)
-
-
-
-// --> read (findAll & findOneById)
-
-
-
-// --> update (updateOneById)
-
-
-
-// --> delete (deleteOneById)
-
-
-
-// --> others (Bla)
-
-
-
-
-
-// --> create
+    // --> create
     Publisher addOne(Publisher publisher);
 
-// --> read
+    // --> read
     Iterable<Publisher> findAll();
 
     Publisher findOneById(Long id);
 
-// --> update
+    // --> update
     Publisher updateOneById(Long id, Publisher publisher);
 
-// --> delete
+    // --> delete
     boolean deleteOneById(Long id);
 
-// --> others
+    // --> others
     // boolean updatePublisherByName(Publisher publisher);
 
     Publisher findByName(String name);

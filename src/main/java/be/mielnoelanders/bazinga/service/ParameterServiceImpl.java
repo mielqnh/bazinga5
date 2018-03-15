@@ -1,6 +1,5 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.Game;
 import be.mielnoelanders.bazinga.domain.Parameter;
 import be.mielnoelanders.bazinga.domain.ParameterEnum;
 import be.mielnoelanders.bazinga.repository.ParameterRepository;
@@ -18,34 +17,41 @@ import java.util.Optional;
 @Transactional
 public class ParameterServiceImpl implements ParameterService {
 
+    // FIELDS
     private static final Logger LOGGER = LoggerFactory.getLogger(ParameterService.class);
+    private final ParameterRepository repo;
 
+    // CONSTRUCTORS
     @Autowired
-    private ParameterRepository repo;
-
-    @PostConstruct
-    public void init(){
-
-        Parameter parm1 = new Parameter();
-            parm1.setType(ParameterEnum.PROFITMARGIN);
-            parm1.setPercentage(30);
-        Parameter parm2 = new Parameter();
-            parm2.setType(ParameterEnum.PREMIUMCUSTOMER);
-            parm2.setPercentage(10);
-        Parameter parm3 = new Parameter();
-            parm3.setType(ParameterEnum.DAMAGEDISCOUNT);
-            parm3.setPercentage(20);
-
-        this.repo.saveAll(Arrays.asList(parm1,parm2,parm3));
+    public ParameterServiceImpl(ParameterRepository repo) {
+        this.repo = repo;
     }
 
-// --> create
+    // METHODS
+    // --> init
+    @PostConstruct
+    public void init() {
+
+        Parameter parm1 = new Parameter();
+        parm1.setType(ParameterEnum.PROFITMARGIN);
+        parm1.setPercentage(30);
+        Parameter parm2 = new Parameter();
+        parm2.setType(ParameterEnum.PREMIUMCUSTOMER);
+        parm2.setPercentage(10);
+        Parameter parm3 = new Parameter();
+        parm3.setType(ParameterEnum.DAMAGEDISCOUNT);
+        parm3.setPercentage(20);
+
+        this.repo.saveAll(Arrays.asList(parm1, parm2, parm3));
+    }
+
+    // --> create
     @Override
     public Parameter addOne(Parameter parameter) {
         return repo.save(parameter);
     }
 
-// --> read
+    // --> read
     @Override
     public Iterable<Parameter> findAll() {
         return this.repo.findAll();
@@ -57,18 +63,18 @@ public class ParameterServiceImpl implements ParameterService {
         return result.orElse(null);
     }
 
-// --> update
+    // --> update
     @Override
     public Parameter updateOneById(Long id, Parameter parameter) {
         Parameter parmToChange = findOneById(id);
-        if(parmToChange == null){
+        if (parmToChange == null) {
             return null;
-        }else{
+        } else {
             return repo.save(parameter);
         }
     }
 
-// --> delete
+    // --> delete
     @Override
     public boolean deleteOneById(Long id) {
         if (this.repo.existsById(id)) {
