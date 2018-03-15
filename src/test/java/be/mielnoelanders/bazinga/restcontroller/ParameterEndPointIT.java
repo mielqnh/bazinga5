@@ -63,7 +63,8 @@ public class ParameterEndPointIT {
         ResponseEntity<String> responseDelete = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/" + newId),
                 HttpMethod.DELETE, entityDeleteById, String.class);
         checkBodyAndHttpStatusResponseEntity(responseDelete, 1, HttpStatus.OK);
-        //try to lookup new cutomer with id=newId that is deleted
+
+        //try to lookup new customer with id=newId that is deleted
         ResponseEntity<Parameter> responseEntityFind = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/" + newId), Parameter.class);
         checkBodyAndHttpStatusResponseEntity(responseEntityFind, 0, HttpStatus.NOT_FOUND);
     }

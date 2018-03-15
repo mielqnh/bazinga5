@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class GameServiceIT {
 
     @Autowired
-    private GameService gameService;
+    private GameService service;
 
     @Test
     public void createReadUpdateDeleteTestIT(){//De IT toevoeging zorgt ervoor dat dat de test later in de buildfase gerund wordt.
@@ -25,23 +25,23 @@ public class GameServiceIT {
         Game testGame1 = game1.build();
 
         // CREATE TEST
-        Game inserted = this.gameService.addOne(testGame1);
+        Game inserted = this.service.addOne(testGame1);
         assertTrue(inserted.getTitle().equals("testgame1"));
         assertFalse(inserted.getId()==0);
         Long id = inserted.getId();
 
         // READ TEST
-        Game foundWithGetOne = this.gameService.findOneById(id);
+        Game foundWithGetOne = this.service.findOneById(id);
         assertEquals("Id komt niet overeen",inserted.getTitle(), foundWithGetOne.getTitle());
 
         // UPDATE TEST
         foundWithGetOne.setTitle("Change");
-        Game foundAfterSave = this.gameService.updateOneById(id,foundWithGetOne);
+        Game foundAfterSave = this.service.updateOneById(id,foundWithGetOne);
         assertEquals("Melding komt niet overeen","Change",foundAfterSave.getTitle());
 
         // DELETE TEST
-        this.gameService.deleteOneById(id);
-        assertNull(this.gameService.findOneById(id));
+        this.service.deleteOneById(id);
+        assertNull(this.service.findOneById(id));
     }
 
 }

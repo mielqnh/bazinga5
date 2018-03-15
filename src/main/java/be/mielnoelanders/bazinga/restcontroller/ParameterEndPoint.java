@@ -59,12 +59,12 @@ public class ParameterEndPoint {
 // --> delete
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Parameter> deleteOneById(@PathVariable Long id) {
-        boolean parmDelete = service.deleteOneById(id);
+        Parameter result = service.deleteOneById(id);
 
-        if (parmDelete) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
+        if (result == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(result , HttpStatus.OK);
         }
     }
 }

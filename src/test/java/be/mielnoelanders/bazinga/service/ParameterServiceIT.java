@@ -2,42 +2,47 @@ package be.mielnoelanders.bazinga.service;
 
 import be.mielnoelanders.bazinga.domain.Parameter;
 import be.mielnoelanders.bazinga.domain.ParameterEnum;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static junit.framework.TestCase.assertFalse;
+import static org.junit.Assert.*;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ParameterServiceIT {
 
     @Autowired
-    private ParameterService parameterService;
+    private ParameterService service;
 
     @Test
     public void crudParameterTest() {
+
+        // MAKE new parameter
         Parameter newParm = new Parameter();
         newParm.setType(ParameterEnum.PROFITMARGIN);
+        newParm.setPercentage(15);
 
-        //test create Parameter
-        Parameter insertedParm = parameterService.addOne(newParm);
-        long newId = insertedParm.getId();
-        // id is auto incremented dus kan niet 0 zijn !
-        Assert.assertFalse(newId == 0);
+        // CREATE TEST
+        Parameter insertedParm = this.service.addOne(newParm);
+        assertTrue(insertedParm.getType().equals(ParameterEnum.PROFITMARGIN));
+        assertFalse(insertedParm.getId()==0);
+        Long id = insertedParm.getId();
 
-/*        //test read Parameter
-        Parameter readParm = parameterService.findOneById(insertedParm.getType());
-        Assert.assertEquals(newParm.getType(), readParm.getType());
+        // READ TEST
+        Parameter readParm = this.service.findOneById(id);
+        assertEquals(newParm.getType(), readParm.getType());
 
-        //test update Parameter
-        readParm.setPercentage(15);
-        boolean updatedParm = parameterService.updateOneById(readParm);
-        Assert.assertTrue(updatedParm);*/
+        // UPDATE TEST
+        readParm.setPercentage(10);
+        Parameter updatedParm = this.service.updateOneById(id, readParm);
+        assertEquals(10, updatedParm.getPercentage());
 
-        //test delete Parameter
-        boolean deletedParm = parameterService.deleteOneById(newId);
-        Assert.assertTrue(deletedParm);
+        // DELETE
+        this.service.deleteOneById(id);
+        assertNull(this.service.findOneById(id));
     }
 }

@@ -17,7 +17,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ParameterServiceUnitTest {
@@ -75,41 +76,23 @@ public class ParameterServiceUnitTest {
     public void findOneByIdTest() {
         Mockito.when(this.repository.findById(3L)).thenReturn(optionalParameter);
         Parameter resultFromService = this.parameterService.findOneById(3L);
-        assertEquals(20, resultFromService.getPercentage());
+        assertEquals(30, resultFromService.getPercentage());
     }
 
-    // Delete parameter by id TRUE //
+    // DELETE
     @Test
-    public void deleteParameterTrueTest() {
-        Mockito.when(this.repository.existsById(1L)).thenReturn(true);
-        boolean resultFromService = this.parameterService.deleteOneById(1L);
-        assertTrue(resultFromService);
+    public void deleteByIdMetParameterTest() {
+        Mockito.when(this.repository.findById(1L)).thenReturn(optionalParameter);
+        Parameter resultFromService = this.parameterService.deleteOneById(1L);
+        assertEquals(ParameterEnum.PROFITMARGIN, resultFromService.getType());
+        Mockito.verify(this.repository, Mockito.times(1)).deleteById(1L);
     }
 
-    // Delete parameter by id FALSE //
     @Test
-    public void deleteParameterFalseTest() {
-        Mockito.when(this.repository.existsById(100001L)).thenReturn(false);
-        boolean resultFromService = this.parameterService.deleteOneById(100001L);
-        assertFalse(resultFromService);
+    public void deleteByIdPNietAanwezigTest() {
+        Mockito.when(this.repository.findById(1L)).thenReturn(Optional.ofNullable(null));
+        Parameter resultFromService = this.parameterService.deleteOneById(1L);
+        assertEquals(null, resultFromService);
+        Mockito.verify(this.repository, Mockito.times(0)).deleteById(1L);
     }
 }
-
-
-
-/*    // Update parameter by type TRUE //
-    @Test
-    public void updateParameterByTypeTrueTest() {
-        Mockito.when(this.repository.findByType(ParameterEnum.PREMIUMCUSTOMER)).thenReturn(testParameter2);
-        Mockito.when(this.repository.save(testParameter2)).thenReturn(testParameter2);
-        boolean resultFromService = this.parameterService.updateOneById(testParameter2);
-        assertTrue(resultFromService);
-    }
-
-    // Update parameter by type FALSE //
-    @Test
-    public void updateParameterByTypeFalseTest() {
-        Mockito.when(this.repository.findByType(ParameterEnum.PREMIUMCUSTOMER)).thenReturn(null);
-        boolean resultFromService = this.parameterService.updateOneById(testParameter2);
-        assertFalse(resultFromService);
-    }*/

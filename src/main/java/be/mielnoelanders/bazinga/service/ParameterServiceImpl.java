@@ -16,12 +16,12 @@ import java.util.Optional;
 public class ParameterServiceImpl implements ParameterService {
 
     // FIELDS
-    private final ParameterRepository repo;
+    private final ParameterRepository repository;
 
     // CONSTRUCTORS
     @Autowired
-    public ParameterServiceImpl(ParameterRepository repo) {
-        this.repo = repo;
+    public ParameterServiceImpl(ParameterRepository repository) {
+        this.repository = repository;
     }
 
     // METHODS
@@ -39,24 +39,24 @@ public class ParameterServiceImpl implements ParameterService {
         parm3.setType(ParameterEnum.DAMAGEDISCOUNT);
         parm3.setPercentage(20);
 
-        this.repo.saveAll(Arrays.asList(parm1, parm2, parm3));
+        this.repository.saveAll(Arrays.asList(parm1, parm2, parm3));
     }
 
     // --> create
     @Override
     public Parameter addOne(Parameter parameter) {
-        return repo.save(parameter);
+        return repository.save(parameter);
     }
 
     // --> read
     @Override
     public Iterable<Parameter> findAll() {
-        return this.repo.findAll();
+        return this.repository.findAll();
     }
 
     @Override
     public Parameter findOneById(long id) {
-        Optional<Parameter> result = repo.findById(id);
+        Optional<Parameter> result = repository.findById(id);
         return result.orElse(null);
     }
 
@@ -67,17 +67,19 @@ public class ParameterServiceImpl implements ParameterService {
         if (parmToChange == null) {
             return null;
         } else {
-            return repo.save(parameter);
+            return repository.save(parameter);
         }
     }
 
     // --> delete
     @Override
-    public boolean deleteOneById(Long id) {
-        if (this.repo.existsById(id)) {
-            this.repo.deleteById(id);
-            return true;
+    public Parameter deleteOneById(Long id) {
+        Parameter parameter = findOneById(id);
+        if (parameter == null) {
+            return null;
+        } else {
+            repository.deleteById(id);
+            return parameter;
         }
-        return false;
     }
 }

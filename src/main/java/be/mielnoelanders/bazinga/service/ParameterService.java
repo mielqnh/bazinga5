@@ -16,5 +16,5 @@ public interface ParameterService {
     Parameter updateOneById(Long id, Parameter parameter);
 
     // --> delete
-    boolean deleteOneById(Long id);
+    Parameter deleteOneById(Long id);
 }
