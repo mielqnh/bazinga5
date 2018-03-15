@@ -5,17 +5,18 @@ import be.mielnoelanders.bazinga.domain.Supplier;
 public interface SupplierService {
 
 
-// --> create
+    // --> create
     Supplier addOne(Supplier supplier);
 
-// --> read
+    // --> read
     Iterable<Supplier> findAll();
+
     Supplier findOneById(Long id);
 
-// --> update
+    // --> update
     Supplier updateOneById(Long id, Supplier supplier);
 
-// --> delete (deleteOneById)
+    // --> delete (deleteOneById)
     void deleteOneById(Long id);
 
 

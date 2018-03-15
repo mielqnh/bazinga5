@@ -47,11 +47,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
 
-// --> read
+    // --> read
     @Override
     public Iterable<Customer> findAll() {
         return customerRepository.findAll();
-}
+    }
 
     @Override
     public Customer findOneById(Long id) {
@@ -77,7 +77,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-// --> delete (deleteOneById)
+    // --> delete (deleteOneById)
     @Override
     public void deleteOneById(Long id) {
         if (customerRepository.existsById(id)) {
