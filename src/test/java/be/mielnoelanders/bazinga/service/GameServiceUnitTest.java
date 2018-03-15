@@ -74,9 +74,7 @@ public class GameServiceUnitTest {
     // READ ONE AND READ ALL
     @Test
     public void getOneTest() {
-        // Hier zeg je wat de mock moet geven als je de findOneById oproept op de repository.
         Mockito.when(this.repository.findById(3L)).thenReturn(testOptionalGame1);
-        // Hier roep je de findOneById op de repository aan VIA de service findOneById
         Game resultFromService = this.gameService.findOneById(3L);
         assertEquals("testgame1", resultFromService.getTitle());
         Mockito.verify(this.repository, Mockito.times(1)).findById(3L);

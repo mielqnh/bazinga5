@@ -11,8 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-// De naam van een integratietest klasse het best laten eindigen op 'IT' zodat Maven deze test
-// pas als laatste uitvoert waardoor de maven-build sneller verloopt !
 public class ParameterServiceIT {
 
     @Autowired
@@ -29,14 +27,14 @@ public class ParameterServiceIT {
         // id is auto incremented dus kan niet 0 zijn !
         Assert.assertFalse(newId == 0);
 
-        //test read Parameter
+/*        //test read Parameter
         Parameter readParm = parameterService.findOneById(insertedParm.getType());
         Assert.assertEquals(newParm.getType(), readParm.getType());
 
         //test update Parameter
         readParm.setPercentage(15);
         boolean updatedParm = parameterService.updateOneById(readParm);
-        Assert.assertTrue(updatedParm);
+        Assert.assertTrue(updatedParm);*/
 
         //test delete Parameter
         boolean deletedParm = parameterService.deleteOneById(newId);
