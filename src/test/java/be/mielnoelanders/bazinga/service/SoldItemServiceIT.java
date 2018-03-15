@@ -24,23 +24,23 @@ public class SoldItemServiceIT {
         soldItem1.setDate("23/01/2018");
 
         // CREATE TEST
-        SoldItem inserted = this.gameService.saveCustomerGames(soldItem1);
+        SoldItem inserted = this.gameService.addOne(soldItem1);
         assertTrue(inserted.getDate().equals("23/01/2018"));
         assertFalse(inserted.getId()==0);
         Long id = inserted.getId();
 
         // READ TEST
-        SoldItem foundWithGetOne = this.gameService.getOne(id);
+        SoldItem foundWithGetOne = this.gameService.findOneById(id);
         assertEquals("Id komt niet overeen",inserted.getDate(), foundWithGetOne.getDate());
 
         // UPDATE TEST
         foundWithGetOne.setDate("09/03/2018");
-        SoldItem foundAfterSave = this.gameService.changeCustomerGames(id,foundWithGetOne);
+        SoldItem foundAfterSave = this.gameService.updateOneById(id,foundWithGetOne);
         assertEquals("Melding komt niet overeen","09/03/2018",foundAfterSave.getDate());
 
         // DELETE TEST
-        this.gameService.deleteById(id);
-        assertNull(this.gameService.getOne(id));
+        this.gameService.deleteOneById(id);
+        assertNull(this.gameService.findOneById(id));
     }
 
 }

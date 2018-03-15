@@ -16,29 +16,18 @@ import java.util.Optional;
 @Transactional
 public class SoldItemServiceImpl implements SoldItemService {
 
+    // FIELDS
     private static final Logger LOGGER = LoggerFactory.getLogger(GameService.class);
+    private final SoldItemRepository repository;
 
-    // --> create (addOne)
-
-
-
-// --> read (findAll & findOneById)
-
-
-
-// --> update (updateOneById)
-
-
-
-// --> delete (deleteOneById)
-
-
-
-// --> others (Bla)
-
+    // CONSTRUCTORS
     @Autowired
-    private SoldItemRepository repository;
+    public SoldItemServiceImpl(SoldItemRepository repository) {
+        this.repository = repository;
+    }
 
+    // METHODS
+    // --> init
     @PostConstruct
     public void init() {
 
@@ -113,41 +102,46 @@ public class SoldItemServiceImpl implements SoldItemService {
 
     }
 
+    // --> create
     @Override
-    public Iterable<SoldItem> getAll() {
-            return repository.findAll();
+    public SoldItem addOne(SoldItem soldItem) {
+        return repository.save(soldItem);
+    }
+
+    // --> read
+    @Override
+    public Iterable<SoldItem> findAll() {
+        return repository.findAll();
     }
 
     @Override
-    public SoldItem getOne(Long id) {
+    public SoldItem findOneById(Long id) {
         Optional<SoldItem> result = repository.findById(id);
         return result.orElse(null);
     }
 
+    // --> update
     @Override
-    public SoldItem deleteById(Long id) {
-        SoldItem soldItem = getOne(id);
+    public SoldItem updateOneById(Long id, SoldItem soldItem) {
+        SoldItem soldItemToChange = findOneById(id);
+        if (soldItemToChange == null) {
+            return null;
+        } else {
+            soldItemToChange.setDate(soldItem.getDate());
+            return repository.save(soldItemToChange);
+        }
+    }
+
+
+    // --> delete
+    @Override
+    public SoldItem deleteOneById(Long id) {
+        SoldItem soldItem = findOneById(id);
         if (soldItem == null) {
             return null;
         } else {
             repository.deleteById(id);
             return soldItem;
-        }
-    }
-
-    @Override
-    public SoldItem saveCustomerGames(SoldItem soldItem) {
-        return repository.save(soldItem);
-    }
-
-    @Override
-    public SoldItem changeCustomerGames(Long id, SoldItem soldItem) {
-        SoldItem soldItemToChange = getOne(id);
-        if(soldItemToChange == null){
-            return null;
-        }else{
-            soldItemToChange.setDate(soldItem.getDate());
-            return repository.save(soldItemToChange);
         }
     }
 }
