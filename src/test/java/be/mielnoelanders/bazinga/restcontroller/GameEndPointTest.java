@@ -1,309 +1,130 @@
 package be.mielnoelanders.bazinga.restcontroller;
 
+import be.mielnoelanders.bazinga.BazingaApplication;
+import be.mielnoelanders.bazinga.domain.*;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
+
+import static org.assertj.core.api.Java6Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@WebAppConfiguration
+@SpringBootTest(classes = BazingaApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class GameEndPointTest /*extends AbstractTransactionalJUnit4SpringContextTests*/ {
-    private static final String URL = "http://localhost:8080/api/games";
-    RestTemplate template;
+
+    private static final String BASE_URI = "/api/game";
+
+    private TestRestTemplate testRestTemplate;
+
+    private HttpHeaders httpHeaders;
+
+    @LocalServerPort
+    private int port;
 
     @Before
     public void init() {
-        template = new RestTemplate();
-    }
-
-}
-
-
-
-
-
-
-
-/*    @Test
-    public void getAllTest() {
-        ResponseEntity<String> jsonArray = template.getForEntity(URL, String.class);
-        try {
-            JSONArray array = new JSONArray(jsonArray.getBody());
-            List<Game> allGames = new ArrayList<>();
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject jsonGame = array.getJSONObject(i);
-                Game javaGame = makeJavaGameObject(jsonGame);
-                allGames.add(javaGame);
-            }
-
-            Game myFirstGame = allGames.get(0);
-            assertThat(myFirstGame.getId()).isEqualTo(1);
-            assertThat(myFirstGame.getTitle()).isEqualToIgnoringCase("Dit is game 1");
-            assertThat(myFirstGame.getEdition()).isEqualTo(1);
-
-            assertThat(allGames).isNotEmpty();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        testRestTemplate = new TestRestTemplate();
+        httpHeaders = new HttpHeaders();
     }
 
     @Test
-    public void testAddBook() {
-        String URL_ADD = “http:
-//localhost:8085/books/add”;
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        String jsonBook = “
-        {\“title\“:\“De stille kracht\“,\“author\“:\“Louis Couperus\“,\“publisher\“:\“Athenaeum - Polak & Van Gennep\“,\“
-            isbn\“:\“9789064037023\“,\“numberOfPages\“:249,\“ebook\“:false,\“subject\“:\“In Laboewangi op het
-            eiland Java vindt een aantal onverklaarbare gebeurtenissen plaats.De inwoners wijzen die toe aan ‘de stille
-            kracht’,een Indisch mysterie dat de mensen in zijn greep houdt.\“,\“language\“:\“DUTCH\“,\“genre\“:\“
-            THRILLER\“}”;
-        HttpEntity<String> data = new HttpEntity<>(jsonBook, headers);
+    public void testCreateFindAllReadUpdateDelete() {
+        //create Game object
 
-        ResponseEntity<Integer> responseEntity = template.postForEntity(URL_ADD, data, Integer.class);
-
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-    }
-
-    @Test
-    public void testUpdateBook() {
-        String URL_UPDATE = “http:
-//localhost:8085/books/update”;
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        String jsonBook = “
-        {\“id\“:16,\“title\“:\“De stille kracht\“,\“author\“:\“Louis Couperus\“,\“publisher\“:\“Athenaeum - Polak & Van
-            Gennep\“,\“isbn\“:\“9789064037023\“,\“numberOfPages\“:249,\“ebook\“:false,\“subject\“:\“In Laboewangi op het
-            eiland Java vindt een aantal onverklaarbare gebeurtenissen plaats.\“,\“language\“:\“DUTCH\“,\“genre\“:\“
-            THRILLER\“}”;
-        HttpEntity<String> data = new HttpEntity<>(jsonBook, headers);
-
-        ResponseEntity<Integer> responseEntity = template.postForEntity(URL_UPDATE, data, Integer.class);
-
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-    }
-
-    @Test
-    public void testDeleteBook() {
-        String URL_DELETE = “http:
-//localhost:8085/books/delete”;
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        String jsonBook = “
-        {\“id\“:16,\“title\“:\“De stille kracht\“,\“author\“:\“Louis Couperus\“,\“publisher\“:\“Athenaeum - Polak & Van
-            Gennep\“,\“isbn\“:\“9789064037023\“,\“numberOfPages\“:249,\“ebook\“:false,\“subject\“:\“In Laboewangi op het
-            eiland Java vindt een aantal onverklaarbare gebeurtenissen plaats.\“,\“language\“:\“DUTCH\“,\“genre\“:\“
-            THRILLER\“}”;
-        HttpEntity<String> data = new HttpEntity<>(jsonBook, headers);
-
-        ResponseEntity<Integer> responseEntity = template.exchange(URL_DELETE, HttpMethod.DELETE, data, Integer.class);
-
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-    }
-
-    @Test
-    public void testFindByAuthor() {
-        String URL_AUTHOR = “http:
-//localhost:8085/books/author/Johan”;
-        ResponseEntity<String> jsonArray = template.getForEntity(URL_AUTHOR, String.class);
-        try {
-            JSONArray array = new JSONArray(jsonArray.getBody());
-            List<Book> allBooks = new ArrayList<>();
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject jsonBook = array.getJSONObject(i);
-                Book javaBook = makeJavaBookObject(jsonBook);
-                allBooks.add(javaBook);
-            }
-
-            assertThat(allBooks).isNotEmpty();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void testFindByTitle() {
-        String URL_TITLE = “http:
-//localhost:8085/books/title/man”;
-        ResponseEntity<String> jsonArray = template.getForEntity(URL_TITLE, String.class);
-        try {
-            JSONArray array = new JSONArray(jsonArray.getBody());
-            List<Book> allBooks = new ArrayList<>();
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject jsonBook = array.getJSONObject(i);
-                Book javaBook = makeJavaBookObject(jsonBook);
-                allBooks.add(javaBook);
-            }
-
-            assertThat(allBooks).isNotEmpty();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void testFindByGenre() {
-        String URL_GENRE = “http:
-//localhost:8085/books/genre/CLASSIC”;
-        ResponseEntity<String> jsonArray = template.getForEntity(URL_GENRE, String.class);
-        try {
-            JSONArray array = new JSONArray(jsonArray.getBody());
-            List<Book> allBooks = new ArrayList<>();
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject jsonBook = array.getJSONObject(i);
-                Book javaBook = makeJavaBookObject(jsonBook);
-                allBooks.add(javaBook);
-            }
-
-            assertThat(allBooks).isNotEmpty();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void testFindByKeyword() {
-        String URL_KEY = “http:
-//localhost:8085/books/keyword/jo”;
-        ResponseEntity<String> jsonArray = template.getForEntity(URL_KEY, String.class);
-        try {
-            JSONArray array = new JSONArray(jsonArray.getBody());
-            List<Book> allBooks = new ArrayList<>();
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject jsonBook = array.getJSONObject(i);
-                Book javaBook = makeJavaBookObject(jsonBook);
-                allBooks.add(javaBook);
-            }
-
-            assertThat(allBooks).isNotEmpty();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void testFindByEbook() {
-        String URL_EBOOK = “http:
-//localhost:8085/books/ebook/true”;
-        ResponseEntity<String> jsonArray = template.getForEntity(URL_EBOOK, String.class);
-        try {
-            JSONArray array = new JSONArray(jsonArray.getBody());
-            List<Book> allBooks = new ArrayList<>();
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject jsonBook = array.getJSONObject(i);
-                Book javaBook = makeJavaBookObject(jsonBook);
-                allBooks.add(javaBook);
-            }
-
-            assertThat(allBooks).isNotEmpty();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void testFindByIsbn() {
-        String URL_ISBN = “http:
-//localhost:8085/books/isbn/9789028204652”;
-        ResponseEntity<String> jsonArray = template.getForEntity(URL_ISBN, String.class);
-        try {
-            JSONArray array = new JSONArray(jsonArray.getBody());
-            JSONObject jsonBook = array.getJSONObject(0);
-            Book javaBook = makeJavaBookObject(jsonBook);
-
-            assertThat(javaBook.getId()).isEqualTo(8);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Game makeJavaGameObject(JSONObject jsonObject) {
-        Game.Builder game1 = new Game.Builder();
-        Game javaGame;
-
-        try{
-            game1.title(jsonObject.getString("title"));
-            game1.edition(jsonObject.getInt("edition"));
-            game1.publisher(makeJavaPublisher(jsonObject.getJSONObject(("publisher"))));
-            //game1.supplierGames(makeJavaSupplierGames(jsonObject.getJSONArray("suppliergames"))); //IK WAS HIER BEGONNEN AAN HET MAKEN VAN DE ANDEREN MAAR DAT DRAAIDE IN DE SOEP
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        javaGame = game1.build();
-        return javaGame;
-    }
-
-    private static Publisher makeJavaPublisher(JSONObject jsonObject) {
         Publisher publisher = new Publisher();
+        publisher.setName("GameWebTest");
+        publisher.setWebsite("GameWebTest");
 
-        try {
-            publisher.setName(jsonObject.getString("name"));
-            publisher.setWebsite(jsonObject.getString("website"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return publisher;
+        Address address = new Address();
+        address.setPostalCode("GameWebTest");
+        address.setNumber("GameWebTest");
+        address.setStreet("GameWebTest");
+        address.setCity("GameWebTest");
+        address.setCountry("GameWebTest");
+
+        Customer customer = new Customer();
+        customer.setFirstName("GameWebTest");
+        customer.setName("GameWebTest");
+        customer.setPhoneNumber("GameWebTest");
+        customer.setGoodCustomer(true);
+        customer.setEmail("GameWebTest");
+        customer.setAddress(address);
+
+        Supplier supplier = new Supplier();
+        supplier.setName("GameWebTest");
+        supplier.setPhoneNumber("GameWebTest");
+        supplier.setEmail("GameWebTest");
+        supplier.setWebsite("GameWebTest");
+
+        Game.Builder game1init = new Game.Builder();
+        game1init.title("GameWebTest")
+                .edition(1)
+                .publisher(publisher);
+        Game newGame = game1init.build();
+
+        SoldItem soldItem = new SoldItem();
+        soldItem.setDate("GameWebTest");
+        soldItem.setGame(newGame);
+        soldItem.setSellingPrice(39.99);
+        soldItem.setCustomer(customer);
+
+        InStoreItem inStoreItem = new InStoreItem();
+        inStoreItem.setSupplier(supplier);
+        inStoreItem.setDate("GameWebTest");
+        inStoreItem.setPurchasePrice(15.59);
+        inStoreItem.setGame(newGame);
+
+        //testAddOne()
+        HttpEntity<Game> entityAddOne = new HttpEntity<>(newGame, httpHeaders);
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        ResponseEntity<Game> responseEntityAddOne = testRestTemplate.postForEntity(createURLWithPort(BASE_URI + "/"), entityAddOne, Game.class);
+        checkBodyAndHttpStatusResponseEntity(responseEntityAddOne, 1, HttpStatus.CREATED);
+        assertThat(responseEntityAddOne.getBody().getTitle()).isEqualToIgnoringCase("GameWebTest");
+        Long newId = responseEntityAddOne.getBody().getId();
+
+        //test findAll() : list must contain minimal 1 customer
+        ResponseEntity<Iterable> iterableResponseEntity = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/findall"), Iterable.class);
+        checkBodyAndHttpStatusResponseEntity(iterableResponseEntity, 1, HttpStatus.OK);
+        assertThat((List)iterableResponseEntity.getBody()).size().isGreaterThanOrEqualTo(1);
+
+        //testFindById()
+        ResponseEntity<Game> responseEntityFindById = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/" + newId), Game.class);
+        assertThat(responseEntityFindById.getBody().getTitle()).isEqualTo("GameWebTest");
+        checkBodyAndHttpStatusResponseEntity(responseEntityFindById, 1, HttpStatus.OK);
+
+        //testDeleteById()
+        HttpEntity<String> entityDeleteById = new HttpEntity<>(httpHeaders);
+        ResponseEntity<String> responseDelete = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/" + newId),
+                HttpMethod.DELETE, entityDeleteById, String.class);
+        checkBodyAndHttpStatusResponseEntity(responseDelete, 1, HttpStatus.OK);
+        //try to lookup new customer with id=newId that is deleted
+        ResponseEntity<Game> responseEntityFind = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/" + newId), Game.class);
+        checkBodyAndHttpStatusResponseEntity(responseEntityFind, 0, HttpStatus.NOT_FOUND);
+
     }
 
-//    private static List<InStoreItem> makeJavaSupplierGames(JSONArray jsonArray) {
-//        List<InStoreItem> games = new ArrayList<>();
-//        try {
-//            for (int i = 0; i < jsonArray.length(); i++){
-//                InStoreItem supplierGame = new InStoreItem();
-//                JSONObject object = (JSONObject) jsonArray.get(i);
-//                supplierGame.setPurchasePrice(object.getDouble("purchasePrice"));
-//                supplierGame.setGame(makeJavaGameObject(object.getJSONObject("game")));
-//                supplierGame.setDate(object.getString("date"));
-//                supplierGame.setSupplier();
-//
-//                games.add(supplierGame);
-//            }
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        return games;
-//    }
+    private void checkBodyAndHttpStatusResponseEntity(ResponseEntity responseEntity, int responseBodyValue, HttpStatus httpStatus) {
+        System.out.println("responseEntity.getBody()) = " + responseEntity.getBody());
+        System.out.println("responseEntity.getStatusCode()) = " + responseEntity.getStatusCode());
+        if (responseBodyValue == 0) {
+            assertThat(responseEntity.getBody()).isNull();
+        } else {
+            assertThat(responseEntity.getBody()).isNotNull();
+        }
+        assertThat(responseEntity.getStatusCode()).isEqualTo(httpStatus);
+    }
 
+    private String createURLWithPort(String uri) {
+        String uriString = "http://localhost:" + port + uri;
+        System.out.println(uriString);
+        return uriString;
+    }
 }
-
-
-       *//*
-
-
-
-
-        try {
-            javaBook.setId(jsonObject.getInt(“id”));
-            javaBook.setAuthor(jsonObject.getString(“author”));
-            javaBook.setEbook(jsonObject.getBoolean(“ebook”));
-            javaBook.setIsbn(jsonObject.getString(“isbn”));
-            javaBook.setNumberOfPages(jsonObject.getInt(“number_of_pages”));
-            javaBook.setPublisher(jsonObject.getString(“publisher”));
-            javaBook.setSubject(jsonObject.getString(“subject”));
-            javaBook.setTitle(jsonObject.getString(“title”));
-            //IF GENRE AND LANGUAGE ARE ‘NULL’
-            String genre = jsonObject.getString(“genre”);
-            if (genre != null) {
-                javaBook.setGenre(EnumMapper.mapToGenre(Integer.parseInt(genre)));
-            }
-            String language = jsonObject.getString(“language”);
-            if (language != null) {
-                javaBook.setLanguage(EnumMapper.mapToLanguage(Integer.parseInt(language)));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return javaBook;
-    }
-}*/
 
