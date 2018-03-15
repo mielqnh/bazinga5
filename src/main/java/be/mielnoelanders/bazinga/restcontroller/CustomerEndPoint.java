@@ -18,13 +18,16 @@ public class CustomerEndPoint {
         this.customerService = customerService;
     }
 
+
+    // --> create
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Customer> addOne(@RequestBody Customer customer) {
         return new ResponseEntity<Customer>(customerService.addOne(customer), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value="getall", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Customer>> getAll() {
+    // --> read
+    @RequestMapping(value = "findall", method = RequestMethod.GET)
+    public ResponseEntity<Iterable<Customer>> findAll() {
         Iterable<Customer> customers = customerService.findAll();
         if (customers == null) {
             return new ResponseEntity<Iterable<Customer>>(HttpStatus.NO_CONTENT);
@@ -34,7 +37,7 @@ public class CustomerEndPoint {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public ResponseEntity<Customer> findOne(@PathVariable Long id) {
+    public ResponseEntity<Customer> findOneById(@PathVariable Long id) {
         Customer customerFound = customerService.findOneById(id);
         if (customerFound == null) {
             return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
@@ -43,8 +46,20 @@ public class CustomerEndPoint {
         }
     }
 
+    // --> update
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Customer> updateOneById(@PathVariable Long id, @RequestBody Customer customer) {
+        Customer customerToUpdate = customerService.updateOneById(id, customer);
+        if (customerToUpdate == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(customerToUpdate, HttpStatus.OK);
+        }
+    }
+
+    // --> delete
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Customer> deleteById(@PathVariable Long id) {
+    public ResponseEntity<Customer> deleteOneById(@PathVariable Long id) {
         Customer customerFound = customerService.findOneById(id);
         if (customerFound == null) {
             return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);

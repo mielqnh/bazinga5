@@ -58,8 +58,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findById(id).orElse(null);
     }
 
-// --> update
-
+    // --> update
     @Override
     public Customer updateOneById(Long id, Customer customer) {
         Optional<Customer> foundCustomer = customerRepository.findById(id);
@@ -77,7 +76,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-    // --> delete (deleteOneById)
+    // --> delete
     @Override
     public void deleteOneById(Long id) {
         if (customerRepository.existsById(id)) {
