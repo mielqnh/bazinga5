@@ -18,24 +18,6 @@ public class PublisherServiceImpl implements PublisherService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PublisherService.class);
 
-    // --> create (addOne)
-
-
-
-// --> read (findAll & findOneById)
-
-
-
-// --> update (updateOneById)
-
-
-
-// --> delete (deleteOneById)
-
-
-
-// --> others (Bla)
-
     @Autowired
     private PublisherRepository repo;
 
@@ -55,37 +37,55 @@ public class PublisherServiceImpl implements PublisherService {
         this.repo.saveAll(Arrays.asList(publisher1,publisher2,publisher3));
     }
 
+// --> create
     @Override
-    public Publisher addPublisher(Publisher publisher) {
+    public Publisher addOne(Publisher publisher) {
         return repo.save(publisher);
     }
 
+// --> read
     @Override
-    public Iterable<Publisher> getAll() {
+    public Iterable<Publisher> findAll() {
         return this.repo.findAll();
     }
 
     @Override
-    public Publisher findByName(String name) {
-        return repo.findByName(name);
+    public Publisher findOneById(Long id) {
+        Optional<Publisher> result = repo.findById(id);
+        return result.orElse(null);
     }
 
-/*    @Override
-    public boolean updatePublisherByName(Publisher publisher) {
+//    @Override
+//    public boolean updatePublisherByName(Publisher publisher) {
+//        Publisher result = (Publisher) repo.findByName(publisher.getName());
+//
+//        if (result != null) {
+//            result.setName(publisher.getName());
+//            result.setWebsite(publisher.getWebsite());
+//
+//            this.repo.save(result);
+//            return true;
+//        }
+//        return false;
+//    }
+
+// --> update
+    @Override
+    public Publisher updateOneById(Long Id, Publisher publisher) {
         Publisher result = (Publisher) repo.findByName(publisher.getName());
 
         if (result != null) {
             result.setName(publisher.getName());
             result.setWebsite(publisher.getWebsite());
 
-            this.repo.save(result);
-            return true;
+            return this.repo.save(result);
         }
-        return false;
-    }*/
+        return null;
+    }
 
+// --> delete
     @Override
-    public boolean deletePublisher(Long id) {
+    public boolean deleteOneById(Long id) {
         if (this.repo.existsById(id)) {
             this.repo.deleteById(id);
             return true;
@@ -93,20 +93,20 @@ public class PublisherServiceImpl implements PublisherService {
         return false;
     }
 
-    @Override
-    public Publisher changePublisher(Long id, Publisher publisher) {
-        Publisher publisherToChange = getOne(id);
-        if(publisherToChange == null){
-            return null;
-        }else{
-            publisherToChange.setName(publisher.getName());
-            return repo.save(publisherToChange);
-        }
-    }
+// --> others
+//    @Override
+//    public Publisher updatePublisherByName(Long id, Publisher publisher) {
+//        Publisher publisherToChange = getOneById(id);
+//        if(publisherToChange == null){
+//            return null;
+//        }else{
+//            publisherToChange.setName(publisher.getName());
+//            return repo.save(publisherToChange);
+//        }
+//    }
 
     @Override
-    public Publisher getOne(Long id) {
-        Optional<Publisher> result = repo.findById(id);
-        return result.orElse(null);
+    public Publisher findByName(String name) {
+        return repo.findByName(name);
     }
 }

@@ -1,5 +1,6 @@
 package be.mielnoelanders.bazinga.service;
 
+import be.mielnoelanders.bazinga.domain.Parameter;
 import be.mielnoelanders.bazinga.domain.Publisher;
 
 public interface PublisherService {
@@ -27,23 +28,23 @@ public interface PublisherService {
 
 
 
-    // Insert new Parameter //
-    Publisher addPublisher(Publisher publisher);
+// --> create
+    Publisher addOne(Publisher publisher);
 
-    // Get all publisher //
-    Iterable<Publisher> getAll();
+// --> read
+    Iterable<Publisher> findAll();
 
-    // Find unique by publisher type //
+    Publisher findOneById(Long id);
+
+// --> update
+    Publisher updateOneById(Long id, Publisher publisher);
+
+// --> delete
+    boolean deleteOneById(Long id);
+
+// --> others
+    // boolean updatePublisherByName(Publisher publisher);
+
     Publisher findByName(String name);
-
-    // Update publisher by type //
-    //boolean updatePublisherByName(Publisher publisher);
-
-    // Delete publisher by id //
-    boolean deletePublisher(Long id);
-
-    Publisher changePublisher(Long id, Publisher publisher);
-
-    Publisher getOne(Long id);
 }
 

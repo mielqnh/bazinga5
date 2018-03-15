@@ -23,7 +23,7 @@ public class PublisherServiceIT {
         newPublisher.setName("New Publisher to insert");
 
         //test create Publisher
-        Publisher insertedPublisher = publisherService.addPublisher(newPublisher);
+        Publisher insertedPublisher = publisherService.addOne(newPublisher);
         long newId = insertedPublisher.getId();
         Assert.assertFalse(newId == 0);
 
@@ -37,7 +37,7 @@ public class PublisherServiceIT {
         Assert.assertTrue(updatedPublisher);*/
 
         //test delete Publisher
-        publisherService.deletePublisher(newId);
+        publisherService.deleteOneById(newId);
         Assert.assertNull(publisherService.findByName(insertedPublisher.getName()));
     }
 }

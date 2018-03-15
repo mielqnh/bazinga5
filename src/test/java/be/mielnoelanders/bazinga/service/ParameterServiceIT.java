@@ -24,22 +24,22 @@ public class ParameterServiceIT {
         newParm.setType(ParameterEnum.PROFITMARGIN);
 
         //test create Parameter
-        Parameter insertedParm = parameterService.addParameter(newParm);
+        Parameter insertedParm = parameterService.addOne(newParm);
         long newId = insertedParm.getId();
         // id is auto incremented dus kan niet 0 zijn !
         Assert.assertFalse(newId == 0);
 
         //test read Parameter
-        Parameter readParm = parameterService.findByType(insertedParm.getType());
+        Parameter readParm = parameterService.findOneById(insertedParm.getType());
         Assert.assertEquals(newParm.getType(), readParm.getType());
 
         //test update Parameter
         readParm.setPercentage(15);
-        boolean updatedParm = parameterService.updateParameterByType(readParm);
+        boolean updatedParm = parameterService.updateOneById(readParm);
         Assert.assertTrue(updatedParm);
 
         //test delete Parameter
-        boolean deletedParm = parameterService.deleteParameter(newId);
+        boolean deletedParm = parameterService.deleteOneById(newId);
         Assert.assertTrue(deletedParm);
     }
 }

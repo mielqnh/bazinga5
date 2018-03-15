@@ -1,7 +1,6 @@
 package be.mielnoelanders.bazinga.restcontroller;
 
 import be.mielnoelanders.bazinga.domain.Parameter;
-import be.mielnoelanders.bazinga.domain.ParameterEnum;
 import be.mielnoelanders.bazinga.service.ParameterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,17 +12,19 @@ import org.springframework.web.bind.annotation.*;
 public class ParameterEndPoint {
 
     @Autowired
-    private ParameterService parm;
+    private ParameterService service;
 
+// --> create
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Parameter> addParameter(@RequestBody Parameter parameter) {
-        Parameter parmAdd = parm.addParameter(parameter);
+    public ResponseEntity<Parameter> addOne(@RequestBody Parameter parameter) {
+        Parameter parmAdd = service.addOne(parameter);
         return new ResponseEntity<>(parmAdd, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/getall", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Parameter>> getAll() {
-        Iterable<Parameter> parmGetAll = this.parm.getAll();
+// --> read
+    @RequestMapping(value = "/findall", method = RequestMethod.GET)
+    public ResponseEntity<Iterable<Parameter>> findAll() {
+        Iterable<Parameter> parmGetAll = this.service.findAll();
 
         if (parmGetAll == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -32,9 +33,9 @@ public class ParameterEndPoint {
         }
     }
 
-    @RequestMapping(value = "/{type}", method = RequestMethod.GET)
-    public ResponseEntity<Parameter> findByType(@PathVariable ParameterEnum type) {
-        Parameter parmFind = this.parm.findByType(type);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Parameter> findById(@PathVariable Long id) {
+        Parameter parmFind = this.service.findOneById(id);
 
         if (parmFind == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -43,20 +44,22 @@ public class ParameterEndPoint {
         }
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public ResponseEntity<Parameter> updateParameterByType(@RequestBody Parameter parameter) {
-        boolean parmUpdate = parm.updateParameterByType(parameter);
+// --> update
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Parameter> updateOneById(@PathVariable Long id, @RequestBody Parameter parameter) {
+        Parameter parmUpdate = service.updateOneById(id, parameter);
 
-        if (parmUpdate) {
+        if (parmUpdate != null) {
             return new ResponseEntity<>(parameter, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
+// --> delete
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Parameter> deleteParameter(@PathVariable Long id) {
-        boolean parmDelete = parm.deleteParameter(id);
+    public ResponseEntity<Parameter> deleteOneById(@PathVariable Long id) {
+        boolean parmDelete = service.deleteOneById(id);
 
         if (parmDelete) {
             return new ResponseEntity<>(HttpStatus.OK);

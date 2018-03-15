@@ -5,40 +5,17 @@ import be.mielnoelanders.bazinga.domain.ParameterEnum;
 
 public interface ParameterService {
 
+// --> create
+    Parameter addOne(Parameter parameter);
 
-// --> create (addOne)
+// --> read
+    Iterable<Parameter> findAll();
 
+    Parameter findOneById(long id);
 
+// --> update
+    Parameter updateOneById(Long id, Parameter parameter);
 
-// --> read (findAll & findOneById)
-
-
-
-// --> update (updateOneById)
-
-
-
-// --> delete (deleteOneById)
-
-
-
-// --> others (Bla)
-
-
-
-
-    // Insert new Parameter //
-    Parameter addParameter(Parameter parameter);
-
-    // Get all parameters //
-    Iterable<Parameter> getAll();
-
-    // Find unique by parameter type //
-    Parameter findByType(ParameterEnum type);
-
-    // Update parameter by type //
-    boolean updateParameterByType(Parameter parameter);
-
-    // Delete parameter by id //
-    boolean deleteParameter(Long id);
+// --> delete
+    boolean deleteOneById(Long id);
 }
