@@ -19,21 +19,24 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 @SpringBootTest(classes = BazingaApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CustomerEndPointIT {
 
+    // FIELDS
     private static final String BASE_URI = "/api/customer";
-
     private TestRestTemplate testRestTemplate;
-
     private HttpHeaders httpHeaders;
 
+    // FIELDS WITH MAPPINGS
     @LocalServerPort
     private int port;
 
+    // METHODS
+    // --> init
     @Before
     public void init() {
         testRestTemplate = new TestRestTemplate();
         httpHeaders = new HttpHeaders();
     }
 
+    // --> crud
     @Test
     public void testCreateFindAllReadUpdateDelete() {
         //create customer object
@@ -70,6 +73,7 @@ public class CustomerEndPointIT {
 
     }
 
+    // --> helpermethods
     private void checkBodyAndHttpStatusResponseEntity(ResponseEntity responseEntity, int responseBodyValue, HttpStatus httpStatus) {
         System.out.println("responseEntity.getBody()) = " + responseEntity.getBody());
         System.out.println("responseEntity.getStatusCode()) = " + responseEntity.getStatusCode());
@@ -80,7 +84,6 @@ public class CustomerEndPointIT {
         }
         assertThat(responseEntity.getStatusCode()).isEqualTo(httpStatus);
     }
-
     private String createURLWithPort(String uri) {
         String uriString = "http://localhost:" + port + uri;
         System.out.println(uriString);

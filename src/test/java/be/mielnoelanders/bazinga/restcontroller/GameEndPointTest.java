@@ -17,23 +17,26 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BazingaApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class GameEndPointTest /*extends AbstractTransactionalJUnit4SpringContextTests*/ {
+public class GameEndPointTest {
 
+    //FIELDS
     private static final String BASE_URI = "/api/game";
-
     private TestRestTemplate testRestTemplate;
-
     private HttpHeaders httpHeaders;
 
+    // FIELDS WITH MAPPINGS
     @LocalServerPort
     private int port;
 
+    // METHODS
+    // --> init
     @Before
     public void init() {
         testRestTemplate = new TestRestTemplate();
         httpHeaders = new HttpHeaders();
     }
 
+    // --> crud
     @Test
     public void testCreateFindAllReadUpdateDelete() {
         //create Game object
@@ -111,6 +114,7 @@ public class GameEndPointTest /*extends AbstractTransactionalJUnit4SpringContext
 
     }
 
+    // --> helpermethods
     private void checkBodyAndHttpStatusResponseEntity(ResponseEntity responseEntity, int responseBodyValue, HttpStatus httpStatus) {
         System.out.println("responseEntity.getBody()) = " + responseEntity.getBody());
         System.out.println("responseEntity.getStatusCode()) = " + responseEntity.getStatusCode());
@@ -121,7 +125,6 @@ public class GameEndPointTest /*extends AbstractTransactionalJUnit4SpringContext
         }
         assertThat(responseEntity.getStatusCode()).isEqualTo(httpStatus);
     }
-
     private String createURLWithPort(String uri) {
         String uriString = "http://localhost:" + port + uri;
         System.out.println(uriString);
