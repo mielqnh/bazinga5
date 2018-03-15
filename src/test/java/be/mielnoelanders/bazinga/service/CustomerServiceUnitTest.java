@@ -48,7 +48,7 @@ public class CustomerServiceUnitTest {
     @Test
     public void testFindById() {
         when(this.customerRepository.findById(2L)).thenReturn(optionalCustomer);
-        Customer customerFromService = customerService.findOne(2L);
+        Customer customerFromService = customerService.findCustomerById(2L);
         assertThat(customerFromService.getName()).isEqualTo("testcustomer2");
         verify(customerRepository, times(1)).findById(2L);
     }
@@ -56,7 +56,7 @@ public class CustomerServiceUnitTest {
     @Test
     public void testFindAll() {
         when(this.customerRepository.findAll()).thenReturn(customers);
-        Iterable<Customer> customerFromService = customerService.findAll();
+        Iterable<Customer> customerFromService = customerService.findAllCustomers();
         //test op name van eerste customer in de List customers
         assertThat(((List<Customer>) customerFromService).get(0).getName()).isEqualTo("testcustomer1");
         //test of aantal suppliers in de List customers 3 is
@@ -67,7 +67,7 @@ public class CustomerServiceUnitTest {
     @Test
     public void testAddOne() {
         when(customerRepository.save(customer3)).thenReturn(customer3);
-        Customer addedCustomer = customerService.addOne(customer3);
+        Customer addedCustomer = customerService.addCustomer(customer3);
         assertThat(addedCustomer).isNotNull();
         assertThat(addedCustomer.getName()).isEqualTo("testcustomer3");
         verify(customerRepository, times(1)).save(customer3);
@@ -76,7 +76,7 @@ public class CustomerServiceUnitTest {
     @Test
     public void testDeleteById() {
         when(customerRepository.existsById(3L)).thenReturn(true);
-        customerService.deleteById(3L);
+        customerService.deleteCustomerById(3L);
         verify(customerRepository, times(1)).existsById(3L);
         verify(customerRepository, times(1)).deleteById(3L);
     }
@@ -85,7 +85,7 @@ public class CustomerServiceUnitTest {
     public void testUpdateOne() {
         when(customerRepository.findById(2L)).thenReturn(optionalCustomer);
         when(customerRepository.save(optionalCustomer.get())).thenReturn(customer3);
-        Customer updatedCustomer = customerService.updateOne(2L, optionalCustomer.get());
+        Customer updatedCustomer = customerService.updateCustomerById(2L, optionalCustomer.get());
         System.out.println("Updated supplier = " + updatedCustomer);
         assertThat(updatedCustomer.getName()).isEqualTo("testcustomer3");
         verify(customerRepository, times(1)).findById(2L);

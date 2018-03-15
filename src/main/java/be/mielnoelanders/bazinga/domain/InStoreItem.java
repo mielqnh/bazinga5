@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
-public class SupplierGames extends AbstractEntity implements Serializable {
+public class InStoreItem extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = -1573209055880743815L;
 
@@ -31,7 +31,7 @@ public class SupplierGames extends AbstractEntity implements Serializable {
     private Game game;
 
     // CONSTRUCTORS
-    public SupplierGames(){}
+    public InStoreItem(){}
 
     // GETTERS & SETTERS
     public Supplier getSupplier() {
@@ -63,7 +63,7 @@ public class SupplierGames extends AbstractEntity implements Serializable {
     // OVERRIDES
     @Override
     public String toString() {
-        return "SupplierGames{" +
+        return "InStoreItem{" +
                 "supplier=" + supplier +
                 ", game=" + game +
                 ", purchasePrice=" + purchasePrice +

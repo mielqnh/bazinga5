@@ -20,12 +20,12 @@ public class CustomerEndPoint {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Customer> addOne(@RequestBody Customer customer) {
-        return new ResponseEntity<Customer>(customerService.addOne(customer), HttpStatus.CREATED);
+        return new ResponseEntity<Customer>(customerService.addCustomer(customer), HttpStatus.CREATED);
     }
 
     @RequestMapping(value="getall", method = RequestMethod.GET)
     public ResponseEntity<Iterable<Customer>> getAll() {
-        Iterable<Customer> customers = customerService.findAll();
+        Iterable<Customer> customers = customerService.findAllCustomers();
         if (customers == null) {
             return new ResponseEntity<Iterable<Customer>>(HttpStatus.NO_CONTENT);
         } else {
@@ -35,7 +35,7 @@ public class CustomerEndPoint {
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public ResponseEntity<Customer> findOne(@PathVariable Long id) {
-        Customer customerFound = customerService.findOne(id);
+        Customer customerFound = customerService.findCustomerById(id);
         if (customerFound == null) {
             return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
         } else {
@@ -45,11 +45,11 @@ public class CustomerEndPoint {
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Customer> deleteById(@PathVariable Long id) {
-        Customer customerFound = customerService.findOne(id);
+        Customer customerFound = customerService.findCustomerById(id);
         if (customerFound == null) {
             return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
         } else {
-            customerService.deleteById(id);
+            customerService.deleteCustomerById(id);
             return new ResponseEntity<Customer>(customerFound, HttpStatus.OK);
         }
     }

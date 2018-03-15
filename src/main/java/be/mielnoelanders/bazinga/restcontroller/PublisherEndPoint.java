@@ -42,7 +42,19 @@ public class PublisherEndPoint {
         }
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Publisher> updatePublisher(@PathVariable Long id, @RequestBody Publisher publisher) {
+        Publisher probably = publisherService.changePublisher(id, publisher);
+        if (probably == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(probably, HttpStatus.OK);
+        }
+    }
+
+    // Deze krijg ik niet aan het werk. Je geeft ook niet mee welke je wil veranderen.
+/*    @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public ResponseEntity<Publisher> updatePublisherByName(@RequestBody Publisher publisher) {
         boolean publisherUpdate = publisherService.updatePublisherByName(publisher);
 
@@ -51,10 +63,10 @@ public class PublisherEndPoint {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-    }
+    }*/
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Publisher> deleteParameter(@PathVariable Long id) {
+    public ResponseEntity<Publisher> deletePublisher(@PathVariable Long id) {
         boolean publisherDelete = publisherService.deletePublisher(id);
 
         if (publisherDelete) {

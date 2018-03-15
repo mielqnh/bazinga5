@@ -40,19 +40,19 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer addOne(Customer customer) {
+    public Customer addCustomer(Customer customer) {
         return customerRepository.save(customer);
     }
     @Override
-    public Iterable<Customer> findAll() {
+    public Iterable<Customer> findAllCustomers() {
         return customerRepository.findAll();
     }
     @Override
-    public Customer findOne(Long id) {
+    public Customer findCustomerById(Long id) {
         return customerRepository.findById(id).orElse(null);
     }
     @Override
-    public Customer updateOne(Long id, Customer customer) {
+    public Customer updateCustomerById(Long id, Customer customer) {
         Optional<Customer> foundCustomer = customerRepository.findById(id);
         if (foundCustomer.isPresent()) {
             Customer customerToUpdate = foundCustomer.get();
@@ -68,7 +68,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
     @Override
-    public void deleteById(Long id) {
+    public void deleteCustomerById(Long id) {
         if (customerRepository.existsById(id)) {
             customerRepository.deleteById(id);
         }

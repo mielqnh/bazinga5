@@ -255,11 +255,11 @@ public class GameEndPointTest /*extends AbstractTransactionalJUnit4SpringContext
         return publisher;
     }
 
-//    private static List<SupplierGames> makeJavaSupplierGames(JSONArray jsonArray) {
-//        List<SupplierGames> games = new ArrayList<>();
+//    private static List<InStoreItem> makeJavaSupplierGames(JSONArray jsonArray) {
+//        List<InStoreItem> games = new ArrayList<>();
 //        try {
 //            for (int i = 0; i < jsonArray.length(); i++){
-//                SupplierGames supplierGame = new SupplierGames();
+//                InStoreItem supplierGame = new InStoreItem();
 //                JSONObject object = (JSONObject) jsonArray.get(i);
 //                supplierGame.setPurchasePrice(object.getDouble("purchasePrice"));
 //                supplierGame.setGame(makeJavaGameObject(object.getJSONObject("game")));

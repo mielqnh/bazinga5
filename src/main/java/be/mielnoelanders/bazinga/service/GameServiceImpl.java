@@ -55,17 +55,17 @@ public class GameServiceImpl implements GameService {
                 .publisher(publisher);
         Game game1 = game1init.build();
 
-        CustomerGames customerGames = new CustomerGames();
-        customerGames.setDate("12/03/2018");
-        customerGames.setGame(game1);
-        customerGames.setSellingPrice(39.99);
-        customerGames.setCustomer(customer);
+        SoldItem soldItem = new SoldItem();
+        soldItem.setDate("12/03/2018");
+        soldItem.setGame(game1);
+        soldItem.setSellingPrice(39.99);
+        soldItem.setCustomer(customer);
 
-        SupplierGames  supplierGames = new SupplierGames();
-        supplierGames.setSupplier(supplier);
-        supplierGames.setDate("05/03/2018");
-        supplierGames.setPurchasePrice(15.59);
-        supplierGames.setGame(game1);
+        InStoreItem inStoreItem = new InStoreItem();
+        inStoreItem.setSupplier(supplier);
+        inStoreItem.setDate("05/03/2018");
+        inStoreItem.setPurchasePrice(15.59);
+        inStoreItem.setGame(game1);
 
         Game.Builder game2init = new Game.Builder();
         game2init.title("Dit is game 2").edition(2);
@@ -79,19 +79,19 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Iterable<Game> getAll() {
+    public Iterable<Game> findAllGames() {
         return repository.findAll();
     }
 
     @Override
-    public Game getOne(Long id) {
+    public Game findGameById(Long id) {
         Optional<Game> result = repository.findById(id);
         return result.orElse(null);
     }
 
     @Override
-    public Game deleteById(Long id) {
-        Game game = getOne(id);
+    public Game deleteGameById(Long id) {
+        Game game = findGameById(id);
         if (game == null) {
             return null;
         } else {
@@ -101,13 +101,13 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Game insertGame(Game game) {
+    public Game saveGame(Game game) {
         return repository.save(game);
     }
 
     @Override
-    public Game changeGame(Long id, Game game) {
-        Game gameToChange = getOne(id);
+    public Game updateGame(Long id, Game game) {
+        Game gameToChange = findGameById(id);
         if(gameToChange == null){
             return null;
         }else{
@@ -117,9 +117,8 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Iterable<Game> findByTitle(String name) {
-        return repository.findByTitle(name);
+    public Iterable<Game> findGameByTitle(String title) {
+        return repository.findByTitle(title);
     }
-
 }
 

@@ -25,23 +25,23 @@ public class GameServiceIT {
         Game testGame1 = game1.build();
 
         // CREATE TEST
-        Game inserted = this.gameService.insertGame(testGame1);
+        Game inserted = this.gameService.saveGame(testGame1);
         assertTrue(inserted.getTitle().equals("testgame1"));
         assertFalse(inserted.getId()==0);
         Long id = inserted.getId();
 
         // READ TEST
-        Game foundWithGetOne = this.gameService.getOne(id);
+        Game foundWithGetOne = this.gameService.findGameById(id);
         assertEquals("Id komt niet overeen",inserted.getTitle(), foundWithGetOne.getTitle());
 
         // UPDATE TEST
         foundWithGetOne.setTitle("Change");
-        Game foundAfterSave = this.gameService.changeGame(id,foundWithGetOne);
+        Game foundAfterSave = this.gameService.updateGame(id,foundWithGetOne);
         assertEquals("Melding komt niet overeen","Change",foundAfterSave.getTitle());
 
         // DELETE TEST
-        this.gameService.deleteById(id);
-        assertNull(this.gameService.getOne(id));
+        this.gameService.deleteGameById(id);
+        assertNull(this.gameService.findGameById(id));
     }
 
 }

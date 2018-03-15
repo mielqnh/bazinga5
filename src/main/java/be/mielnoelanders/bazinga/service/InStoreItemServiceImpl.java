@@ -1,7 +1,7 @@
 package be.mielnoelanders.bazinga.service;
 
 import be.mielnoelanders.bazinga.domain.*;
-import be.mielnoelanders.bazinga.repository.SupplierGamesRepository;
+import be.mielnoelanders.bazinga.repository.InStoreItemRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +14,12 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class SupplierGamesServiceImpl implements SupplierGamesService {
+public class InStoreItemServiceImpl implements InStoreItemService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GameService.class);
 
     @Autowired
-    private SupplierGamesRepository repository;
+    private InStoreItemRepository repository;
 
     @PostConstruct
     public void init() {
@@ -67,69 +67,69 @@ public class SupplierGamesServiceImpl implements SupplierGamesService {
                 .publisher(publisher);
         Game game3 = game3init.build();
 
-        CustomerGames customerGames1 = new CustomerGames();
-        customerGames1.setDate("12/03/2018");
-        customerGames1.setGame(game1);
-        customerGames1.setSellingPrice(39.99);
-        customerGames1.setCustomer(customer);
+        SoldItem soldItem1 = new SoldItem();
+        soldItem1.setDate("12/03/2018");
+        soldItem1.setGame(game1);
+        soldItem1.setSellingPrice(39.99);
+        soldItem1.setCustomer(customer);
 
-        SupplierGames  supplierGames1 = new SupplierGames();
-        supplierGames1.setSupplier(supplier);
-        supplierGames1.setDate("05/03/2017");
-        supplierGames1.setPurchasePrice(15.59);
-        supplierGames1.setGame(game1);
+        InStoreItem inStoreItem1 = new InStoreItem();
+        inStoreItem1.setSupplier(supplier);
+        inStoreItem1.setDate("05/03/2017");
+        inStoreItem1.setPurchasePrice(15.59);
+        inStoreItem1.setGame(game1);
 
-        SupplierGames  supplierGames2 = new SupplierGames();
-        supplierGames2.setSupplier(supplier);
-        supplierGames2.setDate("11/11/2017");
-        supplierGames2.setPurchasePrice(45.59);
-        supplierGames2.setGame(game2);
+        InStoreItem inStoreItem2 = new InStoreItem();
+        inStoreItem2.setSupplier(supplier);
+        inStoreItem2.setDate("11/11/2017");
+        inStoreItem2.setPurchasePrice(45.59);
+        inStoreItem2.setGame(game2);
 
-        SupplierGames  supplierGames3 = new SupplierGames();
-        supplierGames2.setSupplier(supplier);
-        supplierGames2.setDate("13/08/2017");
-        supplierGames2.setPurchasePrice(99.99);
-        supplierGames2.setGame(game3);
+        InStoreItem inStoreItem3 = new InStoreItem();
+        inStoreItem2.setSupplier(supplier);
+        inStoreItem2.setDate("13/08/2017");
+        inStoreItem2.setPurchasePrice(99.99);
+        inStoreItem2.setGame(game3);
 
-        this.repository.saveAll(Arrays.asList(supplierGames1, supplierGames2, supplierGames3));
+        this.repository.saveAll(Arrays.asList(inStoreItem1, inStoreItem2, inStoreItem3));
 
     }
 
     @Override
-    public Iterable<SupplierGames> getAll() {
+    public Iterable<InStoreItem> getAll() {
         return repository.findAll();
     }
 
     @Override
-    public SupplierGames getOne(Long id) {
-        Optional<SupplierGames> result = repository.findById(id);
+    public InStoreItem getOne(Long id) {
+        Optional<InStoreItem> result = repository.findById(id);
         return result.orElse(null);
     }
 
     @Override
-    public SupplierGames deleteById(Long id) {
-        SupplierGames supplierGames = getOne(id);
-        if (supplierGames == null) {
+    public InStoreItem deleteById(Long id) {
+        InStoreItem inStoreItem = getOne(id);
+        if (inStoreItem == null) {
             return null;
         } else {
             repository.deleteById(id);
-            return supplierGames;
+            return inStoreItem;
         }
     }
 
     @Override
-    public SupplierGames insertSupplierGames(SupplierGames supplierGames) {
-        return repository.save(supplierGames);
+    public InStoreItem insertSupplierGames(InStoreItem inStoreItem) {
+        return repository.save(inStoreItem);
     }
 
     @Override
-    public SupplierGames changeSupplierGames(Long id, SupplierGames supplierGames) {
-        SupplierGames supplierGamesToChange = getOne(id);
-        if(supplierGamesToChange == null){
+    public InStoreItem changeSupplierGames(Long id, InStoreItem inStoreItem) {
+        InStoreItem inStoreItemToChange = getOne(id);
+        if(inStoreItemToChange == null){
             return null;
         }else{
-            supplierGamesToChange.setDate(supplierGames.getDate());
-            return repository.save(supplierGamesToChange);
+            inStoreItemToChange.setDate(inStoreItem.getDate());
+            return repository.save(inStoreItemToChange);
         }
     }
 }

@@ -67,7 +67,7 @@ public class ParameterServiceImpl implements ParameterService {
     }
 
     @Override
-    public boolean deleteParameter(long id) {
+    public boolean deleteParameter(Long id) {
         if (this.repo.existsById(id)) {
             this.repo.deleteById(id);
             return true;

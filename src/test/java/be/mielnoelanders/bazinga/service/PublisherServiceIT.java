@@ -32,9 +32,9 @@ public class PublisherServiceIT {
         Assert.assertEquals(newPublisher.getName(), readPublisher.getName());
 
         //test update Publisher
-        readPublisher.setName("Publisher updated");
+  /*      readPublisher.setName("Publisher updated");
         boolean updatedPublisher = publisherService.updatePublisherByName(readPublisher);
-        Assert.assertTrue(updatedPublisher);
+        Assert.assertTrue(updatedPublisher);*/
 
         //test delete Publisher
         publisherService.deletePublisher(newId);

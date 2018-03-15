@@ -1,7 +1,7 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.SupplierGames;
-import be.mielnoelanders.bazinga.repository.SupplierGamesRepository;
+import be.mielnoelanders.bazinga.domain.InStoreItem;
+import be.mielnoelanders.bazinga.repository.InStoreItemRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,55 +20,55 @@ import static org.junit.Assert.assertEquals;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class SupplierGamesServiceUnitTest {
+public class InStoreItemServiceUnitTest {
 
     @InjectMocks
-    private SupplierGamesServiceImpl gameService;
+    private InStoreItemServiceImpl gameService;
 
     @Mock
-    private SupplierGamesRepository repository;
+    private InStoreItemRepository repository;
 
-    private SupplierGames supplierGames1;
-    private Optional<SupplierGames> supplierGamesOptional1;
+    private InStoreItem inStoreItem1;
+    private Optional<InStoreItem> supplierGamesOptional1;
 
-    private Iterable<SupplierGames> supplierGamesIterable;
-    private List<SupplierGames> supplierGamesList;
+    private Iterable<InStoreItem> supplierGamesIterable;
+    private List<InStoreItem> inStoreItemList;
 
     @Before
     public void init() {
 
-        supplierGames1 = new SupplierGames();
-        supplierGames1.setDate("23/01/2018");
-        supplierGamesOptional1 = Optional.of(supplierGames1);
+        inStoreItem1 = new InStoreItem();
+        inStoreItem1.setDate("23/01/2018");
+        supplierGamesOptional1 = Optional.of(inStoreItem1);
 
-        supplierGamesList = new ArrayList<>();
-        supplierGamesList.addAll(Arrays.asList(supplierGames1));
-        supplierGamesIterable = supplierGamesList;
+        inStoreItemList = new ArrayList<>();
+        inStoreItemList.addAll(Arrays.asList(inStoreItem1));
+        supplierGamesIterable = inStoreItemList;
     }
 
     // CREATE
     @Test
     public void insertGameTest() {
-        Mockito.when(this.repository.save(supplierGames1)).thenReturn(supplierGames1);
-        SupplierGames resultFromService = this.gameService.insertSupplierGames(supplierGames1);
+        Mockito.when(this.repository.save(inStoreItem1)).thenReturn(inStoreItem1);
+        InStoreItem resultFromService = this.gameService.insertSupplierGames(inStoreItem1);
         assertThat(resultFromService.getDate()).isEqualToIgnoringCase("23/01/2018");
-        Mockito.verify(this.repository, Mockito.times(1)).save(supplierGames1);
+        Mockito.verify(this.repository, Mockito.times(1)).save(inStoreItem1);
     }
 
     // READ ONE AND READ ALL
     @Test
     public void getOneTest() {
         Mockito.when(this.repository.findById(3L)).thenReturn(supplierGamesOptional1);
-        SupplierGames resultFromService = this.gameService.getOne(3L);
+        InStoreItem resultFromService = this.gameService.getOne(3L);
         assertEquals("23/01/2018", resultFromService.getDate());
         Mockito.verify(this.repository, Mockito.times(1)).findById(3L);
     }
 
     @Test
     public void getAllTest() {
-        Mockito.when(this.repository.findAll()).thenReturn(supplierGamesList);
-        Iterable<SupplierGames> resultFromService = this.gameService.getAll();
-        SupplierGames resultFromIterator = resultFromService.iterator().next();
+        Mockito.when(this.repository.findAll()).thenReturn(inStoreItemList);
+        Iterable<InStoreItem> resultFromService = this.gameService.getAll();
+        InStoreItem resultFromIterator = resultFromService.iterator().next();
         assertThat(resultFromIterator.getDate()).isEqualToIgnoringCase("23/01/2018");
         Mockito.verify(this.repository, Mockito.times(1)).findAll();
     }
@@ -78,18 +78,18 @@ public class SupplierGamesServiceUnitTest {
     public void changeGameTest() {
 
         Mockito.when(this.repository.findById(1L)).thenReturn(supplierGamesOptional1);
-        Mockito.when(this.repository.save(supplierGames1)).thenReturn(supplierGames1);
-        SupplierGames resultFromService = this.gameService.changeSupplierGames(1L,supplierGames1);
+        Mockito.when(this.repository.save(inStoreItem1)).thenReturn(inStoreItem1);
+        InStoreItem resultFromService = this.gameService.changeSupplierGames(1L, inStoreItem1);
         assertEquals("23/01/2018", resultFromService.getDate());
         Mockito.verify(this.repository, Mockito.times(1)).findById(1L);
-        Mockito.verify(this.repository, Mockito.times(1)).save(supplierGames1);
+        Mockito.verify(this.repository, Mockito.times(1)).save(inStoreItem1);
     }
 
     // DELETE
     @Test
     public void deleteByIdMetSpelTest() {
         Mockito.when(this.repository.findById(1L)).thenReturn(supplierGamesOptional1);
-        SupplierGames resultFromService = this.gameService.deleteById(1L);
+        InStoreItem resultFromService = this.gameService.deleteById(1L);
         assertEquals("23/01/2018", resultFromService.getDate());
         Mockito.verify(this.repository, Mockito.times(1)).deleteById(1L);
     }
@@ -97,7 +97,7 @@ public class SupplierGamesServiceUnitTest {
     @Test
     public void deleteByIdSpelNietAanwezigTest() {
         Mockito.when(this.repository.findById(1L)).thenReturn(Optional.ofNullable(null));
-        SupplierGames resultFromService = this.gameService.deleteById(1L);
+        InStoreItem resultFromService = this.gameService.deleteById(1L);
         assertEquals(null, resultFromService);
         Mockito.verify(this.repository, Mockito.times(0)).deleteById(1L);
     }

@@ -5,6 +5,29 @@ import be.mielnoelanders.bazinga.domain.ParameterEnum;
 
 public interface ParameterService {
 
+
+// --> create (saveBla)
+
+
+
+// --> read (findAllBla & findBlaById)
+
+
+
+// --> update (updateBla)
+
+
+
+// --> delete (deleteBlaById)
+
+
+
+// --> others (findBlaByBuh)
+
+
+
+
+
     // Insert new Parameter //
     Parameter addParameter(Parameter parameter);
 
@@ -18,5 +41,5 @@ public interface ParameterService {
     boolean updateParameterByType(Parameter parameter);
 
     // Delete parameter by id //
-    boolean deleteParameter(long id);
+    boolean deleteParameter(Long id);
 }
