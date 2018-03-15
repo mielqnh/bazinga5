@@ -28,7 +28,7 @@ public class SupplierEndPoint {
     }
 
     // --> read
-    @RequestMapping(value = "findAll", method = RequestMethod.GET)
+    @RequestMapping(value = "/findall", method = RequestMethod.GET)
     public ResponseEntity<Iterable<Supplier>> findAll() {
         Iterable<Supplier> suppliers = service.findAll();
         if (suppliers == null) {
