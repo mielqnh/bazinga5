@@ -62,7 +62,7 @@ public class ParameterEndPointIT {
         String expected = "[{\"id\":1,\"type\":\"PROFITMARGIN\",\"percentage\":30},{\"id\":2,\"type\":\"PREMIUMCUSTOMER\",\"percentage\":10},{\"id\":3,\"type\":\"DAMAGEDISCOUNT\",\"percentage\":20},{\"id\":4,\"type\":\"PROMOTIONALDISCOUNT\",\"percentage\":21}]";
         JSONAssert.assertEquals(expected, response.getBody(), false);
 
-        ResponseEntity<Iterable> iterableResponseEntity = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/getall"), Iterable.class);
+        ResponseEntity<Iterable> iterableResponseEntity = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/findall"), Iterable.class);
         System.out.println("HttpStatus = " + iterableResponseEntity.getStatusCode().toString());
         assertThat(iterableResponseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat((List) iterableResponseEntity.getBody()).size().isEqualTo(4);
