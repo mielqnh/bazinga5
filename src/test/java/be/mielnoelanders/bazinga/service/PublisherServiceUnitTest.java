@@ -13,6 +13,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
@@ -29,27 +30,24 @@ public class PublisherServiceUnitTest {
     private Publisher testPublisher1;
     private Publisher testPublisher2;
     private Publisher testPublisher3;
-
+    private Optional<Publisher> optionalPublisher;
     private List<Publisher> publisherList;
 
     @Before
     public void init() {
-        Publisher publisher1 = new Publisher();
-            publisher1.setName("What The What");
-            publisher1.setWebsite("www.whatthewhat.com");
-        Publisher publisher2 = new Publisher();
-            publisher2.setName("Who The Who");
-            publisher2.setWebsite("www.whothewho.com");
-        Publisher publisher3 = new Publisher();
-            publisher3.setName("Where The Where");
-            publisher3.setWebsite("www.wherethewhere.com");
+        testPublisher1 = new Publisher();
+        testPublisher1.setName("What The What");
+        testPublisher1.setWebsite("www.whatthewhat.com");
+        testPublisher2 = new Publisher();
+        testPublisher2.setName("Who The Who");
+        testPublisher2.setWebsite("www.whothewho.com");
+        testPublisher3 = new Publisher();
+        testPublisher3.setName("Where The Where");
+        testPublisher3.setWebsite("www.wherethewhere.com");
 
-        testPublisher1 = publisher1;
-        testPublisher2 = publisher2;
-        testPublisher3 = publisher3;
-
+        optionalPublisher = Optional.of(testPublisher1);
         publisherList = new ArrayList<>();
-        publisherList.addAll(Arrays.asList(publisher1, publisher2, publisher3));
+        publisherList.addAll(Arrays.asList(testPublisher1, testPublisher2, testPublisher3));
     }
 
     // Insert new Parameter //
