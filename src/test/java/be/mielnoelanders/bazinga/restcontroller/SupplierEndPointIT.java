@@ -1,7 +1,6 @@
 package be.mielnoelanders.bazinga.restcontroller;
 
 import be.mielnoelanders.bazinga.BazingaApplication;
-import be.mielnoelanders.bazinga.domain.Customer;
 import be.mielnoelanders.bazinga.domain.Supplier;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,6 +58,7 @@ public class SupplierEndPointIT {
         ResponseEntity<Supplier> responseEntityUpdateOne = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/" + newId), HttpMethod.PUT, entityAddOne, Supplier.class);
         checkBodyAndHttpStatusResponseEntity(responseEntityUpdateOne, 1, HttpStatus.OK);
         assertThat(responseEntityUpdateOne.getBody().getName()).isEqualTo("Supplier gewijzigd");
+        assertThat(responseEntityUpdateOne.getBody().getId()).isEqualTo(newId);
 
         //test findAll() : list must contain minimal 1 supplier
         ResponseEntity<Iterable> iterableResponseEntity = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/findall"), Iterable.class);
@@ -92,6 +92,7 @@ public class SupplierEndPointIT {
         }
         assertThat(responseEntity.getStatusCode()).isEqualTo(httpStatus);
     }
+
     private String createURLWithPort(String uri) {
         String uriString = "http://localhost:" + port + uri;
         System.out.println(uriString);

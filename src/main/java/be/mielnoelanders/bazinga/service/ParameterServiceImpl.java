@@ -67,7 +67,9 @@ public class ParameterServiceImpl implements ParameterService {
         if (parmToChange == null) {
             return null;
         } else {
-            return repository.save(parameter);
+            parmToChange.setType(parameter.getType());
+            parmToChange.setPercentage(parameter.getPercentage());
+            return repository.save(parmToChange);
         }
     }
 
