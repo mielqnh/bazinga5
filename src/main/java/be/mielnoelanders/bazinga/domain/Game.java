@@ -1,13 +1,10 @@
 package be.mielnoelanders.bazinga.domain;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Game extends AbstractEntity implements Serializable {
-
-    private static final long serialVersionUID =1L;
+public class Game extends Item {
 
     // FIELDS
     private String title;
@@ -67,9 +64,7 @@ public class Game extends AbstractEntity implements Serializable {
                 '}';
     }
 
-    // STATIC INNER CLASS BUILDER (Als ik het goed begrijp zorgt die ervoor dat je instanties kan aanmaken die bepaalde kenmerken wel of net niet hebben.
-    // Zo heeft bijvoorbeeld niet elke game expansions, dus zou je die bij het aanmaken kunnen weglaten en heb je dus een game zonder het expansion-field.
-    public static final class Builder {
+     public static final class Builder {
         private String title;
         private int edition;
         private Publisher publisher;
@@ -102,18 +97,4 @@ public class Game extends AbstractEntity implements Serializable {
             return new Game(this);
         }
     }
-
 }
-
-// FIELDS WITH MANYTOMANYMAPPINGS (FOUT)
-/*  @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "Game_Customer",
-            joinColumns = {@JoinColumn(name = "game_id")},
-            inverseJoinColumns = {@JoinColumn(name = "customer_id")})
-    private List<Customer> customers;
-
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "Game_Supplier",
-            joinColumns = {@JoinColumn(name = "game_id")},
-            inverseJoinColumns = {@JoinColumn(name = "supplier_id")})
-    private List<Supplier> suppliers;*/
