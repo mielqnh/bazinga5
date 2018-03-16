@@ -57,6 +57,7 @@ public class CustomerEndPointIT {
         ResponseEntity<Customer> responseEntityUpdateOne = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/" + newId), HttpMethod.PUT, entityAddOne, Customer.class);
         checkBodyAndHttpStatusResponseEntity(responseEntityUpdateOne, 1, HttpStatus.OK);
         assertThat(responseEntityUpdateOne.getBody().getName()).isEqualTo("Customer gewijzigd");
+        assertThat(responseEntityUpdateOne.getBody().getId()).isEqualTo(newId);
 
         //test findAll() : list must contain miminmal 1 customer
         ResponseEntity<Iterable> iterableResponseEntity = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/findall"), Iterable.class);
@@ -90,6 +91,7 @@ public class CustomerEndPointIT {
         }
         assertThat(responseEntity.getStatusCode()).isEqualTo(httpStatus);
     }
+
     private String createURLWithPort(String uri) {
         String uriString = "http://localhost:" + port + uri;
         System.out.println(uriString);
