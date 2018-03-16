@@ -69,7 +69,7 @@ public class GameServiceImpl implements GameService {
         inStoreItem.setSupplier(supplier);
         inStoreItem.setDate("05/03/2018");
         inStoreItem.setPurchasePrice(15.59);
-        inStoreItem.setGame(game1);
+        inStoreItem.setItem(game1);
 
         Game.Builder game2init = new Game.Builder();
         game2init.title("Dit is game 2").edition(2);

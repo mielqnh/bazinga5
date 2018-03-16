@@ -73,7 +73,7 @@ public class InStoreItemServiceImpl implements InStoreItemService {
 
         SoldItem soldItem1 = new SoldItem();
         soldItem1.setDate("12/03/2018");
-        soldItem1.setGame(game1);
+        soldItem1.setItem(game1);
         soldItem1.setSellingPrice(39.99);
         soldItem1.setCustomer(customer);
 
@@ -81,19 +81,19 @@ public class InStoreItemServiceImpl implements InStoreItemService {
         inStoreItem1.setSupplier(supplier);
         inStoreItem1.setDate("05/03/2017");
         inStoreItem1.setPurchasePrice(15.59);
-        inStoreItem1.setGame(game1);
+        inStoreItem1.setItem(game1);
 
         InStoreItem inStoreItem2 = new InStoreItem();
         inStoreItem2.setSupplier(supplier);
         inStoreItem2.setDate("11/11/2017");
         inStoreItem2.setPurchasePrice(45.59);
-        inStoreItem2.setGame(game2);
+        inStoreItem2.setItem(game2);
 
         InStoreItem inStoreItem3 = new InStoreItem();
         inStoreItem2.setSupplier(supplier);
         inStoreItem2.setDate("13/08/2017");
         inStoreItem2.setPurchasePrice(99.99);
-        inStoreItem2.setGame(game3);
+        inStoreItem2.setItem(game3);
 
         this.repository.saveAll(Arrays.asList(inStoreItem1, inStoreItem2, inStoreItem3));
 

@@ -1,7 +1,9 @@
 package be.mielnoelanders.bazinga.domain;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Game extends Item {
@@ -21,7 +23,6 @@ public class Game extends Item {
         title = builder.title;
         edition = builder.edition;
         publisher = builder.publisher;
-        expansions = builder.expansions;
     }
 
     // GETTERS & SETTERS
@@ -43,12 +44,6 @@ public class Game extends Item {
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
-    public List<Expansion> getExpansions() {
-        return expansions;
-    }
-    public void setExpansions(List<Expansion> expansions) {
-        this.expansions = expansions;
-    }
 
     // OVERRIDES
     @Override
@@ -57,15 +52,14 @@ public class Game extends Item {
                 "title='" + title + '\'' +
                 ", edition=" + edition +
                 ", publisher=" + publisher +
-                ", expansions=" + expansions +
                 '}';
     }
 
+    // BUILDER
      public static final class Builder {
         private String title;
         private int edition;
         private Publisher publisher;
-        private List<Expansion> expansions;
 
         public Builder() {
         }
@@ -82,11 +76,6 @@ public class Game extends Item {
 
         public Builder publisher(Publisher val) {
             publisher = val;
-            return this;
-        }
-
-        public Builder expansions(List<Expansion> val) {
-            expansions = val;
             return this;
         }
 

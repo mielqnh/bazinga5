@@ -74,7 +74,7 @@ public class GameEndPointTest {
 
         SoldItem soldItem = new SoldItem();
         soldItem.setDate("GameWebTest");
-        soldItem.setGame(newGame);
+        soldItem.setItem(newGame);
         soldItem.setSellingPrice(39.99);
         soldItem.setCustomer(customer);
 
@@ -82,7 +82,7 @@ public class GameEndPointTest {
         inStoreItem.setSupplier(supplier);
         inStoreItem.setDate("GameWebTest");
         inStoreItem.setPurchasePrice(15.59);
-        inStoreItem.setGame(newGame);
+        inStoreItem.setItem(newGame);
 
         //testAddOne()
         HttpEntity<Game> entityAddOne = new HttpEntity<>(newGame, httpHeaders);
