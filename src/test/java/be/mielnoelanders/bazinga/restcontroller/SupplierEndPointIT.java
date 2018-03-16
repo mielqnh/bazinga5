@@ -1,6 +1,7 @@
 package be.mielnoelanders.bazinga.restcontroller;
 
 import be.mielnoelanders.bazinga.BazingaApplication;
+import be.mielnoelanders.bazinga.domain.Customer;
 import be.mielnoelanders.bazinga.domain.Supplier;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,6 +54,12 @@ public class SupplierEndPointIT {
         assertThat(responseEntityAddOne.getBody().getName()).isEqualToIgnoringCase("New Supplier");
         Long newId = responseEntityAddOne.getBody().getId();
 
+        //test updateOneById()
+        newSupplier.setName("Supplier gewijzigd");
+        ResponseEntity<Supplier> responseEntityUpdateOne = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/" + newId), HttpMethod.PUT, entityAddOne, Supplier.class);
+        checkBodyAndHttpStatusResponseEntity(responseEntityUpdateOne, 1, HttpStatus.OK);
+        assertThat(responseEntityUpdateOne.getBody().getName()).isEqualTo("Supplier gewijzigd");
+
         //test findAll() : list must contain minimal 1 supplier
         ResponseEntity<Iterable> iterableResponseEntity = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/findall"), Iterable.class);
         checkBodyAndHttpStatusResponseEntity(iterableResponseEntity, 1, HttpStatus.OK);
@@ -60,7 +67,7 @@ public class SupplierEndPointIT {
 
         //testFindById()
         ResponseEntity<Supplier> responseEntityFindById = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/" + newId), Supplier.class);
-        assertThat(responseEntityFindById.getBody().getName()).isEqualTo("New Supplier");
+        assertThat(responseEntityFindById.getBody().getName()).isEqualTo("Supplier gewijzigd");
         checkBodyAndHttpStatusResponseEntity(responseEntityFindById, 1, HttpStatus.OK);
 
         //testDeleteById()
