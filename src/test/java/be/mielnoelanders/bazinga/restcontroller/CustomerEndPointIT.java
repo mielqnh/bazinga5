@@ -44,7 +44,7 @@ public class CustomerEndPointIT {
         newCustomer.setName("New Customer");
         newCustomer.setFirstName("New Customer Firstname");
 
-        //testAddOne()
+        //test addOne()
         HttpEntity<Customer> entityAddOne = new HttpEntity<>(newCustomer, httpHeaders);
         httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
         ResponseEntity<Customer> responseEntityAddOne = testRestTemplate.postForEntity(createURLWithPort(BASE_URI + "/"), entityAddOne, Customer.class);
@@ -52,22 +52,28 @@ public class CustomerEndPointIT {
         assertThat(responseEntityAddOne.getBody().getName()).isEqualToIgnoringCase("new Customer");
         Long newId = responseEntityAddOne.getBody().getId();
 
+        //test updateOneById()
+        newCustomer.setName("Customer gewijzigd");
+        ResponseEntity<Customer> responseEntityUpdateOne = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/" + newId), HttpMethod.PUT, entityAddOne, Customer.class);
+        checkBodyAndHttpStatusResponseEntity(responseEntityUpdateOne, 1, HttpStatus.OK);
+        assertThat(responseEntityUpdateOne.getBody().getName()).isEqualTo("Customer gewijzigd");
+
         //test findAll() : list must contain miminmal 1 customer
         ResponseEntity<Iterable> iterableResponseEntity = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/findall"), Iterable.class);
         checkBodyAndHttpStatusResponseEntity(iterableResponseEntity, 1, HttpStatus.OK);
         assertThat((List) iterableResponseEntity.getBody()).size().isGreaterThanOrEqualTo(1);
 
-        //testFindById()
+        //test findOneById()
         ResponseEntity<Customer> responseEntityFindById = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/" + newId), Customer.class);
-        assertThat(responseEntityFindById.getBody().getName()).isEqualTo("New Customer");
+        assertThat(responseEntityFindById.getBody().getName()).isEqualTo("Customer gewijzigd");
         checkBodyAndHttpStatusResponseEntity(responseEntityFindById, 1, HttpStatus.OK);
 
-        //testDeleteById()
+        //test deleteOneById()
         HttpEntity<String> entityDeleteById = new HttpEntity<>(httpHeaders);
         ResponseEntity<String> responseDelete = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/" + newId),
                 HttpMethod.DELETE, entityDeleteById, String.class);
         checkBodyAndHttpStatusResponseEntity(responseDelete, 1, HttpStatus.OK);
-        //try to lookup new cutomer with id=newId that is deleted
+        //try to lookup updated cutomer with id=newId that is deleted
         ResponseEntity<Customer> responseEntityFind = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/" + newId), Customer.class);
         checkBodyAndHttpStatusResponseEntity(responseEntityFind, 0, HttpStatus.NOT_FOUND);
 
