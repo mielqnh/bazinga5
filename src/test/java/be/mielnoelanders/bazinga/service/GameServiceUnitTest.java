@@ -42,19 +42,10 @@ public class GameServiceUnitTest {
 
     @Before
     public void init() {
-        Game.Builder game1 = new Game.Builder();
-        game1.title("testgame1").edition(1);
-        testGame1 = game1.build();
-        testOptionalGame1 = Optional.of(testGame1);
-
-        Game.Builder game2 = new Game.Builder();
-        game2.title("testgame2").edition(2);
-        testGame2 = game2.build();
-        testOptionalGame2 = Optional.of(testGame2);
-
-        Game.Builder game3 = new Game.Builder();
-        game3.title("testgame3").edition(3);
-        testGame3 = game3.build();
+        Game game1 = new Game();
+        game1.setName("testGame1");
+        Game game2 = new Game();
+        Game game3 = new Game();
         testOptionalGame3 = Optional.of(testGame3);
 
         gameList = new ArrayList<>();
@@ -67,7 +58,7 @@ public class GameServiceUnitTest {
     public void insertGameTest() {
         Mockito.when(this.repository.save(testGame1)).thenReturn(testGame1);
         Game resultFromService = this.gameService.addOne(testGame1);
-        assertThat(resultFromService.getTitle()).isEqualToIgnoringCase("testgame1");
+        assertThat(resultFromService.getName()).isEqualToIgnoringCase("testgame1");
         Mockito.verify(this.repository, Mockito.times(1)).save(testGame1);
     }
 
@@ -76,7 +67,7 @@ public class GameServiceUnitTest {
     public void getOneTest() {
         Mockito.when(this.repository.findById(3L)).thenReturn(testOptionalGame1);
         Game resultFromService = this.gameService.findOneById(3L);
-        assertEquals("testgame1", resultFromService.getTitle());
+        assertEquals("testgame1", resultFromService.getName());
         Mockito.verify(this.repository, Mockito.times(1)).findById(3L);
     }
     @Test
@@ -84,7 +75,7 @@ public class GameServiceUnitTest {
         Mockito.when(this.repository.findAll()).thenReturn(gameList);
         Iterable<Game> resultFromService = this.gameService.findAll();
         Game resultFromIterator = resultFromService.iterator().next();
-        assertThat(resultFromIterator.getTitle()).isEqualToIgnoringCase("testgame1");
+        assertThat(resultFromIterator.getName()).isEqualToIgnoringCase("testgame1");
         Mockito.verify(this.repository, Mockito.times(1)).findAll();
     }
 
@@ -95,7 +86,7 @@ public class GameServiceUnitTest {
         Mockito.when(this.repository.findById(1L)).thenReturn(testOptionalGame1);
         Mockito.when(this.repository.save(testGame1)).thenReturn(testGame1);
         Game resultFromService = this.gameService.updateOneById(1L,testGame1);
-        assertEquals("testgame1", resultFromService.getTitle());
+        assertEquals("testgame1", resultFromService.getName());
         Mockito.verify(this.repository, Mockito.times(1)).findById(1L);
         Mockito.verify(this.repository, Mockito.times(1)).save(testGame1);
     }
@@ -105,7 +96,7 @@ public class GameServiceUnitTest {
     public void deleteByIdMetSpelTest() {
         Mockito.when(this.repository.findById(1L)).thenReturn(testOptionalGame1);
         Game resultFromService = this.gameService.deleteOneById(1L);
-        assertEquals("testgame1", resultFromService.getTitle());
+        assertEquals("testgame1", resultFromService.getName());
         Mockito.verify(this.repository, Mockito.times(1)).deleteById(1L);
     }
 
@@ -120,10 +111,10 @@ public class GameServiceUnitTest {
     // OTHER METHODS
     @Test
     public void findByTitleTest() {
-        Mockito.when(this.repository.findByTitle("BAM")).thenReturn(gameIterable);
-        Iterable<Game> resultFromService = this.gameService.findOneByTitle("BAM");
+        Mockito.when(this.repository.findOneByName("BAM")).thenReturn(gameIterable);
+        Iterable<Game> resultFromService = this.gameService.findOneByName("BAM");
         Game resultFromIterator = resultFromService.iterator().next();
-        assertThat(resultFromIterator.getTitle()).isEqualToIgnoringCase("testgame1");
-        Mockito.verify(this.repository, Mockito.times(1)).findByTitle("BAM");
+        assertThat(resultFromIterator.getName()).isEqualToIgnoringCase("testgame1");
+        Mockito.verify(this.repository, Mockito.times(1)).findOneByName("BAM");
     }
 }

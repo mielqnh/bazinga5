@@ -59,23 +59,9 @@ public class SoldItemServiceImpl implements SoldItemService {
         supplier.setEmail("info@enigma.be");
         supplier.setWebsite("www.enigma.be");
 
-        Game.Builder game1init = new Game.Builder();
-        game1init.title("Dit is game 1")
-                .edition(1)
-                .publisher(publisher);
-        Game game1 = game1init.build();
-
-        Game.Builder game2init = new Game.Builder();
-        game2init.title("Dit is game 2")
-                .edition(2)
-                .publisher(publisher);
-        Game game2 = game2init.build();
-
-        Game.Builder game3init = new Game.Builder();
-        game3init.title("Dit is game 3")
-                .edition(3)
-                .publisher(publisher);
-        Game game3 = game3init.build();
+        Game game1 = new Game();
+        Game game2 = new Game();
+        Game game3 = new Game();
 
         SoldItem soldItem1 = new SoldItem();
         soldItem1.setDate("12/03/2018");

@@ -72,11 +72,8 @@ public class GameEndPointTest {
         supplier.setEmail("GameWebTest");
         supplier.setWebsite("GameWebTest");
 
-        Game.Builder game1init = new Game.Builder();
-        game1init.title("GameWebTest")
-                .edition(1)
-                .publisher(publisher);
-        Game newGame = game1init.build();
+        Game newGame = new Game();
+
 
         SoldItem soldItem = new SoldItem();
         soldItem.setDate("GameWebTest");
@@ -95,7 +92,7 @@ public class GameEndPointTest {
         httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
         ResponseEntity<Game> responseEntityAddOne = testRestTemplate.postForEntity(createURLWithPort(BASE_URI + "/"), entityAddOne, Game.class);
         checkBodyAndHttpStatusResponseEntity(responseEntityAddOne, 1, HttpStatus.CREATED);
-        assertThat(responseEntityAddOne.getBody().getTitle()).isEqualToIgnoringCase("GameWebTest");
+        assertThat(responseEntityAddOne.getBody().getName()).isEqualToIgnoringCase("GameWebTest");
         Long newId = responseEntityAddOne.getBody().getId();
 
         //test findAll() : list must contain minimal 1 customer
@@ -105,7 +102,7 @@ public class GameEndPointTest {
 
         //testFindById()
         ResponseEntity<Game> responseEntityFindById = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/" + newId), Game.class);
-        assertThat(responseEntityFindById.getBody().getTitle()).isEqualTo("GameWebTest");
+        assertThat(responseEntityFindById.getBody().getName()).isEqualTo("GameWebTest");
         checkBodyAndHttpStatusResponseEntity(responseEntityFindById, 1, HttpStatus.OK);
 
         //testDeleteById()
