@@ -3,10 +3,9 @@ package be.mielnoelanders.bazinga.domain;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import java.io.Serializable;
 
 @Entity
-public class Expansion extends AbstractEntity implements Serializable {
+public class Expansion extends Item {
 
     private static final long serialVersionUID =1L;
 

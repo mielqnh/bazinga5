@@ -27,8 +27,8 @@ public class InStoreItem extends AbstractEntity implements Serializable {
     private Supplier supplier;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="game_id")
-    private Game game;
+    @JoinColumn(name="item_id")
+    private Item item;
 
     // CONSTRUCTORS
     public InStoreItem(){}
@@ -40,11 +40,11 @@ public class InStoreItem extends AbstractEntity implements Serializable {
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
     }
-    public Game getGame() {
-        return game;
+    public Item getItem() {
+        return item;
     }
-    public void setGame(Game game) {
-        this.game = game;
+    public void setItem(Item item) {
+        this.item = item;
     }
     public double getPurchasePrice() {
         return purchasePrice;
@@ -65,7 +65,7 @@ public class InStoreItem extends AbstractEntity implements Serializable {
     public String toString() {
         return "InStoreItem{" +
                 "supplier=" + supplier +
-                ", game=" + game +
+                ", item=" + item +
                 ", purchasePrice=" + purchasePrice +
                 ", date='" + date + '\'' +
                 '}';

@@ -1,10 +1,9 @@
 package be.mielnoelanders.bazinga.domain;
 
 import javax.persistence.Entity;
-import java.io.Serializable;
 
 @Entity
-public class Accessory extends AbstractEntity implements Serializable {
+public class Accessory extends Item {
 
 /*
     private static final long serialVersionUID =1L;
