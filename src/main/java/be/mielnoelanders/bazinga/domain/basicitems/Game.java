@@ -1,11 +1,6 @@
 package be.mielnoelanders.bazinga.domain.basicitems;
 
-import be.mielnoelanders.bazinga.domain.other.Publisher;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Game extends Item {
@@ -14,17 +9,11 @@ public class Game extends Item {
     private String title;
     private int edition;
 
-    // FIELDS WITH MAPPINGS
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="publisher_id")
-    private Publisher publisher;
-
     // CONSTRUCTORS
     public Game(){}
     private Game(Builder builder) {
         title = builder.title;
         edition = builder.edition;
-        publisher = builder.publisher;
     }
 
     // GETTERS & SETTERS
@@ -40,12 +29,6 @@ public class Game extends Item {
     public void setEdition(int edition) {
         this.edition = edition;
     }
-    public Publisher getPublisher() {
-        return publisher;
-    }
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
-    }
 
     // OVERRIDES
     @Override
@@ -53,7 +36,6 @@ public class Game extends Item {
         return "Game{" +
                 "title='" + title + '\'' +
                 ", edition=" + edition +
-                ", publisher=" + publisher +
                 '}';
     }
 
@@ -61,26 +43,17 @@ public class Game extends Item {
      public static final class Builder {
         private String title;
         private int edition;
-        private Publisher publisher;
 
         public Builder() {
         }
-
         public Builder title(String val) {
             title = val;
             return this;
         }
-
         public Builder edition(int val) {
             edition = val;
             return this;
         }
-
-        public Builder publisher(Publisher val) {
-            publisher = val;
-            return this;
-        }
-
         public Game build() {
             return new Game(this);
         }
