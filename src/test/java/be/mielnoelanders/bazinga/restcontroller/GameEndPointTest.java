@@ -2,6 +2,13 @@ package be.mielnoelanders.bazinga.restcontroller;
 
 import be.mielnoelanders.bazinga.BazingaApplication;
 import be.mielnoelanders.bazinga.domain.*;
+import be.mielnoelanders.bazinga.domain.basicitems.Game;
+import be.mielnoelanders.bazinga.domain.other.Address;
+import be.mielnoelanders.bazinga.domain.other.Customer;
+import be.mielnoelanders.bazinga.domain.other.Publisher;
+import be.mielnoelanders.bazinga.domain.other.Supplier;
+import be.mielnoelanders.bazinga.domain.transferitems.InStoreItem;
+import be.mielnoelanders.bazinga.domain.transferitems.SoldItem;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -66,15 +73,11 @@ public class GameEndPointTest {
         supplier.setEmail("GameWebTest");
         supplier.setWebsite("GameWebTest");
 
-        Game.Builder game1init = new Game.Builder();
-        game1init.title("GameWebTest")
-                .edition(1)
-                .publisher(publisher);
-        Game newGame = game1init.build();
+        Game newGame = new Game();
 
         SoldItem soldItem = new SoldItem();
         soldItem.setDate("GameWebTest");
-        soldItem.setGame(newGame);
+        soldItem.setItem(newGame);
         soldItem.setSellingPrice(39.99);
         soldItem.setCustomer(customer);
 
@@ -82,21 +85,21 @@ public class GameEndPointTest {
         inStoreItem.setSupplier(supplier);
         inStoreItem.setDate("GameWebTest");
         inStoreItem.setPurchasePrice(15.59);
-        inStoreItem.setGame(newGame);
+        inStoreItem.setItem(newGame);
 
         //testAddOne()
         HttpEntity<Game> entityAddOne = new HttpEntity<>(newGame, httpHeaders);
         httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
         ResponseEntity<Game> responseEntityAddOne = testRestTemplate.postForEntity(createURLWithPort(BASE_URI + "/"), entityAddOne, Game.class);
         checkBodyAndHttpStatusResponseEntity(responseEntityAddOne, 1, HttpStatus.CREATED);
-        assertThat(responseEntityAddOne.getBody().getTitle()).isEqualToIgnoringCase("GameWebTest");
+        assertThat(responseEntityAddOne.getBody().getName()).isEqualToIgnoringCase("GameWebTest");
         Long newId = responseEntityAddOne.getBody().getId();
 
         //test updateOneById()
-        newGame.setTitle("Game gewijzigd");
+        newGame.setName("Game gewijzigd");
         ResponseEntity<Game> responseEntityUpdateOne = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/" + newId), HttpMethod.PUT, entityAddOne, Game.class);
         checkBodyAndHttpStatusResponseEntity(responseEntityUpdateOne, 1, HttpStatus.OK);
-        assertThat(responseEntityUpdateOne.getBody().getTitle()).isEqualTo("Game gewijzigd");
+        assertThat(responseEntityUpdateOne.getBody().getName()).isEqualTo("Game gewijzigd");
         assertThat(responseEntityUpdateOne.getBody().getId()).isEqualTo(newId);
 
         //test findAll() : list must contain minimal 1 game
@@ -106,7 +109,7 @@ public class GameEndPointTest {
 
         //testFindById()
         ResponseEntity<Game> responseEntityFindById = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/" + newId), Game.class);
-        assertThat(responseEntityFindById.getBody().getTitle()).isEqualTo("Game gewijzigd");
+        assertThat(responseEntityFindById.getBody().getName()).isEqualTo("Game gewijzigd");
         checkBodyAndHttpStatusResponseEntity(responseEntityFindById, 1, HttpStatus.OK);
 
         //testDeleteById()
