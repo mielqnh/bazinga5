@@ -1,13 +1,7 @@
 package be.mielnoelanders.bazinga.restcontroller;
 
 import be.mielnoelanders.bazinga.BazingaApplication;
-import be.mielnoelanders.bazinga.domain.basicitems.Game;
-import be.mielnoelanders.bazinga.domain.other.Address;
-import be.mielnoelanders.bazinga.domain.other.Customer;
-import be.mielnoelanders.bazinga.domain.other.Publisher;
-import be.mielnoelanders.bazinga.domain.other.Supplier;
-import be.mielnoelanders.bazinga.domain.transferitems.InStoreItem;
-import be.mielnoelanders.bazinga.domain.transferitems.SoldItem;
+import be.mielnoelanders.bazinga.domain.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -72,12 +66,15 @@ public class GameEndPointTest {
         supplier.setEmail("GameWebTest");
         supplier.setWebsite("GameWebTest");
 
-        Game newGame = new Game();
-
+        Game.Builder game1init = new Game.Builder();
+        game1init.title("GameWebTest")
+                .edition(1)
+                .publisher(publisher);
+        Game newGame = game1init.build();
 
         SoldItem soldItem = new SoldItem();
         soldItem.setDate("GameWebTest");
-        soldItem.setItem(newGame);
+        soldItem.setGame(newGame);
         soldItem.setSellingPrice(39.99);
         soldItem.setCustomer(customer);
 
@@ -85,33 +82,40 @@ public class GameEndPointTest {
         inStoreItem.setSupplier(supplier);
         inStoreItem.setDate("GameWebTest");
         inStoreItem.setPurchasePrice(15.59);
-        inStoreItem.setItem(newGame);
+        inStoreItem.setGame(newGame);
 
         //testAddOne()
         HttpEntity<Game> entityAddOne = new HttpEntity<>(newGame, httpHeaders);
         httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
         ResponseEntity<Game> responseEntityAddOne = testRestTemplate.postForEntity(createURLWithPort(BASE_URI + "/"), entityAddOne, Game.class);
         checkBodyAndHttpStatusResponseEntity(responseEntityAddOne, 1, HttpStatus.CREATED);
-        assertThat(responseEntityAddOne.getBody().getName()).isEqualToIgnoringCase("GameWebTest");
+        assertThat(responseEntityAddOne.getBody().getTitle()).isEqualToIgnoringCase("GameWebTest");
         Long newId = responseEntityAddOne.getBody().getId();
 
-        //test findAll() : list must contain minimal 1 customer
+        //test updateOneById()
+        newGame.setTitle("Game gewijzigd");
+        ResponseEntity<Game> responseEntityUpdateOne = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/" + newId), HttpMethod.PUT, entityAddOne, Game.class);
+        checkBodyAndHttpStatusResponseEntity(responseEntityUpdateOne, 1, HttpStatus.OK);
+        assertThat(responseEntityUpdateOne.getBody().getTitle()).isEqualTo("Game gewijzigd");
+        assertThat(responseEntityUpdateOne.getBody().getId()).isEqualTo(newId);
+
+        //test findAll() : list must contain minimal 1 game
         ResponseEntity<Iterable> iterableResponseEntity = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/findall"), Iterable.class);
         checkBodyAndHttpStatusResponseEntity(iterableResponseEntity, 1, HttpStatus.OK);
-        assertThat((List)iterableResponseEntity.getBody()).size().isGreaterThanOrEqualTo(1);
+        assertThat((List) iterableResponseEntity.getBody()).size().isGreaterThanOrEqualTo(1);
 
         //testFindById()
         ResponseEntity<Game> responseEntityFindById = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/" + newId), Game.class);
-        assertThat(responseEntityFindById.getBody().getName()).isEqualTo("GameWebTest");
+        assertThat(responseEntityFindById.getBody().getTitle()).isEqualTo("Game gewijzigd");
         checkBodyAndHttpStatusResponseEntity(responseEntityFindById, 1, HttpStatus.OK);
 
         //testDeleteById()
-        HttpEntity<String> entityDeleteById = new HttpEntity<>(httpHeaders);
-        ResponseEntity<String> responseDelete = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/" + newId),
-                HttpMethod.DELETE, entityDeleteById, String.class);
+        HttpEntity<Game> entityDeleteById = new HttpEntity<>(httpHeaders);
+        ResponseEntity<Game> responseDelete = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/" + newId),
+                HttpMethod.DELETE, entityDeleteById, Game.class);
         checkBodyAndHttpStatusResponseEntity(responseDelete, 1, HttpStatus.OK);
 
-        //try to lookup new customer with id=newId that is deleted
+        //try to lookup new game with id=newId that is deleted
         ResponseEntity<Game> responseEntityFind = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/" + newId), Game.class);
         checkBodyAndHttpStatusResponseEntity(responseEntityFind, 0, HttpStatus.NOT_FOUND);
 
@@ -128,6 +132,7 @@ public class GameEndPointTest {
         }
         assertThat(responseEntity.getStatusCode()).isEqualTo(httpStatus);
     }
+
     private String createURLWithPort(String uri) {
         String uriString = "http://localhost:" + port + uri;
         System.out.println(uriString);

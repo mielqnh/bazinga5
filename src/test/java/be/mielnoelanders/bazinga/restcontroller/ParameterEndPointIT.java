@@ -40,7 +40,7 @@ public class ParameterEndPointIT {
     // --> crud
     @Test
     public void testCreateFindAllReadUpdateDelete() {
-        //create customer object
+        //create parameter object
         Parameter newParameter = new Parameter();
         newParameter.setType(ParameterEnum.PROMOTIONALDISCOUNT);
         newParameter.setPercentage(21);
@@ -53,23 +53,29 @@ public class ParameterEndPointIT {
         assertThat(responseEntityAddOne.getBody().getType()).isEqualTo(ParameterEnum.PROMOTIONALDISCOUNT);
         Long newId = responseEntityAddOne.getBody().getId();
 
-        //test findAll() : list must contain minimal 1 customer
+        //test updateOneById()
+        newParameter.setType(ParameterEnum.DAMAGEDISCOUNT);
+        ResponseEntity<Parameter> responseEntityUpdateOne = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/" + newId), HttpMethod.PUT, entityAddOne, Parameter.class);
+        checkBodyAndHttpStatusResponseEntity(responseEntityUpdateOne, 1, HttpStatus.OK);
+        assertThat(responseEntityUpdateOne.getBody().getId()).isEqualTo(newId);
+
+        //test findAll() : list must contain minimal 1 parameter
         ResponseEntity<Iterable> iterableResponseEntity = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/findall"), Iterable.class);
         checkBodyAndHttpStatusResponseEntity(iterableResponseEntity, 1, HttpStatus.OK);
         assertThat((List) iterableResponseEntity.getBody()).size().isGreaterThanOrEqualTo(1);
 
         //testFindById()
         ResponseEntity<Parameter> responseEntityFindById = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/" + newId), Parameter.class);
-        assertThat(responseEntityFindById.getBody().getType()).isEqualTo(ParameterEnum.PROMOTIONALDISCOUNT);
+        assertThat(responseEntityFindById.getBody().getType()).isEqualTo(ParameterEnum.DAMAGEDISCOUNT);
         checkBodyAndHttpStatusResponseEntity(responseEntityFindById, 1, HttpStatus.OK);
 
         //testDeleteById()
         HttpEntity<String> entityDeleteById = new HttpEntity<>(httpHeaders);
-        ResponseEntity<String> responseDelete = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/" + newId),
-                HttpMethod.DELETE, entityDeleteById, String.class);
+        ResponseEntity<Parameter> responseDelete = testRestTemplate.exchange(createURLWithPort(BASE_URI + "/" + newId),
+                HttpMethod.DELETE, entityDeleteById, Parameter.class);
         checkBodyAndHttpStatusResponseEntity(responseDelete, 1, HttpStatus.OK);
 
-        //try to lookup new customer with id=newId that is deleted
+        //try to lookup new parameter with id=newId that is deleted
         ResponseEntity<Parameter> responseEntityFind = testRestTemplate.getForEntity(createURLWithPort(BASE_URI + "/" + newId), Parameter.class);
         checkBodyAndHttpStatusResponseEntity(responseEntityFind, 0, HttpStatus.NOT_FOUND);
     }
@@ -85,6 +91,7 @@ public class ParameterEndPointIT {
         }
         assertThat(responseEntity.getStatusCode()).isEqualTo(httpStatus);
     }
+
     private String createURLWithPort(String uri) {
         String uriString = "http://localhost:" + port + uri;
         System.out.println(uriString);

@@ -14,14 +14,14 @@ public class ParameterEndPoint {
     @Autowired
     private ParameterService service;
 
-// --> create
+    // --> create
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Parameter> addOne(@RequestBody Parameter parameter) {
         Parameter parmAdd = service.addOne(parameter);
         return new ResponseEntity<>(parmAdd, HttpStatus.CREATED);
     }
 
-// --> read
+    // --> read
     @RequestMapping(value = "/findall", method = RequestMethod.GET)
     public ResponseEntity<Iterable<Parameter>> findAll() {
         Iterable<Parameter> parmGetAll = this.service.findAll();
@@ -44,19 +44,19 @@ public class ParameterEndPoint {
         }
     }
 
-// --> update
+    // --> update
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Parameter> updateOneById(@PathVariable Long id, @RequestBody Parameter parameter) {
         Parameter parmUpdate = service.updateOneById(id, parameter);
 
         if (parmUpdate != null) {
-            return new ResponseEntity<>(parameter, HttpStatus.OK);
+            return new ResponseEntity<>(parmUpdate, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-// --> delete
+    // --> delete
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Parameter> deleteOneById(@PathVariable Long id) {
         Parameter result = service.deleteOneById(id);
@@ -64,7 +64,7 @@ public class ParameterEndPoint {
         if (result == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            return new ResponseEntity<>(result , HttpStatus.OK);
+            return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }
 }
