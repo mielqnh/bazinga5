@@ -1,6 +1,6 @@
 package be.mielnoelanders.bazinga.restcontroller;
 
-import be.mielnoelanders.bazinga.domain.InStoreItem;
+import be.mielnoelanders.bazinga.domain.transferitems.InStoreItem;
 import be.mielnoelanders.bazinga.service.InStoreItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

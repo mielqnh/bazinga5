@@ -1,6 +1,6 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.Parameter;
+import be.mielnoelanders.bazinga.domain.other.Parameter;
 
 public interface ParameterService {
 

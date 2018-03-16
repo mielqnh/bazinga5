@@ -1,6 +1,6 @@
 package be.mielnoelanders.bazinga.mappers;
 
-import be.mielnoelanders.bazinga.domain.AccessoryType;
+import be.mielnoelanders.bazinga.domain.enums.AccessoryType;
 import org.junit.Before;
 import org.junit.Test;
 

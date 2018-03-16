@@ -1,6 +1,6 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.Game;
+import be.mielnoelanders.bazinga.domain.basicitems.Game;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

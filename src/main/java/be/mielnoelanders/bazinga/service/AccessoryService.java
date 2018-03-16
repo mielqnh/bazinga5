@@ -2,7 +2,7 @@ package be.mielnoelanders.bazinga.service;
 
 import be.mielnoelanders.bazinga.domain.basicitems.Game;
 
-public interface GameService {
+public interface AccessoryService {
 
     // --> create
     Game addOne(Game game);

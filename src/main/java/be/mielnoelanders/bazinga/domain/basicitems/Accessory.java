@@ -1,4 +1,7 @@
-package be.mielnoelanders.bazinga.domain;
+package be.mielnoelanders.bazinga.domain.basicitems;
+
+import be.mielnoelanders.bazinga.domain.enums.AccessoryType;
+import be.mielnoelanders.bazinga.domain.other.Publisher;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

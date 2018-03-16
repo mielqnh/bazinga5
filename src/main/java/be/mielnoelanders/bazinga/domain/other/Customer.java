@@ -1,4 +1,6 @@
-package be.mielnoelanders.bazinga.domain;
+package be.mielnoelanders.bazinga.domain.other;
+
+import be.mielnoelanders.bazinga.domain.AbstractEntity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

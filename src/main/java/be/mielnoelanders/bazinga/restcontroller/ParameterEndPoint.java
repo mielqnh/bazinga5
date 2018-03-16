@@ -1,6 +1,6 @@
 package be.mielnoelanders.bazinga.restcontroller;
 
-import be.mielnoelanders.bazinga.domain.Parameter;
+import be.mielnoelanders.bazinga.domain.other.Parameter;
 import be.mielnoelanders.bazinga.service.ParameterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

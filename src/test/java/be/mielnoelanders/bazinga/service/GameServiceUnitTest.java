@@ -1,6 +1,6 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.Game;
+import be.mielnoelanders.bazinga.domain.basicitems.Game;
 import be.mielnoelanders.bazinga.repository.GameRepository;
 import org.junit.Before;
 import org.junit.Test;

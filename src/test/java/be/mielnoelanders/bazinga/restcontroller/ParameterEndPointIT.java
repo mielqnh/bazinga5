@@ -1,8 +1,8 @@
 package be.mielnoelanders.bazinga.restcontroller;
 
 import be.mielnoelanders.bazinga.BazingaApplication;
-import be.mielnoelanders.bazinga.domain.Parameter;
-import be.mielnoelanders.bazinga.domain.ParameterEnum;
+import be.mielnoelanders.bazinga.domain.other.Parameter;
+import be.mielnoelanders.bazinga.domain.enums.ParameterEnum;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

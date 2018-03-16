@@ -1,6 +1,6 @@
 package be.mielnoelanders.bazinga.restcontroller;
 
-import be.mielnoelanders.bazinga.domain.Game;
+import be.mielnoelanders.bazinga.domain.basicitems.Game;
 import be.mielnoelanders.bazinga.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,13 @@
 package be.mielnoelanders.bazinga.restcontroller;
 
 import be.mielnoelanders.bazinga.BazingaApplication;
-import be.mielnoelanders.bazinga.domain.*;
+import be.mielnoelanders.bazinga.domain.basicitems.Game;
+import be.mielnoelanders.bazinga.domain.other.Address;
+import be.mielnoelanders.bazinga.domain.other.Customer;
+import be.mielnoelanders.bazinga.domain.other.Publisher;
+import be.mielnoelanders.bazinga.domain.other.Supplier;
+import be.mielnoelanders.bazinga.domain.transferitems.InStoreItem;
+import be.mielnoelanders.bazinga.domain.transferitems.SoldItem;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

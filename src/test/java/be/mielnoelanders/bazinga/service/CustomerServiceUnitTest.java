@@ -1,6 +1,6 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.Customer;
+import be.mielnoelanders.bazinga.domain.other.Customer;
 import be.mielnoelanders.bazinga.repository.CustomerRepository;
 import org.junit.Before;
 import org.junit.Test;

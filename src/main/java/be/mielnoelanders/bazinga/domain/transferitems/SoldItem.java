@@ -1,4 +1,8 @@
-package be.mielnoelanders.bazinga.domain;
+package be.mielnoelanders.bazinga.domain.transferitems;
+
+import be.mielnoelanders.bazinga.domain.AbstractEntity;
+import be.mielnoelanders.bazinga.domain.other.Customer;
+import be.mielnoelanders.bazinga.domain.basicitems.Item;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

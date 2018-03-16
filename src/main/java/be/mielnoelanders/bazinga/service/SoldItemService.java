@@ -1,6 +1,6 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.SoldItem;
+import be.mielnoelanders.bazinga.domain.transferitems.SoldItem;
 
 public interface SoldItemService {
 

@@ -1,6 +1,12 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.*;
+import be.mielnoelanders.bazinga.domain.basicitems.Game;
+import be.mielnoelanders.bazinga.domain.other.Address;
+import be.mielnoelanders.bazinga.domain.other.Customer;
+import be.mielnoelanders.bazinga.domain.other.Publisher;
+import be.mielnoelanders.bazinga.domain.other.Supplier;
+import be.mielnoelanders.bazinga.domain.transferitems.InStoreItem;
+import be.mielnoelanders.bazinga.domain.transferitems.SoldItem;
 import be.mielnoelanders.bazinga.repository.InStoreItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,7 @@
-package be.mielnoelanders.bazinga.domain;
+package be.mielnoelanders.bazinga.domain.other;
+
+import be.mielnoelanders.bazinga.domain.AbstractEntity;
+import be.mielnoelanders.bazinga.domain.enums.ParameterEnum;
 
 import javax.persistence.Entity;
 import java.io.Serializable;

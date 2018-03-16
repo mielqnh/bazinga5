@@ -1,6 +1,6 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.Supplier;
+import be.mielnoelanders.bazinga.domain.other.Supplier;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

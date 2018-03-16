@@ -1,6 +1,6 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.Publisher;
+import be.mielnoelanders.bazinga.domain.other.Publisher;
 
 public interface PublisherService {
 

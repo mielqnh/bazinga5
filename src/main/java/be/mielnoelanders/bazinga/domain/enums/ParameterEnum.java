@@ -1,4 +1,4 @@
-package be.mielnoelanders.bazinga.domain;
+package be.mielnoelanders.bazinga.domain.enums;
 
 public enum ParameterEnum {
 

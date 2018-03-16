@@ -1,6 +1,6 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.Supplier;
+import be.mielnoelanders.bazinga.domain.other.Supplier;
 import be.mielnoelanders.bazinga.repository.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

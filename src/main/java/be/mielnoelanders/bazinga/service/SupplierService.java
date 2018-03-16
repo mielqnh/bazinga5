@@ -1,6 +1,6 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.Supplier;
+import be.mielnoelanders.bazinga.domain.other.Supplier;
 
 public interface SupplierService {
 

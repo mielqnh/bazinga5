@@ -1,6 +1,6 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.SoldItem;
+import be.mielnoelanders.bazinga.domain.transferitems.SoldItem;
 import be.mielnoelanders.bazinga.repository.SoldItemRepository;
 import org.junit.Before;
 import org.junit.Test;

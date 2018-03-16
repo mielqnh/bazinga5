@@ -1,6 +1,6 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.InStoreItem;
+import be.mielnoelanders.bazinga.domain.transferitems.InStoreItem;
 
 public interface InStoreItemService {
 

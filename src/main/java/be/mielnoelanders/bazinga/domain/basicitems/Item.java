@@ -1,4 +1,6 @@
-package be.mielnoelanders.bazinga.domain;
+package be.mielnoelanders.bazinga.domain.basicitems;
+
+import be.mielnoelanders.bazinga.domain.AbstractEntity;
 
 import java.io.Serializable;
 
