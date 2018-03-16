@@ -1,10 +1,5 @@
 package be.mielnoelanders.bazinga.domain;
 
-/* Deze klasse vangt de many-to-many op tussen game en supplier.
- * Het is bedoeld als tussentabel.
- * Deze klasse heet eigenlijk "GameBeschikbaarBij"
- */
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;

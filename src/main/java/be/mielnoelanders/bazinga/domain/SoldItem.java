@@ -22,16 +22,15 @@ public class SoldItem extends AbstractEntity implements Serializable {
     private Customer customer;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="game_id")
-    private Game game;
-
+    @JoinColumn(name="item_id")
+    private Item item;
 
     // CONSTRUCTORS
-    public Game getGame() {
-        return game;
+    public Item getItem() {
+        return item;
     }
-    public void setGame(Game game) {
-        this.game = game;
+    public void setItem(Item item) {
+        this.item = item;
     }
     public double getSellingPrice() {
         return sellingPrice;
@@ -60,7 +59,7 @@ public class SoldItem extends AbstractEntity implements Serializable {
                 "date='" + date + '\'' +
                 ", sellingPrice=" + sellingPrice +
                 ", customer=" + customer +
-                ", game=" + game +
+                ", item=" + item +
                 '}';
     }
 }

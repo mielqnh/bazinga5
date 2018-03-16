@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 public class Accessory extends Item {
 
 /*
-    private static final long serialVersionUID =1L;
 
     // FIELDS
     private String name;

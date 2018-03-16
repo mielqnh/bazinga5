@@ -61,7 +61,7 @@ public class GameServiceImpl implements GameService {
 
         SoldItem soldItem = new SoldItem();
         soldItem.setDate("12/03/2018");
-        soldItem.setGame(game1);
+        soldItem.setItem(game1);
         soldItem.setSellingPrice(39.99);
         soldItem.setCustomer(customer);
 

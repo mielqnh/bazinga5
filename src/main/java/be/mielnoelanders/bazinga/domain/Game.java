@@ -15,9 +15,6 @@ public class Game extends Item {
     @JoinColumn(name="publisher_id")
     private Publisher publisher;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "expandedGame")
-    private List<Expansion> expansions;
-
     // CONSTRUCTORS
     public Game(){}
     private Game(Builder builder) {
