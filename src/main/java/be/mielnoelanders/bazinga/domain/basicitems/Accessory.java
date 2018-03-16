@@ -8,26 +8,13 @@ import javax.persistence.Entity;
 public class Accessory extends Item {
 
     // FIELDS
-    private String name;
     private AccessoryType type;
 
     // CONSTRUCTORS
     public Accessory() {
     }
 
-    private Accessory(Accessory.Builder builder) {
-        name = builder.name;
-        type = builder.type;
-    }
-
     // GETTERS & SETTERS
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
     public AccessoryType getType() {
         return type;
     }
@@ -38,30 +25,9 @@ public class Accessory extends Item {
     // OVERRIDES
     @Override
     public String toString() {
-        return "Accessory{" +
-                "name='" + name + '\'' +
+        return super.toString()+"Accessory{" +
                 ", type=" + type +
                 '}';
-    }
-
-    // BUILDER
-    public static final class Builder {
-        private String name;
-        private AccessoryType type;
-
-        public Builder() {
-        }
-        public Accessory.Builder name(String val) {
-            name = val;
-            return this;
-        }
-        public Accessory.Builder type(AccessoryType val) {
-            type = val;
-            return this;
-        }
-        public Accessory build() {
-            return new Accessory(this);
-        }
     }
 }
 

@@ -19,5 +19,5 @@ public interface GameService {
     Game deleteOneById(Long id);
 
     // --> others
-    Iterable<Game> findOneByTitle(String title);
+    Iterable<Game> findOneByName(String name);
 }

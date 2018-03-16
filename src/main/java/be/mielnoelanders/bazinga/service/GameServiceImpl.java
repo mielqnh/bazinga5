@@ -59,11 +59,9 @@ public class GameServiceImpl implements GameService {
         supplier.setEmail("info@enigma.be");
         supplier.setWebsite("www.enigma.be");
 
-        Game.Builder game1init = new Game.Builder();
-        game1init.title("Dit is game 1")
-                .edition(1)
-                .publisher(publisher);
-        Game game1 = game1init.build();
+        Game game1 = new Game();
+        Game game2 = new Game();
+        Game game3 = new Game();
 
         SoldItem soldItem = new SoldItem();
         soldItem.setDate("12/03/2018");
@@ -77,13 +75,6 @@ public class GameServiceImpl implements GameService {
         inStoreItem.setPurchasePrice(15.59);
         inStoreItem.setItem(game1);
 
-        Game.Builder game2init = new Game.Builder();
-        game2init.title("Dit is game 2").edition(2);
-        Game game2 = game2init.build();
-
-        Game.Builder game3init = new Game.Builder();
-        game3init.title("Dit is game 3").edition(3);
-        Game game3 = game3init.build();
 
         this.repository.saveAll(Arrays.asList(game1, game2, game3));
     }
@@ -113,7 +104,7 @@ public class GameServiceImpl implements GameService {
         if (gameToChange == null) {
             return null;
         } else {
-            gameToChange.setTitle(game.getTitle());
+            gameToChange.setName(game.getName());
             return repository.save(gameToChange);
         }
     }
@@ -132,8 +123,8 @@ public class GameServiceImpl implements GameService {
 
     // --> others
     @Override
-    public Iterable<Game> findOneByTitle(String title) {
-        return repository.findByTitle(title);
+    public Iterable<Game> findOneByName(String name) {
+        return repository.findOneByName(name);
     }
 }
 

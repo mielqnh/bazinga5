@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class SoldItemServiceUnitTest {
+public class SoldGameServiceUnitTest {
 
     @InjectMocks
     private SoldItemServiceImpl gameService;
