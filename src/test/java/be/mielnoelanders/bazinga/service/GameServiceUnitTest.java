@@ -11,7 +11,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,33 +28,21 @@ public class GameServiceUnitTest {
     private GameRepository repository;
 
     private Game testGame1;
-    private Optional<Game> testOptionalGame1;
-
-    private Game testGame2;
-    private Optional<Game> testOptionalGame2;
-
-    private Game testGame3;
-    private Optional<Game> testOptionalGame3;
-
     private Iterable<Game> gameIterable;
     private List<Game> gameList;
 
     @Before
     public void init() {
-        Game game1 = new Game();
-        game1.setName("testGame1");
-        Game game2 = new Game();
-        Game game3 = new Game();
-        testOptionalGame3 = Optional.of(testGame3);
-
+        testGame1 = new Game();
+        testGame1.setName("testgame1");
         gameList = new ArrayList<>();
-        gameList.addAll(Arrays.asList(testGame1, testGame2, testGame3));
+        gameList.add(testGame1);
         gameIterable = gameList;
     }
 
     // CREATE
     @Test
-    public void insertGameTest() {
+    public void addOneTest() {
         Mockito.when(this.repository.save(testGame1)).thenReturn(testGame1);
         Game resultFromService = this.gameService.addOne(testGame1);
         assertThat(resultFromService.getName()).isEqualToIgnoringCase("testgame1");
@@ -64,14 +51,14 @@ public class GameServiceUnitTest {
 
     // READ ONE AND READ ALL
     @Test
-    public void getOneTest() {
-        Mockito.when(this.repository.findById(3L)).thenReturn(testOptionalGame1);
+    public void findOneByIdTest() {
+        Mockito.when(this.repository.findById(3L)).thenReturn(Optional.of(testGame1));
         Game resultFromService = this.gameService.findOneById(3L);
         assertEquals("testgame1", resultFromService.getName());
         Mockito.verify(this.repository, Mockito.times(1)).findById(3L);
     }
     @Test
-    public void getAllTest() {
+    public void findAllTest() {
         Mockito.when(this.repository.findAll()).thenReturn(gameList);
         Iterable<Game> resultFromService = this.gameService.findAll();
         Game resultFromIterator = resultFromService.iterator().next();
@@ -81,9 +68,9 @@ public class GameServiceUnitTest {
 
     // UPDATE
     @Test
-    public void changeGameTest() {
+    public void updateOneByIdTest() {
 
-        Mockito.when(this.repository.findById(1L)).thenReturn(testOptionalGame1);
+        Mockito.when(this.repository.findById(1L)).thenReturn(Optional.of(testGame1));
         Mockito.when(this.repository.save(testGame1)).thenReturn(testGame1);
         Game resultFromService = this.gameService.updateOneById(1L,testGame1);
         assertEquals("testgame1", resultFromService.getName());
@@ -93,15 +80,15 @@ public class GameServiceUnitTest {
 
     // DELETE
     @Test
-    public void deleteByIdMetSpelTest() {
-        Mockito.when(this.repository.findById(1L)).thenReturn(testOptionalGame1);
+    public void deleteOneByIdGamePresentTest() {
+        Mockito.when(this.repository.findById(1L)).thenReturn(Optional.of(testGame1));
         Game resultFromService = this.gameService.deleteOneById(1L);
         assertEquals("testgame1", resultFromService.getName());
         Mockito.verify(this.repository, Mockito.times(1)).deleteById(1L);
     }
 
     @Test
-    public void deleteByIdSpelNietAanwezigTest() {
+    public void deleteOneByIdGameNotPresentTest() {
         Mockito.when(this.repository.findById(1L)).thenReturn(Optional.ofNullable(null));
         Game resultFromService = this.gameService.deleteOneById(1L);
         assertEquals(null, resultFromService);
@@ -110,7 +97,7 @@ public class GameServiceUnitTest {
 
     // OTHER METHODS
     @Test
-    public void findByTitleTest() {
+    public void findOneByNameTest() {
         Mockito.when(this.repository.findOneByName("BAM")).thenReturn(gameIterable);
         Iterable<Game> resultFromService = this.gameService.findOneByName("BAM");
         Game resultFromIterator = resultFromService.iterator().next();
