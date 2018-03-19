@@ -6,8 +6,8 @@ import be.mielnoelanders.bazinga.domain.other.Address;
 import be.mielnoelanders.bazinga.domain.other.Customer;
 import be.mielnoelanders.bazinga.domain.other.Publisher;
 import be.mielnoelanders.bazinga.domain.other.Supplier;
-import be.mielnoelanders.bazinga.domain.transferitems.InStoreItem;
-import be.mielnoelanders.bazinga.domain.transferitems.SoldItem;
+import be.mielnoelanders.bazinga.domain.transferitems.PurchaseReceipt;
+import be.mielnoelanders.bazinga.domain.transferitems.SalesReceipt;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -75,17 +75,17 @@ public class AccessoryEndPointIT {
         Accessory newAccessory = new Accessory();
         newAccessory.setName("AccessoryWebTest");
 
-        SoldItem soldItem = new SoldItem();
-        soldItem.setDate("AccessoryWebTest");
-        soldItem.setItem(newAccessory);
-        soldItem.setSellingPrice(39.99);
-        soldItem.setCustomer(customer);
+        SalesReceipt salesReceipt = new SalesReceipt();
+        salesReceipt.setDate("AccessoryWebTest");
+        salesReceipt.setItem(newAccessory);
+        salesReceipt.setSellingPrice(39.99);
+        salesReceipt.setCustomer(customer);
 
-        InStoreItem inStoreItem = new InStoreItem();
-        inStoreItem.setSupplier(supplier);
-        inStoreItem.setDate("AccessoryWebTest");
-        inStoreItem.setPurchasePrice(15.59);
-        inStoreItem.setItem(newAccessory);
+        PurchaseReceipt purchaseReceipt = new PurchaseReceipt();
+        purchaseReceipt.setSupplier(supplier);
+        purchaseReceipt.setDate("AccessoryWebTest");
+        purchaseReceipt.setPurchasePrice(15.59);
+        purchaseReceipt.setItem(newAccessory);
 
         //testAddOne()
         HttpEntity<Accessory> entityAddOne = new HttpEntity<>(newAccessory, httpHeaders);

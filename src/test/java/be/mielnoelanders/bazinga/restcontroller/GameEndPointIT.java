@@ -6,8 +6,8 @@ import be.mielnoelanders.bazinga.domain.other.Address;
 import be.mielnoelanders.bazinga.domain.other.Customer;
 import be.mielnoelanders.bazinga.domain.other.Publisher;
 import be.mielnoelanders.bazinga.domain.other.Supplier;
-import be.mielnoelanders.bazinga.domain.transferitems.InStoreItem;
-import be.mielnoelanders.bazinga.domain.transferitems.SoldItem;
+import be.mielnoelanders.bazinga.domain.transferitems.PurchaseReceipt;
+import be.mielnoelanders.bazinga.domain.transferitems.SalesReceipt;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -75,17 +75,17 @@ public class GameEndPointIT {
         Game newGame = new Game();
         newGame.setName("GameWebTest");
 
-        SoldItem soldItem = new SoldItem();
-        soldItem.setDate("GameWebTest");
-        soldItem.setItem(newGame);
-        soldItem.setSellingPrice(39.99);
-        soldItem.setCustomer(customer);
+        SalesReceipt salesReceipt = new SalesReceipt();
+        salesReceipt.setDate("GameWebTest");
+        salesReceipt.setItem(newGame);
+        salesReceipt.setSellingPrice(39.99);
+        salesReceipt.setCustomer(customer);
 
-        InStoreItem inStoreItem = new InStoreItem();
-        inStoreItem.setSupplier(supplier);
-        inStoreItem.setDate("GameWebTest");
-        inStoreItem.setPurchasePrice(15.59);
-        inStoreItem.setItem(newGame);
+        PurchaseReceipt purchaseReceipt = new PurchaseReceipt();
+        purchaseReceipt.setSupplier(supplier);
+        purchaseReceipt.setDate("GameWebTest");
+        purchaseReceipt.setPurchasePrice(15.59);
+        purchaseReceipt.setItem(newGame);
 
         //testAddOne()
         HttpEntity<Game> entityAddOne = new HttpEntity<>(newGame, httpHeaders);

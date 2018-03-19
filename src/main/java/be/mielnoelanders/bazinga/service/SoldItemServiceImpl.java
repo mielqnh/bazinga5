@@ -5,8 +5,8 @@ import be.mielnoelanders.bazinga.domain.other.Address;
 import be.mielnoelanders.bazinga.domain.other.Customer;
 import be.mielnoelanders.bazinga.domain.other.Publisher;
 import be.mielnoelanders.bazinga.domain.other.Supplier;
-import be.mielnoelanders.bazinga.domain.transferitems.InStoreItem;
-import be.mielnoelanders.bazinga.domain.transferitems.SoldItem;
+import be.mielnoelanders.bazinga.domain.transferitems.PurchaseReceipt;
+import be.mielnoelanders.bazinga.domain.transferitems.SalesReceipt;
 import be.mielnoelanders.bazinga.repository.SoldItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,74 +63,74 @@ public class SoldItemServiceImpl implements SoldItemService {
         Game game2 = new Game();
         Game game3 = new Game();
 
-        SoldItem soldItem1 = new SoldItem();
-        soldItem1.setDate("12/03/2018");
-        soldItem1.setItem(game1);
-        soldItem1.setSellingPrice(39.99);
-        soldItem1.setCustomer(customer);
+        SalesReceipt salesReceipt1 = new SalesReceipt();
+        salesReceipt1.setDate("12/03/2018");
+        salesReceipt1.setItem(game1);
+        salesReceipt1.setSellingPrice(39.99);
+        salesReceipt1.setCustomer(customer);
 
-        SoldItem soldItem2 = new SoldItem();
-        soldItem2.setDate("23/01/2018");
-        soldItem2.setItem(game2);
-        soldItem2.setSellingPrice(69.99);
-        soldItem2.setCustomer(customer);
+        SalesReceipt salesReceipt2 = new SalesReceipt();
+        salesReceipt2.setDate("23/01/2018");
+        salesReceipt2.setItem(game2);
+        salesReceipt2.setSellingPrice(69.99);
+        salesReceipt2.setCustomer(customer);
 
-        SoldItem soldItem3 = new SoldItem();
-        soldItem3.setDate("03/02/2018");
-        soldItem3.setItem(game3);
-        soldItem3.setSellingPrice(79.99);
-        soldItem3.setCustomer(customer);
+        SalesReceipt salesReceipt3 = new SalesReceipt();
+        salesReceipt3.setDate("03/02/2018");
+        salesReceipt3.setItem(game3);
+        salesReceipt3.setSellingPrice(79.99);
+        salesReceipt3.setCustomer(customer);
 
-        InStoreItem inStoreItem = new InStoreItem();
-        inStoreItem.setSupplier(supplier);
-        inStoreItem.setDate("05/03/2018");
-        inStoreItem.setPurchasePrice(15.59);
-        inStoreItem.setItem(game1);
+        PurchaseReceipt purchaseReceipt = new PurchaseReceipt();
+        purchaseReceipt.setSupplier(supplier);
+        purchaseReceipt.setDate("05/03/2018");
+        purchaseReceipt.setPurchasePrice(15.59);
+        purchaseReceipt.setItem(game1);
 
-        this.repository.saveAll(Arrays.asList(soldItem1, soldItem2, soldItem3));
+        this.repository.saveAll(Arrays.asList(salesReceipt1, salesReceipt2, salesReceipt3));
 
     }
 
     // --> create
     @Override
-    public SoldItem addOne(SoldItem soldItem) {
-        return repository.save(soldItem);
+    public SalesReceipt addOne(SalesReceipt salesReceipt) {
+        return repository.save(salesReceipt);
     }
 
     // --> read
     @Override
-    public Iterable<SoldItem> findAll() {
+    public Iterable<SalesReceipt> findAll() {
         return repository.findAll();
     }
 
     @Override
-    public SoldItem findOneById(Long id) {
-        Optional<SoldItem> result = repository.findById(id);
+    public SalesReceipt findOneById(Long id) {
+        Optional<SalesReceipt> result = repository.findById(id);
         return result.orElse(null);
     }
 
     // --> update
     @Override
-    public SoldItem updateOneById(Long id, SoldItem soldItem) {
-        SoldItem soldItemToChange = findOneById(id);
-        if (soldItemToChange == null) {
+    public SalesReceipt updateOneById(Long id, SalesReceipt salesReceipt) {
+        SalesReceipt salesReceiptToChange = findOneById(id);
+        if (salesReceiptToChange == null) {
             return null;
         } else {
-            soldItemToChange.setDate(soldItem.getDate());
-            return repository.save(soldItemToChange);
+            salesReceiptToChange.setDate(salesReceipt.getDate());
+            return repository.save(salesReceiptToChange);
         }
     }
 
 
     // --> delete
     @Override
-    public SoldItem deleteOneById(Long id) {
-        SoldItem soldItem = findOneById(id);
-        if (soldItem == null) {
+    public SalesReceipt deleteOneById(Long id) {
+        SalesReceipt salesReceipt = findOneById(id);
+        if (salesReceipt == null) {
             return null;
         } else {
             repository.deleteById(id);
-            return soldItem;
+            return salesReceipt;
         }
     }
 }

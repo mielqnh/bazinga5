@@ -5,8 +5,8 @@ import be.mielnoelanders.bazinga.domain.other.Address;
 import be.mielnoelanders.bazinga.domain.other.Customer;
 import be.mielnoelanders.bazinga.domain.other.Publisher;
 import be.mielnoelanders.bazinga.domain.other.Supplier;
-import be.mielnoelanders.bazinga.domain.transferitems.InStoreItem;
-import be.mielnoelanders.bazinga.domain.transferitems.SoldItem;
+import be.mielnoelanders.bazinga.domain.transferitems.PurchaseReceipt;
+import be.mielnoelanders.bazinga.domain.transferitems.SalesReceipt;
 import be.mielnoelanders.bazinga.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,17 +63,17 @@ public class GameServiceImpl implements GameService {
         Game game2 = new Game();
         Game game3 = new Game();
 
-        SoldItem soldItem = new SoldItem();
-        soldItem.setDate("12/03/2018");
-        soldItem.setItem(game1);
-        soldItem.setSellingPrice(39.99);
-        soldItem.setCustomer(customer);
+        SalesReceipt salesReceipt = new SalesReceipt();
+        salesReceipt.setDate("12/03/2018");
+        salesReceipt.setItem(game1);
+        salesReceipt.setSellingPrice(39.99);
+        salesReceipt.setCustomer(customer);
 
-        InStoreItem inStoreItem = new InStoreItem();
-        inStoreItem.setSupplier(supplier);
-        inStoreItem.setDate("05/03/2018");
-        inStoreItem.setPurchasePrice(15.59);
-        inStoreItem.setItem(game1);
+        PurchaseReceipt purchaseReceipt = new PurchaseReceipt();
+        purchaseReceipt.setSupplier(supplier);
+        purchaseReceipt.setDate("05/03/2018");
+        purchaseReceipt.setPurchasePrice(15.59);
+        purchaseReceipt.setItem(game1);
 
 
         this.repository.saveAll(Arrays.asList(game1, game2, game3));

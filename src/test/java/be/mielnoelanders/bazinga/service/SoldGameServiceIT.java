@@ -1,6 +1,6 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.transferitems.SoldItem;
+import be.mielnoelanders.bazinga.domain.transferitems.SalesReceipt;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,22 +20,22 @@ public class SoldGameServiceIT {
     public void createReadUpdateDeleteTestIT(){//De IT toevoeging zorgt ervoor dat dat de test later in de buildfase gerund wordt.
 
         // BUILD the game
-        SoldItem soldItem1 = new SoldItem();
-        soldItem1.setDate("23/01/2018");
+        SalesReceipt salesReceipt1 = new SalesReceipt();
+        salesReceipt1.setDate("23/01/2018");
 
         // CREATE TEST
-        SoldItem inserted = this.gameService.addOne(soldItem1);
+        SalesReceipt inserted = this.gameService.addOne(salesReceipt1);
         assertTrue(inserted.getDate().equals("23/01/2018"));
         assertFalse(inserted.getId()==0);
         Long id = inserted.getId();
 
         // READ TEST
-        SoldItem foundWithGetOne = this.gameService.findOneById(id);
+        SalesReceipt foundWithGetOne = this.gameService.findOneById(id);
         assertEquals("Id komt niet overeen",inserted.getDate(), foundWithGetOne.getDate());
 
         // UPDATE TEST
         foundWithGetOne.setDate("09/03/2018");
-        SoldItem foundAfterSave = this.gameService.updateOneById(id,foundWithGetOne);
+        SalesReceipt foundAfterSave = this.gameService.updateOneById(id,foundWithGetOne);
         assertEquals("Melding komt niet overeen","09/03/2018",foundAfterSave.getDate());
 
         // DELETE TEST

@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
-public class InStoreItem extends AbstractEntity implements Serializable {
+public class PurchaseReceipt extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = -1573209055880743815L;
 
@@ -33,7 +33,7 @@ public class InStoreItem extends AbstractEntity implements Serializable {
     private Item item;
 
     // CONSTRUCTORS
-    public InStoreItem(){}
+    public PurchaseReceipt(){}
 
     // GETTERS & SETTERS
     public Supplier getSupplier() {
@@ -64,7 +64,7 @@ public class InStoreItem extends AbstractEntity implements Serializable {
     // OVERRIDES
     @Override
     public String toString() {
-        return "InStoreItem{" +
+        return "PurchaseReceipt{" +
                 "supplier=" + supplier +
                 ", item=" + item +
                 ", purchasePrice=" + purchasePrice +

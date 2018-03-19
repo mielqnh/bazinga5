@@ -1,6 +1,6 @@
 package be.mielnoelanders.bazinga.restcontroller;
 
-import be.mielnoelanders.bazinga.domain.transferitems.SoldItem;
+import be.mielnoelanders.bazinga.domain.transferitems.SalesReceipt;
 import be.mielnoelanders.bazinga.service.SoldItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,16 +23,16 @@ public class SoldItemEndPoint {
     //METHODS
     // --> create
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<SoldItem> addOne(@RequestBody SoldItem soldItem) {
-        SoldItem test = service.addOne(soldItem);
+    public ResponseEntity<SalesReceipt> addOne(@RequestBody SalesReceipt salesReceipt) {
+        SalesReceipt test = service.addOne(salesReceipt);
         return new ResponseEntity<>(test, HttpStatus.CREATED);
     }
 
     // --> read
     @RequestMapping(value = "/findall", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<SoldItem>> findAll() {
+    public ResponseEntity<Iterable<SalesReceipt>> findAll() {
 
-        Iterable<SoldItem> customerGames = this.service.findAll();
+        Iterable<SalesReceipt> customerGames = this.service.findAll();
 
         if (customerGames == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -42,8 +42,8 @@ public class SoldItemEndPoint {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<SoldItem> findOneById(@PathVariable Long id) {
-        SoldItem result = this.service.findOneById(id);
+    public ResponseEntity<SalesReceipt> findOneById(@PathVariable Long id) {
+        SalesReceipt result = this.service.findOneById(id);
 
         if (result == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -54,8 +54,8 @@ public class SoldItemEndPoint {
 
     // --> update
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<SoldItem> updateOneById(@PathVariable Long id, @RequestBody SoldItem soldItem) {
-        SoldItem probably = service.updateOneById(id, soldItem);
+    public ResponseEntity<SalesReceipt> updateOneById(@PathVariable Long id, @RequestBody SalesReceipt salesReceipt) {
+        SalesReceipt probably = service.updateOneById(id, salesReceipt);
         if (probably == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
@@ -65,8 +65,8 @@ public class SoldItemEndPoint {
 
     // --> delete
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<SoldItem> deleteOneById(@PathVariable Long id) {
-        SoldItem result = service.deleteOneById(id);
+    public ResponseEntity<SalesReceipt> deleteOneById(@PathVariable Long id) {
+        SalesReceipt result = service.deleteOneById(id);
         if (result == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {

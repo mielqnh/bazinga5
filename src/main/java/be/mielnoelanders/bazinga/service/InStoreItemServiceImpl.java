@@ -5,8 +5,8 @@ import be.mielnoelanders.bazinga.domain.other.Address;
 import be.mielnoelanders.bazinga.domain.other.Customer;
 import be.mielnoelanders.bazinga.domain.other.Publisher;
 import be.mielnoelanders.bazinga.domain.other.Supplier;
-import be.mielnoelanders.bazinga.domain.transferitems.InStoreItem;
-import be.mielnoelanders.bazinga.domain.transferitems.SoldItem;
+import be.mielnoelanders.bazinga.domain.transferitems.PurchaseReceipt;
+import be.mielnoelanders.bazinga.domain.transferitems.SalesReceipt;
 import be.mielnoelanders.bazinga.repository.InStoreItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,73 +63,73 @@ public class InStoreItemServiceImpl implements InStoreItemService {
         Game game2 = new Game();
         Game game3 = new Game();
 
-        SoldItem soldItem1 = new SoldItem();
-        soldItem1.setDate("12/03/2018");
-        soldItem1.setItem(game1);
-        soldItem1.setSellingPrice(39.99);
-        soldItem1.setCustomer(customer);
+        SalesReceipt salesReceipt1 = new SalesReceipt();
+        salesReceipt1.setDate("12/03/2018");
+        salesReceipt1.setItem(game1);
+        salesReceipt1.setSellingPrice(39.99);
+        salesReceipt1.setCustomer(customer);
 
-        InStoreItem inStoreItem1 = new InStoreItem();
-        inStoreItem1.setSupplier(supplier);
-        inStoreItem1.setDate("05/03/2017");
-        inStoreItem1.setPurchasePrice(15.59);
-        inStoreItem1.setItem(game1);
+        PurchaseReceipt purchaseReceipt1 = new PurchaseReceipt();
+        purchaseReceipt1.setSupplier(supplier);
+        purchaseReceipt1.setDate("05/03/2017");
+        purchaseReceipt1.setPurchasePrice(15.59);
+        purchaseReceipt1.setItem(game1);
 
-        InStoreItem inStoreItem2 = new InStoreItem();
-        inStoreItem2.setSupplier(supplier);
-        inStoreItem2.setDate("11/11/2017");
-        inStoreItem2.setPurchasePrice(45.59);
-        inStoreItem2.setItem(game2);
+        PurchaseReceipt purchaseReceipt2 = new PurchaseReceipt();
+        purchaseReceipt2.setSupplier(supplier);
+        purchaseReceipt2.setDate("11/11/2017");
+        purchaseReceipt2.setPurchasePrice(45.59);
+        purchaseReceipt2.setItem(game2);
 
-        InStoreItem inStoreItem3 = new InStoreItem();
-        inStoreItem2.setSupplier(supplier);
-        inStoreItem2.setDate("13/08/2017");
-        inStoreItem2.setPurchasePrice(99.99);
-        inStoreItem2.setItem(game3);
+        PurchaseReceipt purchaseReceipt3 = new PurchaseReceipt();
+        purchaseReceipt2.setSupplier(supplier);
+        purchaseReceipt2.setDate("13/08/2017");
+        purchaseReceipt2.setPurchasePrice(99.99);
+        purchaseReceipt2.setItem(game3);
 
-        this.repository.saveAll(Arrays.asList(inStoreItem1, inStoreItem2, inStoreItem3));
+        this.repository.saveAll(Arrays.asList(purchaseReceipt1, purchaseReceipt2, purchaseReceipt3));
 
     }
 
     // --> create
     @Override
-    public InStoreItem addOne(InStoreItem inStoreItem) {
-        return repository.save(inStoreItem);
+    public PurchaseReceipt addOne(PurchaseReceipt purchaseReceipt) {
+        return repository.save(purchaseReceipt);
     }
 
     // --> read
     @Override
-    public Iterable<InStoreItem> findAll() {
+    public Iterable<PurchaseReceipt> findAll() {
         return repository.findAll();
     }
 
     @Override
-    public InStoreItem findOneById(Long id) {
-        Optional<InStoreItem> result = repository.findById(id);
+    public PurchaseReceipt findOneById(Long id) {
+        Optional<PurchaseReceipt> result = repository.findById(id);
         return result.orElse(null);
     }
 
     // --> update
     @Override
-    public InStoreItem updateOneById(Long id, InStoreItem inStoreItem) {
-        InStoreItem inStoreItemToChange = findOneById(id);
-        if (inStoreItemToChange == null) {
+    public PurchaseReceipt updateOneById(Long id, PurchaseReceipt purchaseReceipt) {
+        PurchaseReceipt purchaseReceiptToChange = findOneById(id);
+        if (purchaseReceiptToChange == null) {
             return null;
         } else {
-            inStoreItemToChange.setDate(inStoreItem.getDate());
-            return repository.save(inStoreItemToChange);
+            purchaseReceiptToChange.setDate(purchaseReceipt.getDate());
+            return repository.save(purchaseReceiptToChange);
         }
     }
 
     // --> delete
     @Override
-    public InStoreItem deleteOneById(Long id) {
-        InStoreItem inStoreItem = findOneById(id);
-        if (inStoreItem == null) {
+    public PurchaseReceipt deleteOneById(Long id) {
+        PurchaseReceipt purchaseReceipt = findOneById(id);
+        if (purchaseReceipt == null) {
             return null;
         } else {
             repository.deleteById(id);
-            return inStoreItem;
+            return purchaseReceipt;
         }
     }
 }

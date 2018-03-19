@@ -1,20 +1,20 @@
 package be.mielnoelanders.bazinga.service;
 
-import be.mielnoelanders.bazinga.domain.transferitems.InStoreItem;
+import be.mielnoelanders.bazinga.domain.transferitems.PurchaseReceipt;
 
 public interface InStoreItemService {
 
     // --> create
-    InStoreItem addOne(InStoreItem inStoreItem);
+    PurchaseReceipt addOne(PurchaseReceipt purchaseReceipt);
 
     // --> read
-    Iterable<InStoreItem> findAll();
+    Iterable<PurchaseReceipt> findAll();
 
-    InStoreItem findOneById(Long id);
+    PurchaseReceipt findOneById(Long id);
 
     // --> update
-    InStoreItem updateOneById(Long id, InStoreItem inStoreItem);
+    PurchaseReceipt updateOneById(Long id, PurchaseReceipt purchaseReceipt);
 
     // --> delete
-    InStoreItem deleteOneById(Long id);
+    PurchaseReceipt deleteOneById(Long id);
 }
