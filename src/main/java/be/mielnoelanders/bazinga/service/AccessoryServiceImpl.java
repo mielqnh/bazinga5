@@ -1,6 +1,7 @@
 package be.mielnoelanders.bazinga.service;
 
 import be.mielnoelanders.bazinga.domain.basicitems.Accessory;
+import be.mielnoelanders.bazinga.domain.enums.AccessoryType;
 import be.mielnoelanders.bazinga.repository.AccessoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,8 @@ public class AccessoryServiceImpl implements AccessoryService {
     public void init() {
 
         Accessory accessory1 = new Accessory();
+        accessory1.setName("Dragon Shield 100 box");
+        accessory1.setType(AccessoryType.SLEEVES);
         Accessory accessory2 = new Accessory();
         Accessory accessory3 = new Accessory();
 
