@@ -3,11 +3,10 @@ package be.mielnoelanders.bazinga.domain.basicitems;
 import be.mielnoelanders.bazinga.domain.AbstractEntity;
 import be.mielnoelanders.bazinga.domain.other.Publisher;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
 public abstract class Item extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID =1L;
@@ -20,6 +19,7 @@ public abstract class Item extends AbstractEntity implements Serializable {
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
+    // GETTERS & SETTERS
     public String getName() {
         return name;
     }
