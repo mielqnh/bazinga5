@@ -6,7 +6,8 @@ import be.mielnoelanders.bazinga.domain.other.Publisher;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Item extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID =1L;
